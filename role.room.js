@@ -15,6 +15,8 @@ module.exports = {
 			room.memory.suppliers = suppliers.length;
 			var droppedEnergy = resByType[RESOURCE_ENERGY] || [];
 		}
+		Game.rooms[room.name].constuctSites = room.find(FIND_CONSTRUCTION_SITES);
+		Game.rooms[room.name].constuctByType = _.groupBy(Game.rooms[room.name].constuctSites, (s) => s.structureType);
 		Game.rooms[room.name].structures = room.find(FIND_STRUCTURES);
 		Game.rooms[room.name].structByType = _.groupBy(Game.rooms[room.name].structures, (s) => s.structureType);
 		Game.rooms[room.name].ruins = room.find(FIND_RUINS, {filter: (r) => r.store.getUsedCapacity() > 0});
