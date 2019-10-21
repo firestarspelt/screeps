@@ -11,9 +11,9 @@ module.exports = {
 		}
 		if (creep.memory.working) {
 			var constuctByType = Game.rooms[creep.room.name].constuctByType;
-			var containers = constuctByType[STRUCTURE_CONTAINER];
-			var extensions = constuctByType[STRUCTURE_EXTENSION];
-			var roads = constuctByType[STRUCTURE_ROAD];
+			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
+			var extensions = constuctByType[STRUCTURE_EXTENSION] || [];
+			var roads = constuctByType[STRUCTURE_ROAD] || [];
 			var targets = containers.concat(roads);
 			var target = targets[0];
 			if (target == null) {
