@@ -33,10 +33,10 @@ module.exports = {
 	/** @param {StructureSpawn} spawner */
 	run: function(spawner) {
 		//find sources and put them in spawns memory
-		if (!spawner.memory.minePos) {
+		/*if (!spawner.memory.minePos) {
 			spawner.memory.minePos = spawner.room.find(FIND_SOURCES);
 			console.log(spawner.name + ' found sources');
-		}
+		}*/
 		/*Gets count of creeps with each role in the room of the spawn,
 		and energy available to spawn with and get time since last spawn*/
 		var creeps = spawner.room.find(FIND_MY_CREEPS);
