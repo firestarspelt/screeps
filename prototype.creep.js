@@ -4,18 +4,17 @@ module.exports = function() {
 		var resByType = Game.rooms[this.room.name].resByType;
 		var dropedEnergy = resByType[RESOURCE_ENERGY];
 		var structByType = Game.rooms[this.room.name].structByType;
-		var spawns = structByType[STRUCTURE_SPAWN] || [];
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var storage = structByType[STRUCTURE_STORAGE] || [];
 		var energyStorage = containers.concat(storage);
 		if (dropedEnergy) {
 			var targets = dropedEnergy;
 		} else if (energyStorage.length == 0) {
-			var targets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			this.mine();
 		} else if (!targets) {
 			var targets = _.filter(energyStorage, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 		}
-		var target = this.pos.findClosestByPath(targets);
+		var target = this.pos.findClosestByRange(targets);
 		if (this.pos.isNearTo(target)) {
 			this.withdraw(target, RESOURCE_ENERGY)
 		} else {
