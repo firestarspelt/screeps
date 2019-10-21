@@ -20,7 +20,7 @@ module.exports = {
 			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
 				mine(creep);
 			} else if (creep.store[RESOURCE_ENERGY] > 0) {
-				var structByType = Game.room[creep.room.name].structByType;
+				var structByType = Game.rooms[creep.room.name].structByType;
 				var containers = structByType[STRUCTURE_CONTAINER] || [];
 				var spawns = structByType[STRUCTURE_SPAWN] || [];
 				var targets = containers.concat(spawns);
