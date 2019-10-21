@@ -24,9 +24,11 @@ module.exports = function() {
 	Creep.prototype.mine =
 	function() {
 		var target = this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false });
-		if (target.energy > 0) {
-			if (this.harvest(target) == ERR_NOT_IN_RANGE) {
-				this.travelTo(target,{ignoreCreeps: false});
+		if (target) {
+			if (target.energy > 0) {
+				if (this.harvest(target) == ERR_NOT_IN_RANGE) {
+					this.travelTo(target,{ignoreCreeps: false});
+				}
 			}
 		}
 	}
