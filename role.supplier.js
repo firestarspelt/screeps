@@ -15,7 +15,7 @@ module.exports = {
 			var extensions = structByType[STRUCTURE_EXTENSION] || [];
 			var towers = structByType[STRUCTURE_TOWER] || [];
 			var storage = structByType[STRUCTURE_STORAGE] || [];
-			var targets = _.filter(spawns.concat(extensions).concat(towers).concat(storage), (s) => s.store[RESOURCE_ENERGY] < s.store.getCapacity());
+			var targets = _.filter(Object.assign({}, spawns, extensions, towers, storage), (s) => s.store[RESOURCE_ENERGY] < s.store.getCapacity());
 			var target = creep.pos.findClosestByRange(targets);
 			if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false});
