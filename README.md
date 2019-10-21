@@ -1,2 +1,0 @@
-# screeps
-my screeps code
