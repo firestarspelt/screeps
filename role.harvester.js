@@ -1,11 +1,3 @@
-function mine(creep) {
-	var target = creep.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false });
-	if (target.energy > 0) {
-		if (creep.harvest(target) == ERR_NOT_IN_RANGE) {
-			creep.travelTo(target,{ignoreCreeps: false});
-		}
-	}
-}
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
@@ -32,7 +24,7 @@ module.exports = {
 				}
 			}
 		} else {
-			mine(creep);
+			creep.mine();
 		}
 	}
 };
