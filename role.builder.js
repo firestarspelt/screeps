@@ -10,7 +10,7 @@ module.exports = {
 			creep.say('🚧 build');
 		}
 		if (creep.memory.working) {
-			var constuctByType = Game.rooms[this.room.name].constuctByType;
+			var constuctByType = Game.rooms[creep.room.name].constuctByType;
 			var containers = constuctByType[STRUCTURE_CONTAINER];
 			var extensions = constuctByType[STRUCTURE_EXTENSION];
 			var roads = constuctByType[STRUCTURE_ROAD];
