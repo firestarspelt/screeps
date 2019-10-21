@@ -14,7 +14,7 @@ module.exports = {
 				creep.travelTo(control, {range: 3});
 			}
 		} else {
-			getEnergy(creep);
+			creep.getEnergy();
 		}
 	}
 };
