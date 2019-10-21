@@ -49,9 +49,8 @@ module.exports = {
 						creep.travelTo(target,{ignoreCreeps: false, range: 3});
 					}
 				}
-				else {
-					roleBuilder.run(creep);
-				}
+			} else {
+				roleBuilder.run(creep);
 			}
 		} else {
 			creep.getEnergy();
