@@ -14,7 +14,7 @@ module.exports = {
 			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
 			var extensions = constuctByType[STRUCTURE_EXTENSION] || [];
 			var roads = constuctByType[STRUCTURE_ROAD] || [];
-			var targets = containers.concat(roads);
+			var targets = containers.concat(extensions).concat(roads);
 			var target = targets[0];
 			if (target == null) {
 				roleUpgrader.run(creep);
