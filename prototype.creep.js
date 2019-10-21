@@ -9,7 +9,7 @@ module.exports = function() {
 	}
 	Creep.prototype.getEnergy =
 	function() {
-		var resByType = Game.rooms[room.name].resByType;
+		var resByType = Game.rooms[this.room.name].resByType;
 		var dropedEnergy = this.pos.findClosestByPath(resByType[RESOURCE_ENERGY]);
 		if (dropedEnergy) {
 			console.log(this.name+' test');
