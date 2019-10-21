@@ -13,7 +13,7 @@ module.exports = {
 			if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
 				creep.memory.working = true;
 				creep.say('mine');
-			} else if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
+			} else if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity() - creep.memory.workParts * 2) {
 				creep.memory.working = false;
 				creep.say('dump');
 			}
@@ -22,8 +22,10 @@ module.exports = {
 			} else if (creep.store[RESOURCE_ENERGY] > 0) {
 				var structByType = Game.room[creep.room.name].structByType;
 				var containers = structByType[STRUCTURE_CONTAINER] || [];
-				if (containers.length > 0) {
-					var target = creep.pos.findClosestByRange(containers, {filter: (s) => s.store[RESOURCE_ENERGY] < s.store.getCapacity()});
+				var spawns = structByType[STRUCTURE_SPAWN] || [];
+				var targets = containers.concat(spawns);
+				if (targets.length > 0) {
+					var target = creep.pos.findClosestByRange(targets, {filter: (s) => s.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target);
 					}
