@@ -1,4 +1,4 @@
-var roleSupplier = {
+module.exports = {
 /** @param {Creep} creep **/
     run: function(creep) {
 	    if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
@@ -9,27 +9,25 @@ var roleSupplier = {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
+		var structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
-			var targets = creep.room.find(FIND_STRUCTURES, {
-				filter: (s) => {
-					return ((s.structureType == STRUCTURE_SPAWN ||
-					s.structureType == STRUCTURE_EXTENSION ||
-					s.structureType == STRUCTURE_TOWER ||
-					s.structureType == STRUCTURE_STORAGE) &&
-					s.store[RESOURCE_ENERGY] < s.store.getCapacity(RESOURCE_ENERGY))
-				}
-			});
+			var spawns = structByType[STRUCTURE_SPAWN] || [];
+			var extensions = structByType[STRUCTURE_EXTENSION] || [];
+			var towers = structByType[STRUCTURE_TOWER] || [];
+			var storage = structByType[STRUCTURE_STORAGE] || [];
+			var targets = _.filter(spawns.concat(extensions).concat(towers).concat(storage), (s) => s.store.getCapacity() < s.store[RESOURCE_ENERGY]);
+			var time = Game.cpu.getUsed();
 			var target = creep.pos.findClosestByPath(targets);
+			console.log('Time used path: '+(Game.cpu.getUsed()-time).toFixed(4));
+			var time = Game.cpu.getUsed();
+			var target = creep.pos.findClosestByRange(targets);
+			console.log('Time used range: '+(Game.cpu.getUsed()-time).toFixed(4));
 			if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false});
 			}
 		} else {
-			var targets = creep.room.find(FIND_STRUCTURES, {
-				filter: (s) => {
-					return (s.structureType == STRUCTURE_CONTAINER &&
-					s.store[RESOURCE_ENERGY] >= (200 || creep.store.getCapacity() - creep.store[RESOURCE_ENERGY]))
-				}
-			});
+			var containers = structByType[STRUCTURE_CONTAINER] || [];
+			var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, (creep.store.getCapacity() - creep.store[RESOURCE_ENERGY])));
 			if (targets.length > 0) {
 				var target = creep.pos.findClosestByPath(targets);
 				if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -38,6 +36,4 @@ var roleSupplier = {
 			}
 		}
 	}
-}
-
-module.exports = roleSupplier;
+};

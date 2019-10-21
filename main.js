@@ -37,26 +37,27 @@ module.exports.loop = function() {
 			}
 		}
 		//iterate through spawners and run their code
-		for (var name in Game.spawns){
+		for (let name in Game.spawns) {
 			let spawner = Game.spawns[name];
 			roleSpawner.run(spawner);
 		}
 		//iterate through creeps and run their code
 		for (var name in Game.creeps) {
 			var creep = Game.creeps[name];
-			try{
-				if (creep.memory.role == 'harvester') {
-					roleHarvester.run(creep);
-				} else if (creep.memory.role == 'upgrader') {
-					roleUpgrader.run(creep);
-				} else if (creep.memory.role == 'builder') {
-					roleBuilder.run(creep);
-				} else if (creep.memory.role == 'repairer') {
-					roleRepairer.run(creep);
-				} else if (creep.memory.role == 'supplier') {
-					roleSupplier.run(creep);
-				} else if (creep.memory.role == 'wallRepairer') {
-					roleWallRepairer.run(creep);
+			try { if (!creep.spawning) {
+					if (creep.memory.role == 'harvester') {
+						roleHarvester.run(creep);
+					} else if (creep.memory.role == 'upgrader') {
+						roleUpgrader.run(creep);
+					} else if (creep.memory.role == 'builder') {
+						roleBuilder.run(creep);
+					} else if (creep.memory.role == 'repairer') {
+						roleRepairer.run(creep);
+					} else if (creep.memory.role == 'supplier') {
+						roleSupplier.run(creep);
+					} else if (creep.memory.role == 'wallRepairer') {
+						roleWallRepairer.run(creep);
+					}
 				}
 			}catch(err){
 				console.log('error caused by ' + creep.memory.role + ' ' + err);

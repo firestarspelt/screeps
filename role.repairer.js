@@ -1,5 +1,4 @@
 var roleBuilder = require('role.builder');
-var roomVar = require('role.room');
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
@@ -34,7 +33,6 @@ module.exports = {
 			} else if (creep.repair(target) == ERR_INVALID_TARGET) {
 				var target;
 				var targetHealth = 3000000;
-				var time = Game.cpu.getUsed();
 				for (let percentage = 0.001; percentage <= 1; percentage = percentage + 0.001) {
 					for (let wall of walls) {
 						if (wall.hits / targetHealth < percentage) {
@@ -45,7 +43,7 @@ module.exports = {
 					if (target != undefined) {
 						break;
 					}
-				}console.log('Time used: '+(Game.cpu.getUsed()-time).toFixed(4));
+				}
 				if (target != undefined) {
 					if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target,{ignoreCreeps: false, range: 3});

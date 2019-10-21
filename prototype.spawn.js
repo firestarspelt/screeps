@@ -37,7 +37,7 @@ module.exports = function() {
 		return this.spawnCreep(body, name, {memory: {role: 'harvester', workParts: workParts, moveParts: otherParts, totalParts: (workParts + otherParts * 2)}});
 	}
 	/*This takes the parameters below and spawns a Caninister Harvester*/
-	/** @param {Energy} energyAvail @param {Creep Name} name **/
+	/** @param {Energy} energyAvail @param {Creep.name} name **/
 	StructureSpawn.prototype.spawnCanHarvester =
 	function(energyAvail, name) {
 		var moveParts = Math.min(Math.floor(energyAvail/(BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),5);

@@ -18,8 +18,8 @@ module.exports = function() {
 		} else {
 			var structByType = Game.rooms[this.room.name].structByType;
 			var containers = structByType[STRUCTURE_CONTAINER] || [];
-			var storages = structByType[STRUCTURE_STORAGE] || [];
-			var targets = _.filter((containers.concat(storages)), (s) => s.store[RESOURCE_ENERGY] >= this.store.getCapacity() - this.store[RESOURCE_ENERGY]);
+			var storage = structByType[STRUCTURE_STORAGE] || [];
+			var targets = _.filter((containers.concat(storage)), (s) => s.store[RESOURCE_ENERGY] >= this.store.getCapacity() - this.store[RESOURCE_ENERGY]);
 			var target = this.pos.findClosestByPath(targets);
 			this.moveToEnergy(target);
 		}

@@ -14,15 +14,7 @@ module.exports = {
 				creep.travelTo(control, {range: 3});
 			}
 		} else {
-			var targets = creep.room.find(FIND_STRUCTURES, {
-				filter: (s) => (s.structureType == STRUCTURE_CONTAINER ||
-					s.structureType == STRUCTURE_STORAGE)  &&
-					s.store[RESOURCE_ENERGY] >= creep.store.getCapacity() - creep.store[RESOURCE_ENERGY]
-			});
-			var target = creep.pos.findClosestByPath(targets);
-			if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.travelTo(target, {ignoreCreeps: false});
-			}
+			getEnergy(creep);
 		}
 	}
 };
