@@ -33,7 +33,7 @@ module.exports = {
 			} else if (creep.repair(target) == ERR_INVALID_TARGET && creep.room.controller.level > 1) {
 				var target;
 				var targetHealth = 3000000;
-				for (let percentage = 0.001; percentage <= 1; percentage = percentage + 0.001) {
+				for (let percentage = 0.01; percentage <= 1; percentage = percentage + 0.01) {
 					for (let wall of walls) {
 						if (wall.hits / targetHealth < percentage) {
 							target = wall;
