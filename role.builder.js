@@ -10,8 +10,12 @@ module.exports = {
 			creep.say('🚧 build');
 		}
 		if (creep.memory.working) {
-			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-			var target = creep.pos.findClosestByRange(targets);
+			var constuctByType = Game.rooms[room.name].constuctByType;
+			var containers = constuctByType[STRUCTURE_CONTAINER];
+			var extensions = constuctByType[STRUCTURE_EXTENSION];
+			var roads = constuctByType[STRUCTURE_ROAD];
+			var targets = containers.concat(roads);
+			var target = targets[0];
 			if (target == null) {
 				roleUpgrader.run(creep);
 			} else if (creep.pos.inRangeTo(target,3)) {
