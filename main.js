@@ -57,7 +57,8 @@ module.exports.loop = function() {
 		//iterate through creeps and run their code
 		for (var name in Game.creeps) {
 			var creep = Game.creeps[name];
-			try { if (!creep.spawning) {
+			try {
+				if (!creep.spawning) {
 					if (creep.memory.role == 'harvester') {
 						roleHarvester.run(creep);
 					} else if (creep.memory.role == 'upgrader') {
@@ -72,7 +73,7 @@ module.exports.loop = function() {
 						roleWallRepairer.run(creep);
 					}
 				}
-			}catch(err){
+			} catch(err){
 				console.log('error caused by ' + creep.memory.role + ' ' + err);
 			}
 		}
