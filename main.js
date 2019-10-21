@@ -8,10 +8,23 @@ var roleTower = require('role.tower');
 var roleRoom = require('role.room');
 const profiler = require('screeps-profiler');
 var Traveler = require('Traveler');
+global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
 profiler.enable();
+function tryInitSameMemory() {
+    if (lastMemoryTick && global.LastMemory && Game.time == (lastMemoryTick + 1)) {
+        delete global.Memory;
+        global.Memory = global.LastMemory;
+        RawMemory._parsed = global.LastMemory;
+    } else {
+        Memory;
+        global.LastMemory = RawMemory._parsed;
+    }
+    lastMemoryTick = Game.time;
+}
 module.exports.loop = function() {
+	tryInitSameMemory();
 	profiler.wrap(function() {
 		//remove dead creeps memory
 		for (let name in Memory.creeps) {
