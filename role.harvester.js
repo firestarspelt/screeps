@@ -13,11 +13,11 @@ module.exports = {
 			if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
 				creep.memory.working = true;
 				creep.say('mine');
-			} else if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity() - creep.memory.workParts * 2) {
+			} else if (!creep.memory.working && creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
 				creep.memory.working = false;
 				creep.say('dump');
 			}
-			if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity() - creep.memory.workParts * 2) {
+			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
 				mine(creep);
 			} else if (creep.store[RESOURCE_ENERGY] > 0) {
 				var structByType = Game.room[creep.room.name].structByType;
