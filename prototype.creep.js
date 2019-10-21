@@ -8,8 +8,11 @@ module.exports = function() {
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var storage = structByType[STRUCTURE_STORAGE] || [];
 		var energyStorage = containers.concat(storage);
+		var ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy) {
 			var targets = dropedEnergy;
+		} else if (ruins) {
+			var targets = ruins;
 		} else if (energyStorage.length == 0 && this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false }) !== null) {
 			this.mine();
 		} else if (energyStorage.length == 0) {
