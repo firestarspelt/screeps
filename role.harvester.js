@@ -6,7 +6,6 @@ function mine(creep) {
 		}
 	}
 }
-var roomVar = require('role.room');
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
