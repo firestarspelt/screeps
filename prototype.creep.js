@@ -15,7 +15,7 @@ module.exports = function() {
 			if (this.pickup(target) == ERR_NOT_IN_RANGE) {
 				this.travelTo(target, {ignoreCreeps: false});
 			}
-		} else if (ruins) {
+		} else if (ruins.length > 0) {
 			var targets = ruins;
 		} else if (energyStorage.length == 0 && this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false }) !== null) {
 			this.mine();
