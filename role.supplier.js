@@ -16,12 +16,7 @@ module.exports = {
 			var towers = structByType[STRUCTURE_TOWER] || [];
 			var storage = structByType[STRUCTURE_STORAGE] || [];
 			var targets = _.filter(spawns.concat(extensions).concat(towers).concat(storage), (s) => s.store.getCapacity() < s.store[RESOURCE_ENERGY]);
-			var time = Game.cpu.getUsed();
-			var target = creep.pos.findClosestByPath(targets);
-			console.log('Time used path: '+(Game.cpu.getUsed()-time).toFixed(4));
-			var time = Game.cpu.getUsed();
 			var target = creep.pos.findClosestByRange(targets);
-			console.log('Time used range: '+(Game.cpu.getUsed()-time).toFixed(4));
 			if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false});
 			}
