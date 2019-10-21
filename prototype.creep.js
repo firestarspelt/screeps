@@ -11,6 +11,10 @@ module.exports = function() {
 		var ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy) {
 			var targets = dropedEnergy;
+			var target = this.pos.findClosestByRange(targets);
+			if (this.pickup(target) == ERR_NOT_IN_RANGE) {
+				this.travelTo(target, {ignoreCreeps: false});
+			}
 		} else if (ruins) {
 			var targets = ruins;
 		} else if (energyStorage.length == 0 && this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false }) !== null) {
@@ -21,9 +25,7 @@ module.exports = function() {
 			var targets = _.filter(energyStorage, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 		}
 		var target = this.pos.findClosestByRange(targets);
-		if (this.pos.isNearTo(target)) {
-			this.withdraw(target, RESOURCE_ENERGY)
-		} else {
+		if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 			this.travelTo(target, {ignoreCreeps: false});
 		}
 	}
