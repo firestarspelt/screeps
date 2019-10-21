@@ -14,7 +14,6 @@ module.exports = function() {
 		var structByType = Game.rooms[this.room.name].structByType;
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var storage = structByType[STRUCTURE_STORAGE] || [];
-		var spawns = structByType[STRUCTURE_SPAWN] || [];
 		var energyStorage = containers.concat(storage);
 		if (dropedEnergy) {
 			console.log(this.name+' test');
@@ -26,5 +25,14 @@ module.exports = function() {
 		}
 		var target = this.pos.findClosestByPath(targets);
 		this.moveToEnergy(target);
+	}
+	Creep.prototype.mine =
+	function() {
+		var target = this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false });
+		if (target.energy > 0) {
+			if (this.harvest(target) == ERR_NOT_IN_RANGE) {
+				this.travelTo(target,{ignoreCreeps: false});
+			}
+		}
 	}
 };
