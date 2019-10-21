@@ -21,7 +21,7 @@ module.exports = function() {
 			this.mine();
 		} else if (energyStorage.length == 0) {
 			var targets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-		} else if (!targets) {
+		} else {
 			var targets = _.filter(energyStorage, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 		}
 		var target = this.pos.findClosestByRange(targets);
