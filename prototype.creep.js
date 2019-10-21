@@ -16,7 +16,6 @@ module.exports = function() {
 		var storage = structByType[STRUCTURE_STORAGE] || [];
 		var energyStorage = containers.concat(storage);
 		if (dropedEnergy) {
-			console.log(this.name+' test');
 			var targets = dropedEnergy;
 		} else if (energyStorage.length == 0) {
 			var targets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
