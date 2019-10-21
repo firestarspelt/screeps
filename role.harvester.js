@@ -1,5 +1,5 @@
 function mine(creep) {
-	var target = creep.pos.findClosestByRange(FIND_SOURCES,{ ignoreCreeps: false });
+	var target = creep.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false });
 	if (target.energy > 0) {
 		if (creep.harvest(target) == ERR_NOT_IN_RANGE) {
 			creep.travelTo(target,{ignoreCreeps: false});
