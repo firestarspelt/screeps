@@ -1,6 +1,6 @@
 module.exports = {
 	run: function(room) {
-		if (false) {
+		if (false) {//not used yet
 			var creeps = room.find(FIND_MY_CREEPS);
 			var creepsByRole = _.groupBy(creeps, 'memory.role');
 			var harvesters = creepsByRole['harvester'] || [];
