@@ -10,7 +10,7 @@ module.exports = {
 				creep.say('dump');
 			}
 			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
-				mine(creep);
+				creep.mine();
 			} else if (creep.store[RESOURCE_ENERGY] > 0) {
 				var structByType = Game.rooms[creep.room.name].structByType;
 				var containers = structByType[STRUCTURE_CONTAINER] || [];
