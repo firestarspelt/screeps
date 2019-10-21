@@ -24,7 +24,7 @@ module.exports = {
 			var containers = structByType[STRUCTURE_CONTAINER] || [];
 			var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, (creep.store.getCapacity() - creep.store[RESOURCE_ENERGY])));
 			if (targets.length > 0) {
-				var target = creep.pos.findClosestByPath(targets);
+				var target = creep.pos.findClosestByRange(targets);
 				if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(target, {ignoreCreeps: false});
 				}
