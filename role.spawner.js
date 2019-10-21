@@ -1,4 +1,3 @@
-var roomVar = require('role.room');
 /** @param {Room.energyAvailable} energyAvail
  * @param {Creep.memory.role} roleName
  * @param {StructureSpawn} spawner */
