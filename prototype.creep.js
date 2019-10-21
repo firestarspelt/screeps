@@ -9,9 +9,8 @@ module.exports = function() {
 	}
 	Creep.prototype.getEnergy =
 	function() {
-		if (!dropedEnergy) {
-			var dropedEnergy = this.pos.findClosestByPath(_.filter(FIND_DROPPED_RESOURCES,(r) => r.resourceType == RESOURCE_ENERGY && r.amount >= 100));
-		}
+		var resByType = Game.rooms[room.name].resByType;
+		var dropedEnergy = this.pos.findClosestByPath(resByType[RESOURCE_ENERGY]);
 		if (dropedEnergy) {
 			console.log(this.name+' test');
 			this.moveToEnergy(dropedEnergy);
@@ -19,7 +18,7 @@ module.exports = function() {
 			var structByType = Game.rooms[this.room.name].structByType;
 			var containers = structByType[STRUCTURE_CONTAINER] || [];
 			var storage = structByType[STRUCTURE_STORAGE] || [];
-			var targets = _.filter((containers.concat(storage)), (s) => s.store[RESOURCE_ENERGY] >= this.store.getCapacity() - this.store[RESOURCE_ENERGY]);
+			var targets = _.filter((containers.concat(storage)), (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.getFreeCapacity(RESOURCE_ENERGY)));
 			var target = this.pos.findClosestByPath(targets);
 			this.moveToEnergy(target);
 		}
