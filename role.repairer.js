@@ -35,7 +35,7 @@ module.exports = {
 				if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(target,{ignoreCreeps: false, range: 3});
 				}
-			} else if (creep.repair(target) == ERR_INVALID_TARGET && creep.room.controller.level > 1) {
+			} else if (creep.room.controller.level > 1) {
 				var target;
 				var targetHealth = 3000000;
 				for (let percentage = 0.01; percentage <= 1; percentage = percentage + 0.01) {
