@@ -14,21 +14,26 @@ module.exports = {
 		if (creep.memory.working) {
 			var walls = Game.rooms[creep.room.name].walls;
 			var infrastructure = Game.rooms[creep.room.name].infrastructure;
-			var target;
-			for (let percentage = 0.1; percentage <= 1; percentage = percentage + 0.1) {
-				for (let structure of infrastructure) {
-					if (structure.hits / structure.hitsMax < percentage) {
-						target = structure;
+			if (!creep.memory.target) {
+				for (let percentage = 0.1; percentage <= 1; percentage = percentage + 0.1) {
+					for (let structure of infrastructure) {
+						if (structure.hits / (structure.hitsMax - creep.memory.workParts * 100) < percentage) {
+							creep.memory.target = structure.id;
+							break;
+						}
+					}
+					if (creep.memory.target) {
 						break;
 					}
 				}
-				if (target != undefined) {
-					break;
-				}
 			}
-			if (target != undefined) {
+			if (creep.memory.target) {
+				var target = Game.getObjectById(creep.memory.target);
 				if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(target,{ignoreCreeps: false, range: 3});
+				}
+				if (target.hits / (target.hitsMax - creep.memory.workParts * 100) <= 1) {
+					delete creep.memory.target;
 				}
 			} else if (creep.repair(target) == ERR_INVALID_TARGET && creep.room.controller.level > 1) {
 				var target;
