@@ -65,19 +65,19 @@ module.exports.loop = function() {
 				if (!creep.spawning) {
 					switch (creep.memory.role) {
 						case "harvester":
-							return roleHarvester.run(creep);
+							roleHarvester.run(creep);
 
 						case "upgrader":
-							return roleUpgrader.run(creep);
+							roleUpgrader.run(creep);
 
 						case "builder":
-							return roleBuilder.run(creep);
+							roleBuilder.run(creep);
 
 						case "repairer":
-							return roleRepairer.run(creep);
+							roleRepairer.run(creep);
 
 						case "supplier":
-							return roleSupplier.run(creep);
+							roleSupplier.run(creep);
 					}
 				}
 			} catch(err){
