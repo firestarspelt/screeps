@@ -11,6 +11,7 @@ module.exports = {
 			creep.memory.working = true;
 			creep.say('🛠️ repair');
 		}
+		//repair damaged structures within its path while still moving toward target if it has one
 		var structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 2,creep.pos.x - 2,creep.pos.y + 2,creep.pos.x + 2, true);
 		for (let structure of structures) {
 			structure = structure['structure'];
@@ -19,13 +20,17 @@ module.exports = {
 				break;
 			}
 		}
+		//if creep is working
 		if (creep.memory.working) {
+			//get room vars
 			var walls = Game.rooms[creep.room.name].walls;
 			var infrastructure = Game.rooms[creep.room.name].infrastructure;
+			//if repairer doesn't have a target, find one
 			if (!creep.memory.target) {
-				for (let percentage = 0.01; percentage <= 1; percentage = percentage + 0.01) {
+				for (let percentage = 0.1; percentage <= 1; percentage = percentage + 0.1) {
 					for (let structure of infrastructure) {
 						if (structure.hits / (structure.hitsMax - creep.memory.workParts * 100) < percentage) {
+							//set target to memory
 							creep.memory.target = structure.id;
 							break;
 						}
@@ -35,12 +40,15 @@ module.exports = {
 					}
 				}
 			}
+			//if repairer has target retrieve from memory
 			if (creep.memory.target) {
 				var target = Game.getObjectById(creep.memory.target);
+				//if repairer's target would be over repaired purge from memory
 				if (target.hits / (target.hitsMax - creep.memory.workParts * 100) >= 1) {
 					delete creep.memory.target;
 				}
-				if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+				//if target is in range repair it, if it isn't move into range of it, but only if it is still in memory
+				if (creep.repair(target) == ERR_NOT_IN_RANGE && creep.memory.target) {
 					creep.travelTo(target,{ignoreCreeps: false, range: 3});
 				}
 			} else if (creep.room.controller.level > 1) {
