@@ -13,7 +13,9 @@ module.exports = {
 		}
 		var structures = creep.pos.findInRange(Game.rooms[creep.room.name].infrastructure,1);
 		if (structures.length > 0) {
-			creep.repair(structures[0]);
+			if (structures[0].hits < structures[0].hitsMax - creep.memory.workParts * 100) {
+				creep.repair(structures[0]);
+			}
 		}
 		if (creep.memory.working) {
 			var walls = Game.rooms[creep.room.name].walls;
