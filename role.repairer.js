@@ -24,7 +24,7 @@ module.exports = {
 			var walls = Game.rooms[creep.room.name].walls;
 			var infrastructure = Game.rooms[creep.room.name].infrastructure;
 			if (!creep.memory.target) {
-				for (let percentage = 0.1; percentage <= 1; percentage = percentage + 0.1) {
+				for (let percentage = 0.01; percentage <= 1; percentage = percentage + 0.01) {
 					for (let structure of infrastructure) {
 						if (structure.hits / (structure.hitsMax - creep.memory.workParts * 100) < percentage) {
 							creep.memory.target = structure.id;
