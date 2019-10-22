@@ -13,9 +13,14 @@ module.exports = {
 			var constuctByType = Game.rooms[creep.room.name].constuctByType;
 			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
 			var extensions = constuctByType[STRUCTURE_EXTENSION] || [];
-			var roads = constuctByType[STRUCTURE_ROAD] || [];
-			var targets = containers.concat(extensions).concat(roads);
-			var target = targets[0];
+			if (containers.length > 0) {
+				var target = creep.pos.findClosestByRange(containers);
+			} else if (extensions.length > 0) {
+				var target = creep.pos.findClosestByRange(extensions);
+			} else {
+				var targets = Game.rooms[creep.room.name].constuctSites;
+				var target = creep.pos.findClosestByRange(targets);
+			}
 			if (target == null) {
 				roleUpgrader.run(creep);
 			} else if (creep.pos.inRangeTo(target,3)) {
