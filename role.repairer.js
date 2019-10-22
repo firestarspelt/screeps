@@ -47,10 +47,13 @@ module.exports = {
 				if (target.hits / (target.hitsMax - creep.memory.workParts * 100) >= 1) {
 					delete creep.memory.target;
 				}
-				//if target is in range repair it, if it isn't move into range of it, but only if it is still in memory
-				if (creep.repair(target) == ERR_NOT_IN_RANGE && creep.memory.target) {
-					creep.travelTo(target,{ignoreCreeps: false, range: 3});
+				if (creep.memory.target) {
+					//if target is still in memory, and in range repair it, if it isn't move into range of it
+					if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+						creep.travelTo(target,{ignoreCreeps: false, range: 3});
+					}
 				}
+				//if walls are repairable repair up to target health
 			} else if (creep.room.controller.level > 1) {
 				var target;
 				var targetHealth = 3000000;
