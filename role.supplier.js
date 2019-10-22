@@ -9,7 +9,7 @@ module.exports = {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
-		var structures = creep.room.lookForAt(LOOK_STRUCTURES,creep);
+		var structures = creep.pos.lookFor(LOOK_STRUCTURES);
 		if (structures.length > 0) {
 			creep.repair(structures[0]);
 		}
