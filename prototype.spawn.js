@@ -40,7 +40,7 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep.name} name **/
 	StructureSpawn.prototype.spawnCanHarvester =
 	function(energyAvail, name) {
-		var moveParts = Math.min(Math.floor(energyAvail/(BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),5);
+		var moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE]))),6);
 		var workParts = moveParts * 2;
 		var body = [];
 		for (let i = 0; i < workParts; i++) {
