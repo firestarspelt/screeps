@@ -68,7 +68,7 @@ module.exports = {
 				spawnNew(energyAvail, 'harvester', spawner);
 			} else if (suppliers.length < 4 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
-			} else if (repairers.length < 1) {
+			} else if (repairers.length < 2) {
 				spawnNew(energyAvail, 'repairer', spawner);
 			} else if (upgraders.length < 2) {
 				spawnNew(energyAvail, 'upgrader', spawner);
