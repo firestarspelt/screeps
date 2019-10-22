@@ -22,7 +22,7 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep Name} name **/
 	StructureSpawn.prototype.spawnHarvester =
 	function(energyAvail, name) {
-		var otherParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE] + BODYPART_COST[CARRY])), 5);
+		var otherParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE] + BODYPART_COST[CARRY])), 3);
 		var workParts = otherParts * 2;
 		var body = [];
 		for (let i = 0; i < workParts; i++) {
@@ -40,7 +40,7 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep.name} name **/
 	StructureSpawn.prototype.spawnCanHarvester =
 	function(energyAvail, name) {
-		var moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),5);
+		var moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),3);
 		var workParts = moveParts * 2;
 		var body = [];
 		for (let i = 0; i < workParts; i++) {
