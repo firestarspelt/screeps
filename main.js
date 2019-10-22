@@ -78,6 +78,9 @@ module.exports.loop = function() {
 							break;
 						case "supplier":
 							roleSupplier.run(creep);
+							break;
+						default:
+							console.log('error caused by ' + creep.name + " it has no role or it's role isn't run");
 					}
 				}
 			} catch(err){
