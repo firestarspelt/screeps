@@ -11,10 +11,12 @@ module.exports = {
 			creep.memory.working = true;
 			creep.say('🛠️ repair');
 		}
-		var structures = creep.pos.findInRange(Game.rooms[creep.room.name].infrastructure,1);
-		if (structures.length > 0) {
-			if (structures[0].hits < structures[0].hitsMax - creep.memory.workParts * 100) {
-				creep.repair(structures[0]);
+		var structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 2,creep.pos.x - 2,creep.pos.y + 2,creep.pos.x + 2, true);
+		for (let structure of structures) {
+			structure = structure['structure'];
+			if (structure.hits < structure.hitsMax - creep.memory.workParts * 100) {
+				creep.repair(structure);
+				break;
 			}
 		}
 		if (creep.memory.working) {
