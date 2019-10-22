@@ -18,11 +18,12 @@ module.exports = {
 		Game.rooms[room.name].constuctSites = room.find(FIND_CONSTRUCTION_SITES);
 		Game.rooms[room.name].constuctByType = _.groupBy(Game.rooms[room.name].constuctSites, (s) => s.structureType);
 		Game.rooms[room.name].structures = room.find(FIND_STRUCTURES);
+		Game.rooms[room.name].damStructures = _.filter(Game.rooms[room.name].structures, (s) => s.hits < s.hitsMax);
 		Game.rooms[room.name].structByType = _.groupBy(Game.rooms[room.name].structures, (s) => s.structureType);
 		Game.rooms[room.name].ruins = room.find(FIND_RUINS, {filter: (r) => r.store.getUsedCapacity() > 0});
 		Game.rooms[room.name].tombstones = room.find(FIND_TOMBSTONES, {filter: (t) => t.store.getUsedCapacity() > 0});
 		Game.rooms[room.name].droppedRes = room.find(FIND_DROPPED_RESOURCES, {filter: (r) => r.amount > 100});
 		Game.rooms[room.name].resByType = _.groupBy(Game.rooms[room.name].droppedRes, (r) => r.resourceType);
-		[Game.rooms[room.name].walls, Game.rooms[room.name].infrastructure] = _.partition(Game.rooms[room.name].structures, (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART);
+		[Game.rooms[room.name].walls, Game.rooms[room.name].infrastructure] = _.partition(Game.rooms[room.name].damStructures, (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART);
 	}
 };
