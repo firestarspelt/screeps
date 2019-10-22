@@ -52,7 +52,11 @@ module.exports.loop = function() {
 		//iterate through spawners and run their code
 		for (let name in Game.spawns) {
 			let spawner = Game.spawns[name];
-			roleSpawner.run(spawner);
+			try {
+				roleSpawner.run(spawner);
+			} catch(err){
+				console.log('error caused by ' + spawn.name + ' ' + err);
+			}
 		}
 		//iterate through creeps and run their code
 		for (var name in Game.creeps) {
@@ -60,19 +64,19 @@ module.exports.loop = function() {
 			try {
 				if (!creep.spawning) {
 					switch (creep.memory.role) {
-						case 'harvester':
+						case "harvester":
 							return roleHarvester.run(creep);
 
-						case 'upgrader':
+						case "upgrader":
 							return roleUpgrader.run(creep);
 
-						case 'builder':
+						case "builder":
 							return roleBuilder.run(creep);
 
-						case 'repairer':
+						case "repairer":
 							return roleRepairer.run(creep);
 
-						case 'supplier':
+						case "supplier":
 							return roleSupplier.run(creep);
 					}
 				}
