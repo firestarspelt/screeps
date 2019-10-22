@@ -59,8 +59,8 @@ module.exports.loop = function() {
 			}
 		}
 		//iterate through creeps and run their code
-		for (var name in Game.creeps) {
-			var creep = Game.creeps[name];
+		for (let name in Game.creeps) {
+			let creep = Game.creeps[name];
 			try {
 				if (!creep.spawning) {
 					switch (creep.memory.role) {
