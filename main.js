@@ -24,7 +24,7 @@ function tryInitSameMemory() {
     lastMemoryTick = Game.time;
 }
 module.exports.loop = function() {
-	tryInitSameMemory();
+	//tryInitSameMemory();
 	profiler.wrap(function() {
 		//remove dead creeps memory
 		for (let name in Memory.creeps) {
