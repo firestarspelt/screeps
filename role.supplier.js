@@ -9,6 +9,10 @@ module.exports = {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
+		var structures = creep.pos.findInRange(Game.rooms[creep.room.name].damStructures);
+		if (structures.length > 0) {
+			creep.repair(structures[0]);
+		}
 		var structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
 			var spawns = structByType[STRUCTURE_SPAWN] || [];
