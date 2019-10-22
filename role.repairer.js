@@ -12,7 +12,7 @@ module.exports = {
 			creep.say('🛠️ repair');
 		}
 		//repair damaged structures within its path while still moving toward target if it has one
-		var structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 2,creep.pos.x - 2,creep.pos.y + 2,creep.pos.x + 2, true);
+		var structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 3,creep.pos.x - 3,creep.pos.y + 3,creep.pos.x + 3, true);
 		for (let structure of structures) {
 			structure = structure['structure'];
 			if (structure.hits < structure.hitsMax - creep.memory.workParts * 100) {
