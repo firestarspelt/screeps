@@ -9,7 +9,7 @@ module.exports = {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
-		var structures = creep.pos.findInRange(Game.rooms[creep.room.name].infrastructure,3);
+		var structures = creep.pos.findInRange(Game.rooms[creep.room.name].infrastructure,1);
 		if (structures.length > 0) {
 			creep.repair(structures[0]);
 		}
