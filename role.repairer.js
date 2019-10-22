@@ -32,7 +32,7 @@ module.exports = {
 				if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(target,{ignoreCreeps: false, range: 3});
 				}
-				if (target.hits / (target.hitsMax - creep.memory.workParts * 100) <= 1) {
+				if (target.hits / (target.hitsMax - creep.memory.workParts * 100) >= 1) {
 					delete creep.memory.target;
 				}
 			} else if (creep.repair(target) == ERR_INVALID_TARGET && creep.room.controller.level > 1) {
