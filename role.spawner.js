@@ -41,9 +41,8 @@ module.exports = {
 		and energy available to spawn with and get time since last spawn*/
 		var creeps = spawner.room.find(FIND_MY_CREEPS);
 		var creepsByRole = _.groupBy(creeps, 'memory.role');
-		for (let array in creepsByRole) {
-			//console.log(array);
-		}
+		var structByType = Game.rooms[spawner.room.name].structByType;
+		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var harvesters = creepsByRole['harvester'] || [];
 		var builders = creepsByRole['builder'] || [];
 		var upgraders = creepsByRole['upgrader'] || [];
@@ -67,7 +66,7 @@ module.exports = {
 		} else if ((energyAvail >= 300 && spawner.memory.timeSinceSpawn >= 100) || energyAvail == maxEnergy) {
 			if (harvesters.length < 2) {
 				spawnNew(energyAvail, 'harvester', spawner);
-			} else if (suppliers.length < 4) {
+			} else if (suppliers.length < 4 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
 			} else if (repairers.length < 1) {
 				spawnNew(energyAvail, 'repairer', spawner);
