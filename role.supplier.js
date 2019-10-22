@@ -26,7 +26,7 @@ module.exports = {
 			}
 		} else {
 			var containers = structByType[STRUCTURE_CONTAINER] || [];
-			var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, creep.store.getFreeCapacity(RESOURCE_ENERGY)));
+			var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(100, creep.store.getFreeCapacity(RESOURCE_ENERGY)/2));
 			if (targets.length > 0) {
 				var target = creep.pos.findClosestByRange(targets);
 				if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
