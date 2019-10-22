@@ -80,7 +80,7 @@ module.exports.loop = function() {
 							roleSupplier.run(creep);
 							break;
 						default:
-							console.log('error caused by ' + creep.name + " it has no role or it's role isn't run");
+							console.log('error caused by ' + creep.name + " has no role or it's role isn't run");
 					}
 				}
 			} catch(err){
