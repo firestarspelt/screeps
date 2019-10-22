@@ -59,18 +59,21 @@ module.exports.loop = function() {
 			var creep = Game.creeps[name];
 			try {
 				if (!creep.spawning) {
-					if (creep.memory.role == 'harvester') {
-						roleHarvester.run(creep);
-					} else if (creep.memory.role == 'upgrader') {
-						roleUpgrader.run(creep);
-					} else if (creep.memory.role == 'builder') {
-						roleBuilder.run(creep);
-					} else if (creep.memory.role == 'repairer') {
-						roleRepairer.run(creep);
-					} else if (creep.memory.role == 'supplier') {
-						roleSupplier.run(creep);
-					} else if (creep.memory.role == 'wallRepairer') {
-						roleWallRepairer.run(creep);
+					switch (creep.memory.role) {
+						case 'harvester':
+							return roleHarvester.run(creep);
+
+						case 'upgrader':
+							return roleUpgrader.run(creep);
+
+						case 'builder':
+							return roleBuilder.run(creep);
+
+						case 'repairer':
+							return roleRepairer.run(creep);
+
+						case 'supplier':
+							return roleSupplier.run(creep);
 					}
 				}
 			} catch(err){
