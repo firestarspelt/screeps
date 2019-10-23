@@ -37,6 +37,7 @@ function getTarget(creep, increment, targets) {
 		}
 	}
 }
+getTarget = profiler.registerFN(getTarget);
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
@@ -98,4 +99,5 @@ module.exports = {
 			creep.getEnergy();
 		}
 	}
+	run = profiler.registerFN(run, 'roleRepairer');
 };
