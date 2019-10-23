@@ -1,4 +1,5 @@
-var roleBuilder = require("role.builder");
+const roleBuilder = require("role.builder");
+const profiler = require('screeps-profiler');
 /**
  * This function gets a low health target and sets the target and targetHealth if it isn't set
  * targetHealth is only ever set for walls or ramparts
@@ -99,4 +100,5 @@ module.exports = {
 			creep.getEnergy();
 		}
 	}
+	run = profiler.registerFN(run, 'roleRepairer');
 };
