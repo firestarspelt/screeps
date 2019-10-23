@@ -67,13 +67,13 @@ const roleSpawner = {
 		} else if ((energyAvail >= 300 && spawner.memory.timeSinceSpawn >= 100) || energyAvail == maxEnergy) {
 			if (harvesters.length < 2) {
 				spawnNew(energyAvail, 'harvester', spawner);
-			} else if (suppliers.length < 4 && containers.length > 0) {
+			} else if (suppliers.length < 2 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
-			} else if (repairers.length < 1) {
+			} else if (repairers.length < 2) {
 				spawnNew(energyAvail, 'repairer', spawner);
-			} else if (upgraders.length < 2) {
+			} else if (upgraders.length < 1) {
 				spawnNew(energyAvail, 'upgrader', spawner);
-			} else if (builders.length < 1) {
+			} else if (builders.length < 2) {
 				spawnNew(energyAvail, 'builder', spawner);
 			}
 		}
