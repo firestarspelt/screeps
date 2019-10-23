@@ -12,9 +12,9 @@ const roleSupplier = {
 	    }
 		var structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
-			++creep.memory.timeSinceLastCheck;
+			//++creep.memory.timeSinceLastCheck;
 			//get target and put in memory if it doesn't exist
-			if (!creep.memory.target && creep.memory.timeSinceLastCheck > 5) {
+			if (!creep.memory.target) {
 				let spawns = structByType[STRUCTURE_SPAWN] || [];
 				let extensions = structByType[STRUCTURE_EXTENSION] || [];
 				let towers = structByType[STRUCTURE_TOWER] || [];
@@ -36,7 +36,7 @@ const roleSupplier = {
 				if (target) {
 					creep.memory.target = target.id;
 				}
-				creep.memory.timeSinceLastCheck = 0;
+				//creep.memory.timeSinceLastCheck = 0;
 			}//get target from memory
 			else if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
