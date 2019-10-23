@@ -19,7 +19,7 @@ const roleRoom = {
 		Game.rooms[room.name].constuctSites = room.find(FIND_CONSTRUCTION_SITES);
 		Game.rooms[room.name].constuctByType = _.groupBy(Game.rooms[room.name].constuctSites, (s) => s.structureType);
 		Game.rooms[room.name].structures = room.find(FIND_STRUCTURES);
-		Game.rooms[room.name].damStructures = _.filter(Game.rooms[room.name].structures, (s) => s.hits < s.hitsMax);
+		Game.rooms[room.name].damStructures = _.filter(Game.rooms[room.name].structures, (s) => (s.hits/s.hitsMax) < 0.8);
 		Game.rooms[room.name].structByType = _.groupBy(Game.rooms[room.name].structures, (s) => s.structureType);
 		Game.rooms[room.name].ruins = room.find(FIND_RUINS, {filter: (r) => r.store.getUsedCapacity() > 0});
 		Game.rooms[room.name].tombstones = room.find(FIND_TOMBSTONES, {filter: (t) => t.store.getUsedCapacity() > 0});
