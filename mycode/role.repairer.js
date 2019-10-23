@@ -19,7 +19,7 @@ function getTarget(creep, increment, targets) {
 				var targetHealth = target.hitsMax;
 			}
 			//if targets hits / targetHealth is less than current percentage set to target
-			if (target.hits / targetHealth < percentage) {
+			if (target.hits / (targetHealth - creep.memory.workParts * 100) < percentage) {
 				//set targetHealth to memory if it wasn't, otherwise set it to itself multiplied by the percentage
 				if (!creep.memory.targetHealth) {
 					creep.memory.targetHealth = targetHealth;
