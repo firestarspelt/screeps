@@ -21,10 +21,14 @@ module.exports = function() {
 			this.mine();
 		} else if (energyStorage.length == 0) {
 			var targets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+		} else if (!this.room.storage) {
+			var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 		} else {
-			var targets = _.filter(energyStorage, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			var target = storage;
 		}
-		var target = this.pos.findClosestByRange(targets);
+		if (!target) {
+			var target = this.pos.findClosestByRange(targets);
+		}
 		if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 			this.travelTo(target, {ignoreCreeps: false});
 		}
