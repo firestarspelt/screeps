@@ -23,7 +23,7 @@ const roleRoom = {
 
 		//structure variables
 		Game.rooms[room.name].structures = room.find(FIND_STRUCTURES);
-		Game.rooms[room.name].damStructures = _.filter(Game.rooms[room.name].structures, (s) => hitsPercentage < 0.8);
+		Game.rooms[room.name].damStructures = _.filter(Game.rooms[room.name].structures, (s) => s.hits/s.hitsMax < 0.8);
 		Game.rooms[room.name].structByType = _.groupBy(Game.rooms[room.name].structures, (s) => s.structureType);
 		[Game.rooms[room.name].walls, Game.rooms[room.name].infrastructure] = _.partition(Game.rooms[room.name].damStructures, (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART);
 		Game.rooms[room.name].walls = _.sortBy(Game.rooms[room.name].walls, hitsPercentage);
