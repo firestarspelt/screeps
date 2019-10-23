@@ -14,7 +14,7 @@ const roleSupplier = {
 		if (creep.memory.working) {
 			++creep.memory.timeSinceLastCheck;
 			//get target and put in memory if it doesn't exist
-			if (!creep.memory.target && creep.memory.timeSinceLastCheck > 10) {
+			if (!creep.memory.target && creep.memory.timeSinceLastCheck > 1) {
 				let targets = (structByType[STRUCTURE_SPAWN].concat(structByType[STRUCTURE_EXTENSION]).concat(structByType[STRUCTURE_TOWER]).concat(structByType[STRUCTURE_STORAGE]));
 				let filteredTargets = _.filter(targets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
