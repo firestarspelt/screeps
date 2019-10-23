@@ -22,16 +22,16 @@ const roleSupplier = {
 				let targets = (spawns.concat(extensions).concat(towers).concat(storage));
 				let filteredTargets = _.filter(targets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-				let spawns = targetsByType[STRUCTURE_SPAWN] || [];
-				let extensions = targetsByType[STRUCTURE_EXTENSION] || [];
-				let towers = targetsByType[STRUCTURE_TOWER] || [];
-				let storage = targetsByType[STRUCTURE_STORAGE] || [];
-				if (spawns.length > 0 || extensions.length > 0) {
-					var target = creep.pos.findClosestByRange(creep.pos.findInRange(spawns.concat(extensions), 10));
-				} else if (towers.length > 0) {
-					var target = creep.pos.findClosestByRange(towers);
-				} else if (storage.length > 0) {
-					var target = creep.pos.findClosestByRange(storage);
+				let fspawns = targetsByType[STRUCTURE_SPAWN] || [];
+				let fextensions = targetsByType[STRUCTURE_EXTENSION] || [];
+				let ftowers = targetsByType[STRUCTURE_TOWER] || [];
+				let fstorage = targetsByType[STRUCTURE_STORAGE] || [];
+				if (fspawns.length > 0 || extensions.length > 0) {
+					var target = creep.pos.findClosestByRange(creep.pos.findInRange(fspawns.concat(fextensions), 10));
+				} else if (ftowers.length > 0) {
+					var target = creep.pos.findClosestByRange(ftowers);
+				} else if (fstorage.length > 0) {
+					var target = creep.pos.findClosestByRange(fstorage);
 				}
 				if (target) {
 					creep.memory.target = target.id;
