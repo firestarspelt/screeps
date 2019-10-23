@@ -1,35 +1,5 @@
 const roleBuilder = require("role.builder");
 const profiler = require('screeps-profiler');
-/**
- * This function gets a low health target and sets the target and targetHealth if it isn't set
- * targetHealth is only ever set for walls or ramparts
- * @param  {object <Creep>} creep the creep getting a target
- * @param  {number} increment the value to increment by
- * @param  {array <object <Structure>>} targets an array of target structures
- */
-function getTarget(creep, increment, targets) {
-	let targetList = [];
-	//set intitial percentage to increment value, and keep incrementing while percentage is less than 1
-	for (let percentage = increment; percentage <= 1; percentage = percentage + increment) {
-		//interate through targets
-		for (let target of targets) {
-			//if targets hits / targetHealth is less than current percentage add to targetList
-			if (target.hits / (target.hitsMax - creep.memory.workParts * 100) < percentage) {
-				targetList.push(target);
-			}
-		}
-		//if targetList isn't empty, set closest one to target and break from loop
-		if (targetList.length > 0) {
-			let target = creep.pos.findClosestByPath(targetList);
-			//set target
-			creep.memory.target = target.id;
-			creep.memory.targetOldHits = target.hits;
-			//break from loop
-			break;
-		}
-	}
-}
-getTarget = profiler.registerFN(getTarget, 'roleRepairer.getTarget');
 const roleRepairer = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
@@ -63,7 +33,8 @@ const roleRepairer = {
 			let infrastructure = Game.rooms[creep.room.name].infrastructure;
 			//if repairer doesn't have a target, find some infrastructure to repair
 			if (!creep.memory.target) {
-				getTarget(creep, 0.1, infrastructure);
+				creep.memory.target = infrastructure[0].id;
+				creep.memory.targetOldHits = infrastructure[0].hits;
 			}
 			//if repairer still doesn't have a target and walls are repairable, find a wall to repair
 			if (!creep.memory.target && creep.room.controller.level > 1) {
