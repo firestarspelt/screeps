@@ -23,7 +23,7 @@ function spawnNew(energyAvail, roleName, spawner) {
 /** @param {Room} room**/
 function spawnCreepsIfNecessary(room) {
 	/** @type {Array<Creep>} */
-	let creepsInRoom = room.find(Game.rooms[spawner.room.name].myCreeps);
+	let creepsInRoom = Game.rooms[spawner.room.name].myCreeps;
 	/** @type {Object<string, number>} */
 	let numberOfCreeps = {};
 	for (let role of listOfRoles) {
@@ -35,7 +35,7 @@ const roleSpawner = {
 	run: function(spawner) {
 		/*Gets count of creeps with each role in the room of the spawn,
 		and energy available to spawn with and get time since last spawn*/
-		var creeps = spawner.room.find(Game.rooms[spawner.room.name].myCreeps);
+		var creeps = Game.rooms[spawner.room.name].myCreeps;
 		var creepsByRole = _.groupBy(creeps, 'memory.role');
 		var structByType = Game.rooms[spawner.room.name].structByType;
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
