@@ -24,7 +24,7 @@ function getTarget(creep, increment, targets) {
 				if (!creep.memory.targetHealth) {
 					creep.memory.targetHealth = targetHealth;
 				} else {
-					creep.memory.targetHealth = creep.memory.targetHealth * percentage;
+					creep.memory.targetHealth = Math.floor(creep.memory.targetHealth * percentage);
 				}
 				//set target to memory
 				creep.memory.target = target.id;
@@ -38,7 +38,7 @@ function getTarget(creep, increment, targets) {
 		}
 	}
 }
-getTarget = profiler.registerFN(getTarget);
+getTarget = profiler.registerFN(getTarget, 'roleRepairer.getTarget');
 const roleRepairer = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
