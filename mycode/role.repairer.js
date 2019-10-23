@@ -15,7 +15,7 @@ const roleRepairer = {
 		//if creep is working
 		if (creep.memory.working) {
 			//repair damaged structures on its path
-			let structures = creep.room.lookForAt(LOOK_STRUCTURES, creep);
+			let target = creep.room.lookForAt(LOOK_STRUCTURES, creep);
 			//if it won't over repair target repair it
 			if (target.hits < target.hitsMax - creep.memory.workParts * 100) {
 				creep.repair(target);
