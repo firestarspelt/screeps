@@ -22,16 +22,16 @@ const roleSupplier = {
 				let targets = (spawns.concat(extensions).concat(towers).concat(storage));
 				let filteredTargets = _.filter(targets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-				let fspawns = targetsByType[STRUCTURE_SPAWN] || [];
-				let fextensions = targetsByType[STRUCTURE_EXTENSION] || [];
-				let ftowers = targetsByType[STRUCTURE_TOWER] || [];
-				let fstorage = targetsByType[STRUCTURE_STORAGE] || [];
-				if (fspawns.length > 0 || extensions.length > 0) {
-					var target = creep.pos.findClosestByRange(creep.pos.findInRange(fspawns.concat(fextensions), 10));
-				} else if (ftowers.length > 0) {
-					var target = creep.pos.findClosestByRange(ftowers);
-				} else if (fstorage.length > 0) {
-					var target = creep.pos.findClosestByRange(fstorage);
+				let fSpawns = creep.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 15);
+				let fExtensions = creep.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 10);
+				let fTowers = targetsByType[STRUCTURE_TOWER] || [];
+				let fStorage = targetsByType[STRUCTURE_STORAGE] || [];
+				if (fSpawns.length > 0 || fExtensions.length > 0) {
+					var target = creep.pos.findClosestByRange(fSpawns.concat(fExtensions));
+				} else if (fTowers.length > 0) {
+					var target = creep.pos.findClosestByRange(fTowers);
+				} else if (fStorage.length > 0) {
+					var target = creep.pos.findClosestByRange(fStorage);
 				}
 				if (target) {
 					creep.memory.target = target.id;
