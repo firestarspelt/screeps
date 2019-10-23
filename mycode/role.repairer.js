@@ -1,4 +1,4 @@
-const roleBuilder = require("role.builder");
+const roleUpgrader = require('role.upgrader');
 const profiler = require('screeps-profiler');
 const roleRepairer = {
 	/** @param {Creep} creep **/
@@ -49,7 +49,7 @@ const roleRepairer = {
 				}
 			}//If nothing to repair run builder code
 			else {
-				roleBuilder.run(creep);
+				roleUpgrader.run(creep);
 			}
 		}//if not working get energy
 		else {

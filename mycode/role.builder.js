@@ -1,4 +1,4 @@
-const roleUpgrader = require('role.upgrader');
+const roleRepairer = require('role.repairer');
 const profiler = require('screeps-profiler');
 const roleBuilder = {
 	/** @param {Creep} creep **/
@@ -23,7 +23,7 @@ const roleBuilder = {
 				var target = creep.pos.findClosestByRange(targets);
 			}
 			if (target == null) {
-				roleUpgrader.run(creep);
+				roleRepairer.run(creep);
 			} else if (creep.pos.inRangeTo(target,3)) {
 				creep.build(target);
 			} else {
