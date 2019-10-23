@@ -17,7 +17,7 @@ module.exports = function() {
 			}
 		} else if (ruins.length > 0) {
 			var targets = ruins;
-		} else if (energyStorage.length == 0 && this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false }) !== null) {
+		} else if (energyStorage.length == 0 && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
 			this.mine();
 		} else if (energyStorage.length == 0) {
 			var targets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
@@ -31,7 +31,7 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		var target = this.pos.findClosestByPath(FIND_SOURCES,{ ignoreCreeps: false });
+		var target = this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false });
 		if (target) {
 			if (target.energy > 0) {
 				if (this.harvest(target) == ERR_NOT_IN_RANGE) {
