@@ -3,7 +3,7 @@ const roleTower = {
 	/** @param {Tower} tower **/
 	run: function(tower) {
 		//console.log(tower);
-		var closestHostile = tower.pos.findClosestByRange(Game.rooms[room.name].enemyCreeps);
+		var closestHostile = tower.pos.findClosestByRange(Game.rooms[tower.room.name].enemyCreeps);
 		if (closestHostile) {
 			tower.attack(closestHostile);
 		} else {
