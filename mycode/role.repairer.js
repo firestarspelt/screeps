@@ -31,7 +31,7 @@ function getTarget(creep, increment, targets) {
 			if (!creep.memory.targetHealth) {
 				creep.memory.targetHealth = target.hitsMax;
 			} else {
-				creep.memory.targetHealth = Math.floor(creep.memory.targetHealth * percentage);
+				creep.memory.targetHealth = Math.floor(creep.memory.targetHealth * (percentage + increment));
 			}
 			//set target
 			creep.memory.target = target.id;
