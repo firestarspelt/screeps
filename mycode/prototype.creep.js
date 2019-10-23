@@ -6,7 +6,7 @@ module.exports = function() {
 		var structByType = Game.rooms[this.room.name].structByType;
 		var spawns = structByType[STRUCTURE_SPAWN] || [];
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
-		var storage = creep.room.storage;
+		var storage = this.room.storage;
 		var energyStorage = containers.push(storage);
 		var ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy) {
