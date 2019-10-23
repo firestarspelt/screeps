@@ -14,18 +14,15 @@ const roleSupplier = {
 		if (creep.memory.working) {
 			++creep.memory.timeSinceLastCheck;
 			//get target and put in memory if it doesn't exist
-			if (!creep.memory.target && creep.memory.timeSinceLastCheck > 1) {
+			if (!creep.memory.target && creep.memory.timeSinceLastCheck > 5) {
 				let targets = (structByType[STRUCTURE_SPAWN].concat(structByType[STRUCTURE_EXTENSION]).concat(structByType[STRUCTURE_TOWER]).concat(structByType[STRUCTURE_STORAGE]));
 				let filteredTargets = _.filter(targets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-				let spawns = targetsByType[STRUCTURE_SPAWN] || [];
-				let extensions = targetsByType[STRUCTURE_EXTENSION] || [];
+				let spawns = targetsByType[STRUCTURE_SPAWN].concat(targetsByType[STRUCTURE_EXTENSION]) || [];
 				let towers = targetsByType[STRUCTURE_TOWER] || [];
 				let storage = targetsByType[STRUCTURE_STORAGE] || [];
 				if (spawns.length > 0) {
-					var target = creep.pos.findClosestByRange(spawns);
-				} else if (extensions.length > 0) {
-					var target = creep.pos.findClosestByRange(extensions);
+					var target = creep.pos.findClosestByRange(creep.pos.findInRange(spawns, 10));
 				} else if (towers.length > 0) {
 					var target = creep.pos.findClosestByRange(towers);
 				} else if (storage.length > 0) {
