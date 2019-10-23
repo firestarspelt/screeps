@@ -100,4 +100,3 @@ module.exports = {
 		}
 	}
 };
-run = profiler.registerFN(run, 'roleRepairer');
