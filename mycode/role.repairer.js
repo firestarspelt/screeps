@@ -8,6 +8,7 @@ const profiler = require('screeps-profiler');
  * @param  {array <object <Structure>>} targets an array of target structures
  */
 function getTarget(creep, increment, targets) {
+	let targetList = [];
 	//set intitial percentage to increment value, and keep incrementing while percentage is less than 1
 	for (let percentage = increment; percentage <= 1; percentage = percentage + increment) {
 		//interate through targets
@@ -18,22 +19,23 @@ function getTarget(creep, increment, targets) {
 			} else {
 				var targetHealth = target.hitsMax;
 			}
-			//if targets hits / targetHealth is less than current percentage set to target
+			//if targets hits / targetHealth is less than current percentage add to targetList
 			if (target.hits / (targetHealth - creep.memory.workParts * 100) < percentage) {
-				//set targetHealth to memory if it wasn't, otherwise set it to itself multiplied by the percentage
-				if (!creep.memory.targetHealth) {
-					creep.memory.targetHealth = targetHealth;
-				} else {
-					creep.memory.targetHealth = Math.floor(creep.memory.targetHealth * percentage);
-				}
-				//set target to memory
-				creep.memory.target = target.id;
-				//break from loop
-				break;
+				targetList.push(target);
 			}
 		}
-		//if target found break from loop
-		if (creep.memory.target) {
+		//if targetList isn't empty, set closest one to target and break from loop
+		if (targetList.length > 0) {
+			let target = creep.pos.findClosestByPath(targetList);
+			//set targetHealth
+			if (!creep.memory.targetHealth) {
+				creep.memory.targetHealth = target.hitsMax;
+			} else {
+				creep.memory.targetHealth = Math.floor(creep.memory.targetHealth * percentage);
+			}
+			//set target
+			creep.memory.target = target.id;
+			//break from loop
 			break;
 		}
 	}
