@@ -39,7 +39,7 @@ function getTarget(creep, increment, targets) {
 	}
 }
 getTarget = profiler.registerFN(getTarget);
-module.exports = {
+const roleRepairer = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
 		//state change based off carried energy
@@ -100,5 +100,6 @@ module.exports = {
 			creep.getEnergy();
 		}
 	}
-	run = profiler.registerFN(run, 'roleRepairer');
-};
+}
+profiler.registerObject(roleRepairer, 'roleRepairer');
+module.exports = roleRepairer;
