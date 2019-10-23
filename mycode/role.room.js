@@ -1,4 +1,5 @@
-module.exports = {
+const profiler = require('screeps-profiler');
+const roleRoom = {
 	run: function(room) {
 		if (false) {//not used yet
 			var creeps = room.find(FIND_MY_CREEPS);
@@ -26,4 +27,6 @@ module.exports = {
 		Game.rooms[room.name].resByType = _.groupBy(Game.rooms[room.name].droppedRes, (r) => r.resourceType);
 		[Game.rooms[room.name].walls, Game.rooms[room.name].infrastructure] = _.partition(Game.rooms[room.name].damStructures, (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART);
 	}
-};
+}
+profiler.registerObject(roleRoom, 'roleRoom');
+module.exports = roleRoom;

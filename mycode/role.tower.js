@@ -1,13 +1,5 @@
-/*
- * Module code goes here. Use 'module.exports' to export things:
- * module.exports.thing = 'a thing';
- *
- * You can import it from another modules like this:
- * var mod = require('role.tower');
- * mod.thing == 'a thing'; // true
- */
-
-module.exports = {
+const profiler = require('screeps-profiler');
+const roleTower = {
 	/** @param {Tower} tower **/
 	run: function(tower) {
 		//console.log(tower);
@@ -21,4 +13,6 @@ module.exports = {
 			}
 		}
 	}
-};
+}
+profiler.registerObject(roleTower, 'roleTower');
+module.exports = roleTower;

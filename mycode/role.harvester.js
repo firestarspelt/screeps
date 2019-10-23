@@ -1,4 +1,5 @@
-module.exports = {
+const profiler = require('screeps-profiler');
+const roleHarvester = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
 		if (creep.store.getCapacity() > 0 ) {
@@ -27,4 +28,6 @@ module.exports = {
 			creep.mine();
 		}
 	}
-};
+}
+profiler.registerObject(roleHarvester, 'roleHarvester');
+module.exports = roleHarvester;

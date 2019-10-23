@@ -1,5 +1,6 @@
-var roleUpgrader = require('role.upgrader');
-module.exports = {
+const roleUpgrader = require('role.upgrader');
+const profiler = require('screeps-profiler');
+const roleBuilder = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
 		if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
@@ -32,4 +33,6 @@ module.exports = {
 			creep.getEnergy();
 		}
 	}
-};
+}
+profiler.registerObject(roleBuilder, 'roleBuilder');
+module.exports = roleBuilder;

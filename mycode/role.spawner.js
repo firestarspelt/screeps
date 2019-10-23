@@ -1,3 +1,4 @@
+const profiler = require('screeps-profiler');
 /** @param {Room.energyAvailable} energyAvail
  * @param {Creep.memory.role} roleName
  * @param {StructureSpawn} spawner */
@@ -29,7 +30,7 @@ function spawnCreepsIfNecessary(room) {
         numberOfCreeps[role] = _.sum(creepsInRoom, (c) => c.memory.role == role);
     }
 }
-module.exports = {
+const roleSpawner = {
 	/** @param {StructureSpawn} spawner */
 	run: function(spawner) {
 		//find sources and put them in spawns memory
@@ -77,4 +78,6 @@ module.exports = {
 			}
 		}
 	}
-};
+}
+profiler.registerObject(roleSpawner, 'roleSpawner');
+module.exports = roleSpawner;
