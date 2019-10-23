@@ -2,7 +2,7 @@ var roleBuilder = require("role.builder");
 /**
  * This function gets a low health target and sets the target and targetHealth if it isn't set
  * targetHealth is only ever set for walls or ramparts
- * @param  {object <Creep.prototype>} creep the creep getting a target
+ * @param  {object <Creep>} creep the creep getting a target
  * @param  {number} increment the value to increment by
  * @param  {array <object <Structure>>} targets an array of target structures
  */
