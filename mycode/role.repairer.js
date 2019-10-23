@@ -2,7 +2,7 @@ const roleBuilder = require("role.builder");
 const profiler = require('screeps-profiler');
 /**
  * This function gets a low health target and sets the target and targetHealth if it isn't set
- * targetHealth is only ever set for walls or ramparts
+ * targetHealth is only ever set for walls or rampartsFUCK YOU NIGGER
  * @param  {object <Creep>} creep the creep getting a target
  * @param  {number} increment the value to increment by
  * @param  {array <object <Structure>>} targets an array of target structures
