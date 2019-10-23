@@ -19,7 +19,7 @@ function spawnNew(energyAvail, roleName, spawner) {
 	} else {
 		return spawner.spawnDynamicCreep(energyAvail, newName, roleName);
 	}
-}
+} 
 /** @param {Room} room**/
 function spawnCreepsIfNecessary(room) {
 	/** @type {Array<Creep>} */
