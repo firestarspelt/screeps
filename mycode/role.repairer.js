@@ -99,5 +99,5 @@ module.exports = {
 			creep.getEnergy();
 		}
 	}
-	run = profiler.registerFN(run, 'roleRepairer');
 };
+run = profiler.registerFN(run, 'roleRepairer');
