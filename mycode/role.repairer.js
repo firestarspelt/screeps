@@ -44,15 +44,14 @@ getTarget = profiler.registerFN(getTarget, 'roleRepairer.getTarget');
 const roleRepairer = {
 	/** @param {Creep} creep **/
 	run: function(creep) {
-		//state change based off carried energy
-		switch (creep.store[RESOURCE_ENERGY]) {
-			case creep.store.getCapacity():
-				creep.memory.working = true;
-				creep.say('🛠️ repair');
-				break;
-			case 0:
-				creep.memory.working = false;
-				creep.say('🔄 refill');
+		// if creep is trying to repair something but has no energy left
+		if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
+			creep.memory.working = false;
+			creep.say('🔄 refill');
+			// if creep is full
+		} else if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
+			creep.memory.working = true;
+			creep.say('🛠️ repair');
 		}
 		//if creep is working
 		if (creep.memory.working) {
