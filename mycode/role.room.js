@@ -26,6 +26,7 @@ const roleRoom = {
 		Game.rooms[room.name].droppedRes = room.find(FIND_DROPPED_RESOURCES, {filter: (r) => r.amount > 100});
 		Game.rooms[room.name].resByType = _.groupBy(Game.rooms[room.name].droppedRes, (r) => r.resourceType);
 		[Game.rooms[room.name].walls, Game.rooms[room.name].infrastructure] = _.partition(Game.rooms[room.name].damStructures, (s) => s.structureType == STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART);
+		Game.rooms[room.name].walls = _.sortBy(Game.rooms[room.name].walls, 'hits');
 	}
 }
 profiler.registerObject(roleRoom, 'roleRoom');
