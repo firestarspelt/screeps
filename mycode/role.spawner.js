@@ -66,7 +66,7 @@ const roleSpawner = {
 				spawnNew(energyAvail, 'supplier', spawner);
 			} else if (repairers.length < 1) {
 				spawnNew(energyAvail, 'repairer', spawner);
-			} else if (upgraders.length < 1) {
+			} else if (upgraders.length < 2) {
 				spawnNew(energyAvail, 'upgrader', spawner);
 			} else if (builders.length < 2) {
 				spawnNew(energyAvail, 'builder', spawner);
