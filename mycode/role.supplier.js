@@ -14,25 +14,7 @@ const roleSupplier = {
 		if (creep.memory.working) {
 			//get target and put in memory if it doesn't exist
 			if (!creep.memory.target) {
-				let spawns = structByType[STRUCTURE_SPAWN] || [];
-				let extensions = structByType[STRUCTURE_EXTENSION] || [];
-				let towers = structByType[STRUCTURE_TOWER] || [];
-				let supplyTargets = (spawns.concat(extensions).concat(towers));
-				let filteredTargets = _.filter(supplyTargets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
-				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-				let targetSpawns = creep.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 25);
-				let targetExtensions = creep.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
-				let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
-				if (targetSpawns.length || targetExtensions.length) {
-					let target = creep.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
-					creep.memory.target = target.id;
-				} else if (targetTowers.length) {
-					let target = creep.pos.findClosestByRange(targetTowers);
-					creep.memory.target = target.id;
-				} else if (creep.room.storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-					let target = creep.room.storage;
-					creep.memory.target = target.id;
-				}
+				creep.getTarget();
 			}//get target from memory
 			else if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
