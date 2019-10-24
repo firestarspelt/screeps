@@ -54,20 +54,22 @@ module.exports = function() {
 		let tombstones = Game.rooms[this.room.name].tombstones;
 		switch (this.memory.role) {
 			case "supplier":
-			console.log(dropedEnergy);
-			if (dropedEnergy.length > 0) {
-				var energySupplies = dropedEnergy;
+			if (dropedEnergy.length) {
+				let energySupply = this.pos.findClosestByRange(dropedEnergy)
+				if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					this.travelTo(energySupply, {ignoreCreeps: false});
+				}
 			}
-			else if (tombstones.length > 0) {
+			else if (tombstones.length) {
 				var energySupplies = tombstones;
 			}
-			else if (ruins.length > 0) {
+			else if (ruins.length) {
 				var energySupplies = ruins;
 			}
 			else {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
-			if (energySupplies.length > 0) {
+			if (energySupplies.length) {
 				let energySupply = this.pos.findClosestByRange(energySupplies);
 				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false});
