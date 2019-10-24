@@ -13,7 +13,7 @@ const roleSupplier = {
 		let structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
 			//get target and put in memory if it doesn't exist
-			if (typeof creep.memory.target !== 'string') {
+			if (!creep.memory.target) {
 				let spawns = structByType[STRUCTURE_SPAWN] || [];
 				let extensions = structByType[STRUCTURE_EXTENSION] || [];
 				let towers = structByType[STRUCTURE_TOWER] || [];
@@ -34,7 +34,7 @@ const roleSupplier = {
 					creep.memory.target = target.id;
 				}
 			}//get target from memory
-			else if (typeof creep.memory.target === 'string') {
+			else if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
 				//if target is full purge from memory
 				if (target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
