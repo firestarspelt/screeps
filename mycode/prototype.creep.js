@@ -37,7 +37,7 @@ module.exports = function() {
 						this.mine();
 					} else if (!energyStorage) {
 						var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					} else if (!this.room.storage) {
+					} else if (!storage) {
 						var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					} else if (storage) {
 						var energySupply = storage;
