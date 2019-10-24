@@ -33,9 +33,9 @@ module.exports = function() {
 				default:
 					if (ruins.length) {
 						var energySupplies = ruins;
-					} else if (!energyStorage.length && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
+					} else if (!containers.length && !this.room.storage && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
 						this.mine();
-					} else if (!energyStorage.length) {
+					} else if (!containers.length && !this.room.storage) {
 						var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					} else if (!this.room.storage) {
 						var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
