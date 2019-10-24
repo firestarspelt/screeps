@@ -10,8 +10,7 @@ module.exports = function() {
 		let energyStorage = containers.push(storage);
 		let ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy.length > 0) {
-			let targets = dropedEnergy;
-			let target = this.pos.findClosestByRange(targets);
+			let target = this.pos.findClosestByRange(dropedEnergy);
 			if (this.pickup(target) == ERR_NOT_IN_RANGE) {
 				this.travelTo(target, {ignoreCreeps: false});
 			}
