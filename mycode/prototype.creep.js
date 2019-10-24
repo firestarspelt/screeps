@@ -26,8 +26,8 @@ module.exports = function() {
 
 			case "repairer"://if repairer run this
 			//get room vars
-			let walls = Game.rooms[creep.room.name].walls;
-			let infrastructure = Game.rooms[creep.room.name].infrastructure;
+			let walls = Game.rooms[this.room.name].walls;
+			let infrastructure = Game.rooms[this.room.name].infrastructure;
 			//find some infrastructure to repair
 			if (infrastructure.length) {
 				this.memory.target = infrastructure[0].id;
