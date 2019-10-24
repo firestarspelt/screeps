@@ -13,7 +13,7 @@ const roleUpgrader = {
 			if (!creep.memory.home) {
 				creep.memory.home = creep.room.name;
 			}
-			let control = creep.memory.home.controller;
+			let control = Game.rooms[creep.memory.home].controller;
 			if (creep.upgradeController(control) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(control, {range: 3});
 			}
