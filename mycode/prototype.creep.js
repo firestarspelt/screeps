@@ -2,14 +2,14 @@ module.exports = function() {
 	Creep.prototype.getEnergy =
 	function() {
 		let resByType = Game.rooms[this.room.name].resByType;
-		let dropedEnergy = resByType[RESOURCE_ENERGY];
+		let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
 		let structByType = Game.rooms[this.room.name].structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
 		let storage = this.room.storage;
 		let energyStorage = containers.push(storage);
 		let ruins = Game.rooms[this.room.name].ruins;
-		if (dropedEnergy) {
+		if (dropedEnergy.length > 0) {
 			let targets = dropedEnergy;
 			let target = this.pos.findClosestByRange(targets);
 			if (this.pickup(target) == ERR_NOT_IN_RANGE) {
