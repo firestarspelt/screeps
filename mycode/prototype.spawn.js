@@ -4,7 +4,7 @@ module.exports = function() {
 	StructureSpawn.prototype.spawnDynamicCreep =
 	function(energyAvail, name, roleName) {
 		// create a balanced body
-		var numParts = Math.min(Math.floor(energyAvail / 200),6);
+		var numParts = Math.min(Math.floor(energyAvail / 200),8);
 		var body = [];
 		for (let i = 0; i < numParts; i++) {
 			body.push(WORK);
