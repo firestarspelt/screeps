@@ -15,6 +15,7 @@ require('prototype.source') ();
 require('mem_hack') ();
 profiler.enable();
 module.exports.loop = function() {
+	global.mem_hack();
 	profiler.wrap(function() {
 		//remove dead creeps memory
 		for (let name in Memory.creeps) {
