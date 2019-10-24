@@ -11,6 +11,7 @@ const Traveler = require('Traveler');
 global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
+require('prototype.source') ();
 profiler.enable();
 function tryInitSameMemory() {
     if (lastMemoryTick && global.LastMemory && Game.time == (lastMemoryTick + 1)) {
