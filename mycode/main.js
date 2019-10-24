@@ -8,7 +8,6 @@ const roleTower = require('role.tower');
 const roleRoom = require('role.room');
 const profiler = require('screeps-profiler');
 const Traveler = require('Traveler');
-global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
 require('prototype.source') ();
