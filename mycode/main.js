@@ -74,7 +74,7 @@ module.exports.loop = function() {
 					}
 				}
 			} catch(err){
-				console.log('error caused by ' + creep.memory.role + ' ' + err);
+				console.log('error caused by ' + creep.memory.role + ' ' + (err.stack || err));
 			}
 		}
 	});
