@@ -1,17 +1,17 @@
 module.exports = function() {
 	Creep.prototype.getEnergy =
 	function() {
-		var resByType = Game.rooms[this.room.name].resByType;
-		var dropedEnergy = resByType[RESOURCE_ENERGY];
-		var structByType = Game.rooms[this.room.name].structByType;
-		var spawns = structByType[STRUCTURE_SPAWN] || [];
-		var containers = structByType[STRUCTURE_CONTAINER] || [];
-		var storage = this.room.storage;
-		var energyStorage = containers.push(storage);
-		var ruins = Game.rooms[this.room.name].ruins;
+		let resByType = Game.rooms[this.room.name].resByType;
+		let dropedEnergy = resByType[RESOURCE_ENERGY];
+		let structByType = Game.rooms[this.room.name].structByType;
+		let spawns = structByType[STRUCTURE_SPAWN] || [];
+		let containers = structByType[STRUCTURE_CONTAINER] || [];
+		let storage = this.room.storage;
+		let energyStorage = containers.push(storage);
+		let ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy) {
-			var targets = dropedEnergy;
-			var target = this.pos.findClosestByRange(targets);
+			let targets = dropedEnergy;
+			let target = this.pos.findClosestByRange(targets);
 			if (this.pickup(target) == ERR_NOT_IN_RANGE) {
 				this.travelTo(target, {ignoreCreeps: false});
 			}
@@ -35,7 +35,7 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		var target = this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false });
+		let target = this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false });
 		if (target) {
 			if (target.energy > 0) {
 				if (this.harvest(target) == ERR_NOT_IN_RANGE) {
