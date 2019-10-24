@@ -12,20 +12,9 @@ global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
 require('prototype.source') ();
+require('mem_hack') ();
 profiler.enable();
-function tryInitSameMemory() {
-    if (lastMemoryTick && global.LastMemory && Game.time == (lastMemoryTick + 1)) {
-        delete global.Memory;
-        global.Memory = global.LastMemory;
-        RawMemory._parsed = global.LastMemory;
-    } else {
-        Memory;
-        global.LastMemory = RawMemory._parsed;
-    }
-    lastMemoryTick = Game.time;
-}
-module.exports.loop = function() { 
-	tryInitSameMemory();
+module.exports.loop = function() {
 	profiler.wrap(function() {
 		//remove dead creeps memory
 		for (let name in Memory.creeps) {
