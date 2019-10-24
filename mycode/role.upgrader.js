@@ -11,7 +11,7 @@ const roleUpgrader = {
 		}
 		if (creep.memory.working) {
 			if (!creep.memory.home) {
-				creep.memory.home = creep.room;
+				creep.memory.home = creep.room.name;
 			}
 			let control = creep.memory.home.controller;
 			if (creep.upgradeController(control) == ERR_NOT_IN_RANGE) {
