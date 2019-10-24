@@ -23,7 +23,7 @@ const roleSupplier = {
 				}//if target is storage dump to it and purge from memory
 				else if (target.structureType == STRUCTURE_STORAGE) {
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.travelTo(target);
+						creep.travelTo(target, {ignoreCreeps: false});
 					} else {
 						delete creep.memory.target;
 					}
@@ -31,7 +31,7 @@ const roleSupplier = {
 				//if target is still in memory, and in range tranfser to it, if it isn't move to it
 				if (creep.memory.target) {
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.travelTo(target);
+						creep.travelTo(target, {ignoreCreeps: false});
 					}
 				}
 			}
