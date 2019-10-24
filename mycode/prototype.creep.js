@@ -54,7 +54,7 @@ module.exports = function() {
 		let tombstones = Game.rooms[this.room.name].tombstones;
 		switch (this.memory.role) {
 			case "supplier":
-			if (dropedEnergy.length) {
+			if (dropedEnergy.length > 0) {
 				var energySupplies = dropedEnergy;
 			}
 			else if (tombstones.length) {
