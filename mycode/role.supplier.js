@@ -59,8 +59,7 @@ const roleSupplier = {
 			let resByType = Game.rooms[creep.room.name].resByType;
 			let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
 			if (dropedEnergy.length > 0) {
-				let targets = dropedEnergy;
-				let target = this.pos.findClosestByRange(targets);
+				let target = this.pos.findClosestByRange(dropedEnergy);
 				if (this.pickup(target) == ERR_NOT_IN_RANGE) {
 					this.travelTo(target, {ignoreCreeps: false});
 				}
