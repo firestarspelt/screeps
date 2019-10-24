@@ -20,8 +20,8 @@ const roleSupplier = {
 				let supplyTargets = (spawns.concat(extensions).concat(towers));
 				let filteredTargets = _.filter(supplyTargets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 				let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-				let targetSpawns = creep.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 15);
-				let targetExtensions = creep.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 10);
+				let targetSpawns = creep.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 25);
+				let targetExtensions = creep.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
 				let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 				if (targetSpawns.length || targetExtensions.length) {
 					let target = creep.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
