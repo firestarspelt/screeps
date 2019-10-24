@@ -14,7 +14,7 @@ const roleBuilder = {
 		//if working
 		if (creep.memory.working) {
 			//get room vars
-			var constuctByType = Game.rooms[creep.room.name].constuctByType;
+			var constuctByType = creep.room.constuctByType;
 			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
 			var extensions = constuctByType[STRUCTURE_EXTENSION] || [];
 
@@ -28,7 +28,7 @@ const roleBuilder = {
 			}
 			//otherwise build closest construction site
 			else {
-				var targets = Game.rooms[creep.room.name].constuctSites;
+				var targets = creep.room.constuctSites;
 				var target = creep.pos.findClosestByRange(targets);
 			}
 			//if nothing to build run upgrader code

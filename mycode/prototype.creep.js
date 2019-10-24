@@ -2,9 +2,9 @@ module.exports = function() {
 	Creep.prototype.getTarget =
 	function() {
 		//get room vars
-		let walls = Game.rooms[this.room.name].walls;
-		let infrastructure = Game.rooms[this.room.name].infrastructure;
-		let structByType = Game.rooms[this.room.name].structByType;
+		let walls = this.room.walls;
+		let infrastructure = this.room.infrastructure;
+		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let extensions = structByType[STRUCTURE_EXTENSION] || [];
 		let towers = structByType[STRUCTURE_TOWER] || [];
@@ -45,14 +45,14 @@ module.exports = function() {
 	Creep.prototype.getEnergy =
 	function() {
 		//get room vars
-		let resByType = Game.rooms[this.room.name].resByType;
+		let resByType = this.room.resByType;
 		let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
-		let structByType = Game.rooms[this.room.name].structByType;
+		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
 		let storage = this.room.storage;
-		let ruins = Game.rooms[this.room.name].ruins;
-		let tombstones = Game.rooms[this.room.name].tombstones;
+		let ruins = this.room.ruins;
+		let tombstones = this.room.tombstones;
 		//run based off role
 		switch (this.memory.role) {
 			case "supplier"://if supplier
@@ -88,7 +88,7 @@ module.exports = function() {
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
-			else if (!energyStorage && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
+			else if (!energyStorage && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false }) !== null) {
 				this.mine();
 			}
 			else if (!energyStorage) {
@@ -110,7 +110,7 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		let energySupply = this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false });
+		let energySupply = this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false });
 		if (energySupply) {
 			if (energySupply.energy > 0) {
 				if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
