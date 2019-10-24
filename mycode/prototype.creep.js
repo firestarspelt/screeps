@@ -22,7 +22,7 @@ module.exports = function() {
 		else {
 			switch (this.memory.role) {
 				case "supplier":
-					let energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					if (energySupplies.length) {
 						let energySupply = this.pos.findClosestByRange(energySupplies);
 						console.log(energySupply);
