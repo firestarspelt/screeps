@@ -19,18 +19,9 @@ const roleRepairer = {
 			if (target.hits < target.hitsMax - creep.memory.workParts * 100) {
 				creep.repair(target);
 			}
-			//get room vars
-			let walls = Game.rooms[creep.room.name].walls;
-			let infrastructure = Game.rooms[creep.room.name].infrastructure;
-			//if repairer doesn't have a target, find some infrastructure to repair
-			if (!creep.memory.target && infrastructure.length > 0) {
-				creep.memory.target = infrastructure[0].id;
-				creep.memory.targetOldHits = infrastructure[0].hits;
-			}
-			//if repairer still doesn't have a target and walls are repairable, find a wall to repair
-			if (!creep.memory.target && creep.room.controller.level > 1 && walls.length > 0) {
-				creep.memory.target = walls[0].id;
-				creep.memory.targetOldHits =  walls[0].hits;
+			//get target if it doesn't have one
+			if (!creep.memory.target) {
+				creep.getTarget();
 			}
 			//if repairer has target retrieve from memory
 			if (creep.memory.target) {
