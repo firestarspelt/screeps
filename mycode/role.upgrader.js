@@ -10,7 +10,7 @@ const roleUpgrader = {
 			creep.say('⚡ upgrade');
 		}
 		if (creep.memory.working) {
-			let control = creep.memory.home.controller);
+			let control = creep.memory.home.controller;
 			if (creep.upgradeController(control) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(control, {range: 3});
 			}
