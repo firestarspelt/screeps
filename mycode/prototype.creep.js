@@ -22,9 +22,9 @@ module.exports = function() {
 		else {
 			switch (this.memory.role) {
 				case "supplier":
-					var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					let energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					if (energySupplies.length) {
-						var energySupply = this.pos.findClosestByRange(energySupplies);
+						let energySupply = this.pos.findClosestByRange(energySupplies);
 						console.log(energySupply);
 						if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 							this.travelTo(energySupply, {ignoreCreeps: false});
@@ -40,7 +40,7 @@ module.exports = function() {
 						var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					} else if (!this.room.storage) {
 						var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					} else {
+					} else if (storage) {
 						var energySupply = storage;
 					}
 					if (!energySupply) {
