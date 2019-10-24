@@ -51,6 +51,7 @@ module.exports = function() {
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
 		let storage = this.room.storage;
 		let ruins = Game.rooms[this.room.name].ruins;
+		let tombstones = Game.rooms[this.room.name].tombstones;
 		switch (this.memory.role) {
 			case "supplier":
 			if (dropedEnergy.length) {
@@ -59,7 +60,10 @@ module.exports = function() {
 					this.travelTo(energySupply, {ignoreCreeps: false});
 				}
 			} else {
-				if (ruins.length) {
+				if (tombstones.length) {
+					var energySupplies = tombstones;
+				}
+				else if (ruins.length) {
 					var energySupplies = ruins;
 				}
 				else {
