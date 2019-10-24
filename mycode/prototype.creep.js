@@ -3,7 +3,7 @@ module.exports = function() {
 	function() {
 		switch (this.memory.role) {
 			case "supplier":
-			let structByType = Game.rooms[creep.room.name].structByType;
+			let structByType = Game.rooms[this.room.name].structByType;
 			let spawns = structByType[STRUCTURE_SPAWN] || [];
 			let extensions = structByType[STRUCTURE_EXTENSION] || [];
 			let towers = structByType[STRUCTURE_TOWER] || [];
