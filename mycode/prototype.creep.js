@@ -22,10 +22,10 @@ module.exports = function() {
 		else {
 			switch (this.memory.role) {
 				case "supplier":
-					console.log('test');
 					var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					if (energySupplies.length > 0) {
 						let energySupply = this.pos.findClosestByRange(energySupplies);
+						console.log(energySupply);
 						if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 							this.travelTo(energySupply, {ignoreCreeps: false});
 						}
