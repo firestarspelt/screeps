@@ -1,13 +1,13 @@
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-var roleRepairer = require('role.repairer');
-var roleSupplier = require('role.supplier');
-var roleSpawner = require('role.spawner');
-var roleTower = require('role.tower');
-var roleRoom = require('role.room');
+const roleHarvester = require('role.harvester');
+const roleUpgrader = require('role.upgrader');
+const roleBuilder = require('role.builder');
+const roleRepairer = require('role.repairer');
+const roleSupplier = require('role.supplier');
+const roleSpawner = require('role.spawner');
+const roleTower = require('role.tower');
+const roleRoom = require('role.room');
 const profiler = require('screeps-profiler');
-var Traveler = require('Traveler');
+const Traveler = require('Traveler');
 global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
@@ -54,7 +54,7 @@ module.exports.loop = function() {
 			let spawner = Game.spawns[name];
 			try {
 				roleSpawner.run(spawner);
-			} catch(err){
+			} catch(err) {
 				console.log('error caused by ' + spawn.name + ' ' + err);
 			}
 		}
