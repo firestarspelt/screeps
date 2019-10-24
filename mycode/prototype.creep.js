@@ -44,6 +44,7 @@ module.exports = function() {
 	}
 	Creep.prototype.getEnergy =
 	function() {
+		//get room vars
 		let resByType = Game.rooms[this.room.name].resByType;
 		let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
 		let structByType = Game.rooms[this.room.name].structByType;
@@ -52,23 +53,28 @@ module.exports = function() {
 		let storage = this.room.storage;
 		let ruins = Game.rooms[this.room.name].ruins;
 		let tombstones = Game.rooms[this.room.name].tombstones;
+		//run based off role
 		switch (this.memory.role) {
-			case "supplier":
+			case "supplier"://if supplier
+			//get dropedEnergy
 			if (dropedEnergy.length) {
 				let energySupply = this.pos.findClosestByRange(dropedEnergy)
 				if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false});
 				}
-			}
+			}//if no dropedEnergy get tombstones with energy
 			else if (tombstones.length) {
 				var energySupplies = tombstones;
 			}
+			//if no tombstones get ruins with energy
 			else if (ruins.length) {
 				var energySupplies = ruins;
 			}
+			//otherwise get containers with energy
 			else {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
+			//if there is a target list find closest and get energy from it
 			if (energySupplies.length) {
 				let energySupply = this.pos.findClosestByRange(energySupplies);
 				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
