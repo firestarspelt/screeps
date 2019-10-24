@@ -1,18 +1,21 @@
 module.exports = function() {
 	Creep.prototype.getTarget =
 	function() {
+		//get room vars
+		let walls = Game.rooms[this.room.name].walls;
+		let infrastructure = Game.rooms[this.room.name].infrastructure;
+		let structByType = Game.rooms[this.room.name].structByType;
+		let spawns = structByType[STRUCTURE_SPAWN] || [];
+		let extensions = structByType[STRUCTURE_EXTENSION] || [];
+		let towers = structByType[STRUCTURE_TOWER] || [];
+		let supplyTargets = (spawns.concat(extensions).concat(towers));
+		let filteredTargets = _.filter(supplyTargets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
+		let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
+		let targetSpawns = this.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 25);
+		let targetExtensions = this.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
+		let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 		switch (this.memory.role) {
 			case "supplier":
-			let structByType = Game.rooms[this.room.name].structByType;
-			let spawns = structByType[STRUCTURE_SPAWN] || [];
-			let extensions = structByType[STRUCTURE_EXTENSION] || [];
-			let towers = structByType[STRUCTURE_TOWER] || [];
-			let supplyTargets = (spawns.concat(extensions).concat(towers));
-			let filteredTargets = _.filter(supplyTargets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
-			let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
-			let targetSpawns = this.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 25);
-			let targetExtensions = this.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
-			let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 			if (targetSpawns.length || targetExtensions.length) {
 				let target = this.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
 				this.memory.target = target.id;
@@ -26,9 +29,6 @@ module.exports = function() {
 			break;
 
 			case "repairer"://if repairer run this
-			//get room vars
-			let walls = Game.rooms[this.room.name].walls;
-			let infrastructure = Game.rooms[this.room.name].infrastructure;
 			//find some infrastructure to repair
 			if (infrastructure.length) {
 				this.memory.target = infrastructure[0].id;
@@ -55,25 +55,21 @@ module.exports = function() {
 		switch (this.memory.role) {
 			case "supplier":
 			if (dropedEnergy.length) {
-				let energySupply = this.pos.findClosestByRange(dropedEnergy);
-				if (this.pickup(energySupply) == ERR_NOT_IN_RANGE) {
+				var energySupplies = dropedEnergy;
+			}
+			else if (tombstones.length) {
+				var energySupplies = tombstones;
+			}
+			else if (ruins.length) {
+				var energySupplies = ruins;
+			}
+			else {
+				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			}
+			if (energySupplies.length) {
+				let energySupply = this.pos.findClosestByRange(energySupplies);
+				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false});
-				}
-			} else {
-				if (tombstones.length) {
-					var energySupplies = tombstones;
-				}
-				else if (ruins.length) {
-					var energySupplies = ruins;
-				}
-				else {
-					var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-				}
-				if (energySupplies.length) {
-					let energySupply = this.pos.findClosestByRange(energySupplies);
-					if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						this.travelTo(energySupply, {ignoreCreeps: false});
-					}
 				}
 			}
 			break;
@@ -82,16 +78,20 @@ module.exports = function() {
 			let energyStorage = containers.push(storage);
 			if (ruins.length) {
 				var energySupplies = ruins;
-			} else if (!energyStorage && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
+			}
+			else if (!energyStorage && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
 				this.mine();
-			} else if (!energyStorage) {
+			}
+			else if (!energyStorage) {
 				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			} else if (!storage) {
+			}
+			else if (!storage) {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			} else if (storage) {
+			}
+			else if (storage) {
 				var energySupply = storage;
 			}
-			if (!energySupply) {
+			else {
 				var energySupply = this.pos.findClosestByRange(energySupplies);
 			}
 			if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
