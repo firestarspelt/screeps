@@ -56,24 +56,7 @@ const roleSupplier = {
 			}
 		}
 		else {
-			let resByType = Game.rooms[creep.room.name].resByType;
-			let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
-			if (dropedEnergy.length > 0) {
-				let target = creep.pos.findClosestByRange(dropedEnergy);
-				if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
-					creep.travelTo(target, {ignoreCreeps: false});
-				}
-			}
-			else {
-				let containers = structByType[STRUCTURE_CONTAINER] || [];
-				let targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, creep.store.getFreeCapacity(RESOURCE_ENERGY)));
-				if (targets.length > 0) {
-					let target = creep.pos.findClosestByRange(targets);
-					if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.travelTo(target, {ignoreCreeps: false});
-					}
-				}
-			}
+			creep.getEnergy();
 		}
 	}
 }
