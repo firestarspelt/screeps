@@ -10,7 +10,6 @@ const roleSupplier = {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
-		let structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
 			//get target and put in memory if it doesn't exist
 			if (!creep.memory.target) {
