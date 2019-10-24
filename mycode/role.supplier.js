@@ -13,7 +13,8 @@ const roleSupplier = {
 		let structByType = Game.rooms[creep.room.name].structByType;
 		if (creep.memory.working) {
 			//get target and put in memory if it doesn't exist
-			if (!creep.memory.target) {
+			console.log(typeof creep.memory.target);
+			if (typeof creep.memory.target !== 'string') {
 				let spawns = structByType[STRUCTURE_SPAWN] || [];
 				let extensions = structByType[STRUCTURE_EXTENSION] || [];
 				let towers = structByType[STRUCTURE_TOWER] || [];
