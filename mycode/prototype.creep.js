@@ -20,35 +20,34 @@ module.exports = function() {
 			}
 		}
 		else {
-			switch (this.memory.role) {
-				case "supplier":
-					let energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					if (energySupplies.length) {
-						let energySupply = this.pos.findClosestByRange(energySupplies);
-						console.log(energySupply);
-						if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-							this.travelTo(energySupply, {ignoreCreeps: false});
-						}
-					}
-					break;
-				default:
-					if (ruins.length) {
-						var energySupplies = ruins;
-					} else if (!energyStorage.length && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
-						this.mine();
-					} else if (!energyStorage.length) {
-						var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					} else if (!this.room.storage) {
-						var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					} else if (storage) {
-						var energySupply = storage;
-					}
-					if (!energySupply) {
-						var energySupply = this.pos.findClosestByRange(energySupplies);
-					}
+			if (this.memory.role == "supplier") {
+				let energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				if (energySupplies.length) {
+					let energySupply = this.pos.findClosestByRange(energySupplies);
+					console.log(energySupply);
 					if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false});
 					}
+				}
+			}
+			else {
+				if (ruins.length) {
+					var energySupplies = ruins;
+				} else if (!energyStorage.length && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
+					this.mine();
+				} else if (!energyStorage.length) {
+					var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				} else if (!this.room.storage) {
+					var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				} else if (storage) {
+					var energySupply = storage;
+				}
+				if (!energySupply) {
+					var energySupply = this.pos.findClosestByRange(energySupplies);
+				}
+				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					this.travelTo(energySupply, {ignoreCreeps: false});
+				}
 			}
 		}
 	}
