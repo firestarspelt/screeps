@@ -34,7 +34,7 @@ const roleSupplier = {
 					creep.memory.target = target.id;
 				}
 			}//get target from memory
-			else if (creep.memory.target) {
+			else if (typeof creep.memory.target === 'string') {
 				let target = Game.getObjectById(creep.memory.target);
 				//if target is full purge from memory
 				if (target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
