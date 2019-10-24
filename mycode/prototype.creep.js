@@ -11,7 +11,6 @@ module.exports = function() {
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
 		let storage = this.room.storage;
-		let energyStorage = containers.push(storage);
 		let ruins = Game.rooms[this.room.name].ruins;
 		if (dropedEnergy.length > 0) {
 			let energySupply = this.pos.findClosestByRange(dropedEnergy);
