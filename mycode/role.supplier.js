@@ -60,8 +60,8 @@ const roleSupplier = {
 			let dropedEnergy = resByType[RESOURCE_ENERGY] || [];
 			if (dropedEnergy.length > 0) {
 				let target = creep.pos.findClosestByRange(dropedEnergy);
-				if (this.pickup(target) == ERR_NOT_IN_RANGE) {
-					this.travelTo(target, {ignoreCreeps: false});
+				if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
+					creep.travelTo(target, {ignoreCreeps: false});
 				}
 			}
 			else {
