@@ -24,13 +24,13 @@ const roleSupplier = {
 				let targetExtensions = creep.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 10);
 				let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 				if (targetSpawns.length || targetExtensions.length) {
-					var target = creep.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
+					let target = creep.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
+					creep.memory.target = target.id;
 				} else if (targetTowers.length) {
-					var target = creep.pos.findClosestByRange(targetTowers);
+					let target = creep.pos.findClosestByRange(targetTowers);
+					creep.memory.target = target.id;
 				} else if (creep.room.storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-					var target = creep.room.storage;
-				}
-				if (target) {
+					let target = creep.room.storage;
 					creep.memory.target = target.id;
 				}
 			}//get target from memory
