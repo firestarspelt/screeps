@@ -22,7 +22,7 @@ module.exports = function() {
 		else {
 			switch (this.memory.role) {
 				case "supplier":
-					let targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					var targets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					if (targets.length > 0) {
 						let target = this.pos.findClosestByRange(targets);
 						if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
