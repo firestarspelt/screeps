@@ -22,9 +22,9 @@ module.exports = function() {
 		else {
 			switch (this.memory.role) {
 				case "supplier":
-					var supplyTargets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-					if (supplyTargets.length > 0) {
-						let target = this.pos.findClosestByRange(supplyTargets);
+					var energySupply = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					if (energySupply.length > 0) {
+						let target = this.pos.findClosestByRange(energySupply);
 						if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 							this.travelTo(target, {ignoreCreeps: false});
 						}
@@ -32,18 +32,18 @@ module.exports = function() {
 					break;
 				default:
 					if (ruins.length) {
-						var supplyTargets = ruins;
+						var energySupply = ruins;
 					} else if (!energyStorage.length && this.pos.findClosestByPath(Game.rooms[this.room.name].sources, { ignoreCreeps: false }) !== null) {
 						this.mine();
 					} else if (!energyStorage.length) {
-						var supplyTargets = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+						var energySupply = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					} else if (!this.room.storage) {
-						var supplyTargets = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+						var energySupply = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 					} else {
 						var target = storage;
 					}
 					if (!target) {
-						var target = this.pos.findClosestByRange(supplyTargets);
+						var target = this.pos.findClosestByRange(energySupply);
 					}
 					if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(target, {ignoreCreeps: false});
