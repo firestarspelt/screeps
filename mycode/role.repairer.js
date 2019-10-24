@@ -7,7 +7,7 @@ const roleRepairer = {
 		if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
 			creep.memory.working = false;
 			creep.say('🔄 refill');
-			// if creep is full
+		// if creep is full
 		} else if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
 			creep.memory.working = true;
 			creep.say('🛠️ repair');
@@ -16,7 +16,6 @@ const roleRepairer = {
 		if (creep.memory.working) {
 			//repair damaged structures on its path
 			let target = creep.room.lookForAt(LOOK_STRUCTURES, creep);
-			//if it won't over repair target repair it
 			if (target.hits < target.hitsMax - creep.memory.workParts * 100) {
 				creep.repair(target);
 			}
@@ -47,7 +46,7 @@ const roleRepairer = {
 						creep.travelTo(target,{ignoreCreeps: false, range: 3});
 					}
 				}
-			}//If nothing to repair run builder code
+			}//If nothing to repair run upgrader code
 			else {
 				roleUpgrader.run(creep);
 			}
