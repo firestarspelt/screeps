@@ -2,7 +2,7 @@ const profiler = require('screeps-profiler');
 const roleSupplier = {
 /** @param {Creep} creep **/
     run: function(creep) {
-	    if (creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()/2) {
+	    if (creep.memory.working && creep.store[RESOURCE_ENERGY] <= creep.store.getCapacity()/2) {
 			creep.memory.working = false;
 			creep.say('🔄 refill');
 		}
