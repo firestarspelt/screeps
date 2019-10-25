@@ -16,12 +16,6 @@ profiler.enable();
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
-		//remove dead creeps memory
-		for (let name in Memory.creeps) {
-			if (!Game.creeps[name]) {
-				delete Memory.creeps[name];
-			}
-		}
 		//iterate through rooms and create the variables
 		for (let name in Game.rooms) {
 			let room = Game.rooms[name];
@@ -75,6 +69,33 @@ module.exports.loop = function() {
 				}
 			} catch(err){
 				console.log('error caused by ' + creep.memory.role + ' ' + (err.stack || err));
+			}
+		}
+		//remove dead creeps memory
+		for (let name in Memory.creeps) {
+			if (!Game.creeps[name]) {
+				let creep = Memory.creeps[name];
+				let room = Game.rooms[creep.home];
+				switch (creep.role) {
+					case "harvester":
+						--room.memory.harvesters;
+						break;
+					case "upgrader":
+						--room.memory.upgraders;
+						break;
+					case "builder":
+						--room.memory.builders;
+						break;
+					case "repairer":
+						--room.memory.repairers;
+						break;
+					case "supplier":
+						--room.memory.suppliers;
+						break;
+					case "claimer":
+						--room.memory.claimers;
+				}
+				delete Memory.creeps[name];
 			}
 		}
 	});
