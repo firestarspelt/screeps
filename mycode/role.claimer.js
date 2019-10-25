@@ -1,7 +1,7 @@
 const profiler = require('screeps-profiler');
 const roleClaimer = {
 	run: function (creep) {
-		for (let name on Game.flags) {
+		for (let name in Game.flags) {
 			let flag = Game.flags[name];
 			if (flag.name.includes("Reserve") || flag.name.includes("Claim")) {
 				creep.memory.target = flag.id;
