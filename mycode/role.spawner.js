@@ -62,7 +62,7 @@ const roleSpawner = {
 		} else if ((energyAvail >= 300 && spawner.memory.timeSinceSpawn >= 100) || energyAvail == maxEnergy) {
 			if (harvesters.length < 2) {
 				spawnNew(energyAvail, 'harvester', spawner);
-			} else if (suppliers.length < 2 && containers.length > 0) {
+			} else if (suppliers.length < 4 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
 			} else if (repairers.length < 2) {
 				spawnNew(energyAvail, 'repairer', spawner);
