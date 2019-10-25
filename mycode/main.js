@@ -63,6 +63,9 @@ module.exports.loop = function() {
 						case "supplier":
 							roleSupplier.run(creep);
 							break;
+						case "claimer":
+							roleClaimer.run(creep);
+							break;
 						default:
 							console.log('error caused by ' + creep.name + " has no role or it's role isn't run");
 					}
