@@ -64,11 +64,11 @@ const roleSpawner = {
 				spawnNew(energyAvail, 'harvester', spawner);
 			} else if (suppliers.length < 4 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
-			} else if (repairers.length < 2) {
+			} else if (repairers.length < 1) {
 				spawnNew(energyAvail, 'repairer', spawner);
 			} else if (upgraders.length < 1) {
 				spawnNew(energyAvail, 'upgrader', spawner);
-			} else if (builders.length < 2) {
+			} else if (builders.length < 1) {
 				spawnNew(energyAvail, 'builder', spawner);
 			}
 		}
