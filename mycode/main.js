@@ -1,20 +1,30 @@
-const roleHarvester = require('role.harvester');
-const roleUpgrader = require('role.upgrader');
-const roleBuilder = require('role.builder');
-const roleRepairer = require('role.repairer');
-const roleSupplier = require('role.supplier');
-const roleSpawner = require('role.spawner');
-const roleTower = require('role.tower');
-const roleRoom = require('role.room');
+var roleHarvester = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
+var roleBuilder = require('role.builder');
+var roleRepairer = require('role.repairer');
+var roleSupplier = require('role.supplier');
+var roleSpawner = require('role.spawner');
+var roleTower = require('role.tower');
+var roleRoom = require('role.room');
 const profiler = require('screeps-profiler');
-const Traveler = require('Traveler');
+var Traveler = require('Traveler');
+global.lastMemoryTick = undefined;
 require('prototype.spawn') ();
 require('prototype.creep') ();
-require('prototype.source') ();
-require('mem_hack') ();
 profiler.enable();
+function tryInitSameMemory() {
+    if (lastMemoryTick && global.LastMemory && Game.time == (lastMemoryTick + 1)) {
+        delete global.Memory;
+        global.Memory = global.LastMemory;
+        RawMemory._parsed = global.LastMemory;
+    } else {
+        Memory;
+        global.LastMemory = RawMemory._parsed;
+    }
+    lastMemoryTick = Game.time;
+}
 module.exports.loop = function() {
-	global.mem_hack();
+	//tryInitSameMemory();
 	profiler.wrap(function() {
 		//remove dead creeps memory
 		for (let name in Memory.creeps) {
@@ -44,7 +54,7 @@ module.exports.loop = function() {
 			let spawner = Game.spawns[name];
 			try {
 				roleSpawner.run(spawner);
-			} catch(err) {
+			} catch(err){
 				console.log('error caused by ' + spawn.name + ' ' + err);
 			}
 		}
@@ -74,7 +84,7 @@ module.exports.loop = function() {
 					}
 				}
 			} catch(err){
-				console.log('error caused by ' + creep.memory.role + ' ' + (err.stack || err));
+				console.log('error caused by ' + creep.memory.role + ' ' + err);
 			}
 		}
 	});
