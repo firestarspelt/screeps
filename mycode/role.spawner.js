@@ -81,10 +81,10 @@ const roleSpawner = {
 					++spawner.room.memory.builders;
 				}
 			} else if (spawner.room.memory.claimers < 1) {
-				if (spawner.spawnCreep == OK ){
+
 				spawner.spawnCreep([ CLAIM , MOVE ], (spawner.name + ' claimer ' + Game.time), {memory: {role: 'claimer', moveParts: 1, totalParts: 2, home: spawner.room.name}});
 
-
+				if (spawner.spawnCreep == OK ){
 					++spawner.room.memory.claimers;
 				}
 			}
