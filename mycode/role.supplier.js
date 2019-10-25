@@ -6,7 +6,7 @@ const roleSupplier = {
 			creep.memory.working = false;
 			creep.say('🔄 refill');
 		}
-		if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
+		if (!creep.memory.working && creep.store[RESOURCE_ENERGY] >= creep.store.getCapacity()/2) {
 			creep.memory.working = true;
 			creep.say('⚡ supply');
 	    }
