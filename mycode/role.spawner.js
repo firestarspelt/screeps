@@ -9,7 +9,7 @@ function spawnNew(energyAvail, roleName, spawner) {
 	if (roleName == 'supplier') {
 		return spawner.spawnSupplier(energyAvail, newName);
 	} else if (roleName == 'harvester') {
-		var structByType = Game.rooms[spawner.room.name].structByType;
+		var structByType = spawner.room.structByType;
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		if (containers.length == 0) {
 			return spawner.spawnHarvester(energyAvail, newName);
@@ -23,7 +23,7 @@ function spawnNew(energyAvail, roleName, spawner) {
 /** @param {Room} room**/
 function spawnCreepsIfNecessary(room) {
 	/** @type {Array<Creep>} */
-	let creepsInRoom = Game.rooms[spawner.room.name].myCreeps;
+	let creepsInRoom = spawner.room.myCreeps;
 	/** @type {Object<string, number>} */
 	let numberOfCreeps = {};
 	for (let role of listOfRoles) {
@@ -35,9 +35,9 @@ const roleSpawner = {
 	run: function(spawner) {
 		/*Gets count of creeps with each role in the room of the spawn,
 		and energy available to spawn with and get time since last spawn*/
-		var creeps = Game.rooms[spawner.room.name].myCreeps;
+		var creeps = spawner.room.myCreeps;
 		var creepsByRole = _.groupBy(creeps, 'memory.role');
-		var structByType = Game.rooms[spawner.room.name].structByType;
+		var structByType = spawner.room.structByType;
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var harvesters = creepsByRole['harvester'] || [];
 		var builders = creepsByRole['builder'] || [];
@@ -62,7 +62,7 @@ const roleSpawner = {
 		} else if ((energyAvail >= 300 && spawner.memory.timeSinceSpawn >= 100) || energyAvail == maxEnergy) {
 			if (harvesters.length < 2) {
 				spawnNew(energyAvail, 'harvester', spawner);
-			} else if (suppliers.length < 2 && containers.length > 0) {
+			} else if (suppliers.length < 4 && containers.length > 0) {
 				spawnNew(energyAvail, 'supplier', spawner);
 			} else if (repairers.length < 2) {
 				spawnNew(energyAvail, 'repairer', spawner);
