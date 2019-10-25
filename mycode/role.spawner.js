@@ -60,16 +60,30 @@ const roleSpawner = {
 			/*If 300 energy or more energy spawn a new creep
 			if there are less than I want of a certain role*/
 		} else if ((energyAvail >= 300 && spawner.memory.timeSinceSpawn >= 100) || energyAvail == maxEnergy) {
-			if (harvesters.length < 2) {
-				spawnNew(energyAvail, 'harvester', spawner);
-			} else if (suppliers.length < 4 && containers.length > 0) {
-				spawnNew(energyAvail, 'supplier', spawner);
-			} else if (repairers.length < 1) {
-				spawnNew(energyAvail, 'repairer', spawner);
-			} else if (upgraders.length < 1) {
-				spawnNew(energyAvail, 'upgrader', spawner);
-			} else if (builders.length < 1) {
-				spawnNew(energyAvail, 'builder', spawner);
+			if (spawner.room.memory.harvesters < 2) {
+				if (spawnNew(energyAvail, 'harvester', spawner) == OK) {
+					++spawner.room.memory.harvesters;
+				}
+			} else if (spawner.room.memory.suppliers < 4 && containers.length > 0) {
+				if (spawnNew(energyAvail, 'supplier', spawner) == OK) {
+					++spawner.room.memory.suppliers;
+				}
+			} else if (spawner.room.memory.repairers < 1) {
+				if (spawnNew(energyAvail, 'repairer', spawner) == OK) {
+					++spawner.room.memory.repairers;
+				}
+			} else if (spawner.room.memory.upgraders < 1) {
+				if (spawnNew(energyAvail, 'upgrader', spawner) == OK) {
+					++spawner.room.memory.upgraders;
+				}
+			} else if (spawner.room.memory.builders < 1) {
+				if (spawnNew(energyAvail, 'builder', spawner) == OK) {
+					++spawner.room.memory.builders;
+				}
+			} else if (spawner.room.memory.claimers < 1) {
+				if (spawner.spawnCreep([CLAIM,MOVE], (spawner.name + ' claimer ' + Game.time), {memory: {role: 'claimer', moveParts: 1, totalParts: 2, home: spawner.room.name}}) == OK) {
+					++spawner.room.memory.claimers;
+				}
 			}
 		}
 	}
