@@ -1,4 +1,4 @@
-const roleRepairer = require('role.repairer');
+const roleUpgrader = require('role.upgrader');
 const profiler = require('screeps-profiler');
 const roleBuilder = {
 	/** @param {Creep} creep **/
