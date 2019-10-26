@@ -4,7 +4,7 @@ const roleClaimer = {
 		for (let name in Game.flags) {
 			let flag = Game.flags[name];
 			if (flag.name.includes("Reserve") || flag.name.includes("Claim")) {
-				creep.memory.target = flag.id;
+				creep.memory.target = flag.name;
 				break;
 			}
 		}
