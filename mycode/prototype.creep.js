@@ -94,7 +94,7 @@ module.exports = function() {
 			else if (energyStorage.length == 0) {
 				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
-			else if (!storage) {
+			else if (containers.length > 0) {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
 			else if (storage) {
