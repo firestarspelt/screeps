@@ -35,18 +35,15 @@ const roleSpawner = {
 	run: function(spawner) {
 		/*Gets count of creeps with each role in the room of the spawn,
 		and energy available to spawn with and get time since last spawn*/
-		var creeps = spawner.room.myCreeps;
-		var creepsByRole = _.groupBy(creeps, 'memory.role');
 		var structByType = spawner.room.structByType;
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
-		var harvesters = creepsByRole['harvester'] || [];
-		var builders = creepsByRole['builder'] || [];
-		var upgraders = creepsByRole['upgrader'] || [];
-		var repairers = creepsByRole['repairer'] || [];
-		var suppliers = creepsByRole['supplier'] || [];
-		var claimers = creepsByRole['claimer'] || [];
 		var energyAvail = spawner.room.energyAvailable;
 		var maxEnergy = spawner.room.energyCapacityAvailable;
+		spawner.room.memory.harvesters;
+		spawner.room.memory.suppliers;
+		spawner.room.memory.repairers;
+		spawner.room.memory.upgraders;
+		spawner.room.memory.builders;
 		++spawner.memory.timeSinceSpawn;
 		/*If spawning show next to spawner what role is being spawned,
 		as well as prevent from trying to spawn a new creep while it is already spawning*/
