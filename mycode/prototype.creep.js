@@ -65,7 +65,7 @@ module.exports = function() {
 				if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 				}
-				if (this.store.getFreeCapacity() > 0) {
+				else {
 					energySupply = this.pos.findClosestByRange(containers);
 					this.withdraw(energySupply, RESOURCE_ENERGY);
 				}
