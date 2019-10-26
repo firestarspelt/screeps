@@ -39,11 +39,20 @@ const roleSpawner = {
 		var containers = structByType[STRUCTURE_CONTAINER] || [];
 		var energyAvail = spawner.room.energyAvailable;
 		var maxEnergy = spawner.room.energyCapacityAvailable;
-		spawner.room.memory.harvesters;
-		spawner.room.memory.suppliers;
-		spawner.room.memory.repairers;
-		spawner.room.memory.upgraders;
-		spawner.room.memory.builders;
+		if (!spawner.room.memory.harvesters){
+			var creeps = spawner.room.myCreeps;
+			var creepsByRole = _.groupBy(creeps, 'memory.role');
+			var harvesters = creepsByRole['harvester'] || [];
+			var builders = creepsByRole['builder'] || [];
+			var upgraders = creepsByRole['upgrader'] || [];
+			var repairers = creepsByRole['repairer'] || [];
+			var suppliers = creepsByRole['supplier'] || [];
+			spawner.room.memory.harvesters = harvesters.length;
+			spawner.room.memory.suppliers = suppliers.length;
+			spawner.room.memory.repairers = repairers.length;
+			spawner.room.memory.upgraders = upgraders.length;
+			spawner.room.memory.builders = builders.length;
+		}
 		++spawner.memory.timeSinceSpawn;
 		/*If spawning show next to spawner what role is being spawned,
 		as well as prevent from trying to spawn a new creep while it is already spawning*/
