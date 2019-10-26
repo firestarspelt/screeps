@@ -11,9 +11,8 @@ const roleBuilder = {
 			creep.memory.working = true;
 			creep.say('🚧 build');
 		}
-creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
 		//if working
-		if ( false && creep.memory.working) {
+		if (creep.memory.working) {
 			//get room vars
 			var constuctByType = creep.room.constuctByType;
 			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
@@ -42,7 +41,11 @@ creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
 			}
 		}//if no energy get some
 		else {
-			//creep.getEnergy();
+			if (creep.room.name == 'E8N26') {
+				creep.getEnergy();
+			} else {
+				creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
+			}
 		}
 	}
 }
