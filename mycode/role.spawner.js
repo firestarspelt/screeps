@@ -83,7 +83,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'upgrader', spawner) == OK) {
 					++spawner.room.memory.upgraders;
 				}
-			} else if (spawner.room.memory.builders < 1) {
+			} else if (spawner.room.memory.builders < 2) {
 				if (spawnNew(energyAvail, 'builder', spawner) == OK) {
 					++spawner.room.memory.builders;
 				}
