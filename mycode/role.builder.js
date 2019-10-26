@@ -41,11 +41,7 @@ const roleBuilder = {
 			}
 		}//if no energy get some
 		else {
-			if (creep.room.name == 'E8N26') {
-				creep.getEnergy();
-			} else {
-				creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
-			}
+			creep.getEnergy();
 		}
 	}
 }
