@@ -12,6 +12,7 @@ module.exports = function() {
 		let filteredTargets = _.filter(supplyTargets, (s) => (s.store.getFreeCapacity(RESOURCE_ENERGY) > 0));
 		let targetsByType = _.groupBy(filteredTargets, (s) => s.structureType);
 		let targetSpawns = this.pos.findInRange(targetsByType[STRUCTURE_SPAWN], 25);
+		let storage = this.room.storage || [];
 		let targetExtensions = this.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
 		let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 		switch (this.memory.role) {
@@ -22,7 +23,7 @@ module.exports = function() {
 			} else if (targetTowers.length) {
 				let target = this.pos.findClosestByRange(targetTowers);
 				this.memory.target = target.id;
-			} else if (this.room.storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+			} else if (storage.store.getFreeCapacity(RESOURCE_ENERGY)) {
 				let target = this.room.storage;
 				this.memory.target = target.id;
 			}
