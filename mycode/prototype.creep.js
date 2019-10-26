@@ -65,6 +65,10 @@ module.exports = function() {
 				if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 				}
+				else {
+					energySupply = this.pos.findClosestByRange(containers);
+					this.withdraw(energySupply, RESOURCE_ENERGY);
+				}
 			}//if no dropedEnergy get tombstones with energy
 			else if (tombstones.length) {
 				var energySupplies = tombstones;
