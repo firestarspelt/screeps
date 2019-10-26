@@ -53,7 +53,7 @@ module.exports = function() {
 		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
-		let storage = this.room.storage || [];
+		let storage = this.room.storage;
 		let ruins = this.room.ruins;
 		let tombstones = this.room.tombstones;
 		//run based off role
@@ -87,24 +87,22 @@ module.exports = function() {
 			break;
 
 			default:
-			let energyStorage = containers.push(storage);
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
 			else if (containers.length) {
-				console.log(containers);
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			}
-			else if (energyStorage.length && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
-				this.mine();
-			}
-			else if (energyStorage.length) {
-				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
 			else if (storage) {
 				var energySupply = storage;
 			}
-			if (!energySupply) {
+			else if ((!containers && !storage) && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
+				this.mine();
+			}
+			else if (spawns) {
+				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			}
+			if (energySupplies) {
 				var energySupply = this.pos.findClosestByRange(energySupplies);
 			}
 			if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
