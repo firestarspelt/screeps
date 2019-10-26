@@ -98,7 +98,7 @@ module.exports.loop = function() {
 						break;
 					case "claimer":
 						--room.memory.claimers;
-						break;
+
 				}
 				delete Memory.creeps[name];
 			}

@@ -81,7 +81,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'builder', spawner) == OK) {
 					++spawner.room.memory.builders;
 				}
-			} else if (spawner.room.memory.claimers < 1) {console.log(fuckzuler1);
+			} else if (spawner.room.memory.claimers < 1) {
 
 				spawner.spawnCreep([ CLAIM , MOVE ], (spawner.name + ' claimer ' + Game.time), {memory: {role: 'claimer', moveParts: 1, totalParts: 2, home: spawner.room.name}});
 				if(spawner.spawnCreep == OK){
