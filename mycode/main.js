@@ -3,6 +3,7 @@ const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleRepairer = require('role.repairer');
 const roleSupplier = require('role.supplier');
+const roleClaimer = require('role.claimer');
 const roleSpawner = require('role.spawner');
 const roleTower = require('role.tower');
 const roleRoom = require('role.room');
