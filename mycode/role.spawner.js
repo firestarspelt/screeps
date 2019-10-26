@@ -44,6 +44,7 @@ const roleSpawner = {
 		var upgraders = creepsByRole['upgrader'] || [];
 		var repairers = creepsByRole['repairer'] || [];
 		var suppliers = creepsByRole['supplier'] || [];
+		var claimers = creepsByRole['claimer'] || [];
 		var energyAvail = spawner.room.energyAvailable;
 		var maxEnergy = spawner.room.energyCapacityAvailable;
 		++spawner.memory.timeSinceSpawn;
