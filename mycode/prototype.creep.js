@@ -85,14 +85,14 @@ module.exports = function() {
 
 			default:
 			let energyStorage = containers.push(storage);
-			console.log(energyStorage.length);
+			console.log(energyStorage);
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
-			else if (energyStorage.length == 0 && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
+			else if (energyStorage && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
 				this.mine();
 			}
-			else if (energyStorage.length == 0) {
+			else if (energyStorage) {
 				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
 			else if (containers.length > 0) {
