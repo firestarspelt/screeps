@@ -91,11 +91,11 @@ module.exports = function() {
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
-			else if (energyStorage && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
-				this.mine();
-			}
 			else if (containers.length) {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			}
+			else if (energyStorage.length && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
+				this.mine();
 			}
 			else if (energyStorage.length) {
 				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
