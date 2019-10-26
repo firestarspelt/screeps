@@ -9,6 +9,7 @@ const roleClaimer = {
 			}
 		}
 		let target = Game.getObjectById(creep.memory.target);
+		console.log(fuckzuler);
 		creep.travelTo(target);
 		if (target.name.includes("Reserve")) {
 			creep.reserveController(target);
