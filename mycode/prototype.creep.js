@@ -100,7 +100,7 @@ module.exports = function() {
 			else if (storage) {
 				var energySupply = storage;
 			}
-			else {
+			if (!energySupply) {
 				var energySupply = this.pos.findClosestByRange(energySupplies);
 			}
 			if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
