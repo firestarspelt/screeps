@@ -23,9 +23,11 @@ module.exports = function() {
 			} else if (targetTowers.length) {
 				let target = this.pos.findClosestByRange(targetTowers);
 				this.memory.target = target.id;
-			} else if (storage.store.getFreeCapacity(RESOURCE_ENERGY)) {
-				let target = this.room.storage;
-				this.memory.target = target.id;
+			} else if (storage) {
+				if (storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+					let target = storage;
+					this.memory.target = target.id;
+				}
 			}
 			break;
 
@@ -92,10 +94,10 @@ module.exports = function() {
 			else if (energyStorage && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
 				this.mine();
 			}
-			else if (containers) {
+			else if (containers.length) {
 				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
-			else if (energyStorage) {
+			else if (energyStorage.length) {
 				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
 			else if (storage) {
