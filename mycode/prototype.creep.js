@@ -71,8 +71,8 @@ module.exports = function() {
 				var energySupplies = ruins;
 			}
 			//otherwise get containers with energy
-			else {
-				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+			if (!energySupply) {
+				var energySupply = this.pos.findClosestByRange(energySupplies);
 			}
 			//if there is a target list find closest and get energy from it
 			if (energySupplies) {
