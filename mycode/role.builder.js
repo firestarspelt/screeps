@@ -11,7 +11,7 @@ const roleBuilder = {
 			creep.memory.working = true;
 			creep.say('🚧 build');
 		}
-creep.moveTo(new RoomPosition( 40, 5, 'E8N26'))
+creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
 		//if working
 		if (creep.memory.working) {
 			//get room vars
