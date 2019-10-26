@@ -92,7 +92,8 @@ module.exports = function() {
 				var energySupplies = ruins;
 			}
 			else if (containers.length) {
-				var energySupplies = _.filter(containers, (s) => s.store.getUsedCapacity([RESOURCE_ENERGY]) >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				console.log(containers);
+				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 			}
 			else if (energyStorage.length && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
 				this.mine();
