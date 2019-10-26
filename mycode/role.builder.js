@@ -42,7 +42,7 @@ creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
 			}
 		}//if no energy get some
 		else {
-			creep.getEnergy();
+			//creep.getEnergy();
 		}
 	}
 }
