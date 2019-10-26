@@ -23,7 +23,7 @@ module.exports = function() {
 			} else if (targetTowers.length) {
 				let target = this.pos.findClosestByRange(targetTowers);
 				this.memory.target = target.id;
-			} else if (storage.length) {
+			} else if (storage) {
 				if (storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
 					let target = storage;
 					this.memory.target = target.id;
