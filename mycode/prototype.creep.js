@@ -88,7 +88,7 @@ module.exports = function() {
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
-			else if (energyStorage.length == 0 && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false }) != null) {
+			else if (energyStorage.length == 0 && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
 				this.mine();
 			}
 			else if (energyStorage.length == 0) {
