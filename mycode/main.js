@@ -15,7 +15,7 @@ require('prototype.source') ();
 require('mem_hack') ();
 profiler.enable();
 module.exports.loop = function() {
-	Game.creeps['nou big spawn builder 11982490'].moveTo(new RoomPosition( 40, 5, 'E8N26'))
+	Game.creeps['nou big spawn builder'].moveTo(new RoomPosition( 40, 5, 'E8N26'))
 	global.mem_hack();
 	profiler.wrap(function() {
 		//iterate through rooms and create the variables
