@@ -85,7 +85,6 @@ module.exports = function() {
 
 			default:
 			let energyStorage = containers.push(storage);
-			console.log(energyStorage);
 			if (ruins.length) {
 				var energySupplies = ruins;
 			}
