@@ -13,7 +13,7 @@ const roleBuilder = {
 		}
 creep.travelTo(new RoomPosition( 40, 5, 'E8N26'))
 		//if working
-		if (creep.memory.working) {
+		if ( false && creep.memory.working) {
 			//get room vars
 			var constuctByType = creep.room.constuctByType;
 			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
