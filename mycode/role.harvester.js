@@ -13,12 +13,12 @@ const roleHarvester = {
 			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
 				creep.mine();
 			} else if (creep.store[RESOURCE_ENERGY] > 0) {
-				var structByType = creep.room.structByType;
-				var containers = structByType[STRUCTURE_CONTAINER] || [];
-				var spawns = structByType[STRUCTURE_SPAWN] || [];
-				var targets = containers.concat(spawns);
+				let structByType = creep.room.structByType;
+				let containers = structByType[STRUCTURE_CONTAINER] || [];
+				let spawns = structByType[STRUCTURE_SPAWN] || [];
+				let targets = containers.concat(spawns);
 				if (targets.length > 0) {
-					var target = creep.pos.findClosestByRange(targets, {filter: (s) => s.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
+					let target = creep.pos.findClosestByRange(targets, {filter: (s) => s.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target);
 					}
