@@ -17,54 +17,54 @@ module.exports = function() {
 		let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 		switch (this.memory.role) {
 			case "supplier":
-			if (targetSpawns.length || targetExtensions.length) {
-				let target = this.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
-				this.memory.target = target.id;
-			} else if (targetTowers.length) {
-				let target = this.pos.findClosestByRange(targetTowers);
-				this.memory.target = target.id;
-			} else if (storage) {
-				if (storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-					let target = storage;
+				if (targetSpawns.length || targetExtensions.length) {
+					let target = this.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
 					this.memory.target = target.id;
+				} else if (targetTowers.length) {
+					let target = this.pos.findClosestByRange(targetTowers);
+					this.memory.target = target.id;
+				} else if (storage) {
+					if (storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+						let target = storage;
+						this.memory.target = target.id;
+					}
 				}
-			}
-			break;
+				break;
 
 			case "repairer"://if repairer run this
-			//find some infrastructure to repair
-			if (infrastructure.length) {
-				this.memory.target = infrastructure[0].id;
-				this.memory.targetOldHits = infrastructure[0].hits;
+				//find some infrastructure to repair
+				if (infrastructure.length) {
+					this.memory.target = infrastructure[0].id;
+					this.memory.targetOldHits = infrastructure[0].hits;
+					break;
+				}
+				//if repairer still doesn't have a target and walls are repairable, find a wall to repair
+				if (this.room.controller.level > 1 && walls.length) {
+					this.memory.target = walls[0].id;
+					this.memory.targetOldHits =  walls[0].hits;
+				}
 				break;
-			}
-			//if repairer still doesn't have a target and walls are repairable, find a wall to repair
-			if (this.room.controller.level > 1 && walls.length) {
-				this.memory.target = walls[0].id;
-				this.memory.targetOldHits =  walls[0].hits;
-			}
-			break;
 
 			case "claimer":
-			flagTarget: {
-				let reserve = global.flagsByType['reserve'] || [];
-				for (let name in reserve) {
-					if (Game.flags[name].memory.claimers == 0) {
-						creep.memory.target = name;
-						++Game.flags[name].memory.claimers;
-						break flagTarget;
+				flagTarget: {
+					let reserve = global.flagsByType['reserve'] || [];
+					for (let name in reserve) {
+						if (Game.flags[name].memory.claimers == 0) {
+							creep.memory.target = name;
+							++Game.flags[name].memory.claimers;
+							break flagTarget;
+						}
+					}
+					let claim = global.flagsByType['claim'] || [];
+					for (let name in claim) {
+						if (Game.flags[name].memory.claimers == 0) {
+							creep.memory.target = name;
+							++Game.flags[name].memory.claimers;
+							break flagTarget;
+						}
 					}
 				}
-				let claim = global.flagsByType['claim'] || [];
-				for (let name in claim) {
-					if (Game.flags[name].memory.claimers == 0) {
-						creep.memory.target = name;
-						++Game.flags[name].memory.claimers;
-						break flagTarget;
-					}
-				}
-			}
-			break;
+				break;
 		}
 	}
 	Creep.prototype.getEnergy =
