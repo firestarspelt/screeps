@@ -49,7 +49,7 @@ module.exports = function() {
 				flagTarget: {
 					let reserve = global.flagsByType['reserve'] || [];
 					for (let name in reserve) {
-						if (Game.flags[name].memory.claimers == 0) {
+						if (!Game.flags[name].memory.claimers || Game.flags[name].memory.claimers == 0) {
 							creep.memory.target = name;
 							++Game.flags[name].memory.claimers;
 							break flagTarget;
@@ -57,7 +57,7 @@ module.exports = function() {
 					}
 					let claim = global.flagsByType['claim'] || [];
 					for (let name in claim) {
-						if (Game.flags[name].memory.claimers == 0) {
+						if (!Game.flags[name].memory.claimers || Game.flags[name].memory.claimers == 0) {
 							creep.memory.target = name;
 							++Game.flags[name].memory.claimers;
 							break flagTarget;
