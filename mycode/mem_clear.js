@@ -6,24 +6,39 @@ const mem_clear = {
 				let creep = Memory.creeps[name];
 				let room = Game.rooms[creep.home];
 				switch (creep.role) {
-					case "harvester":
+					case "harvester": {
 						--room.memory.harvesters;
 						break;
-					case "upgrader":
+					}
+					case "upgrader": {
 						--room.memory.upgraders;
 						break;
-					case "builder":
+					}
+					case "builder": {
 						--room.memory.builders;
+						if (creep.flag) {
+							--Game.flags[creep.flag].memory.builders;
+						}
 						break;
-					case "repairer":
+					}
+					case "repairer": {
 						--room.memory.repairers;
+						if (creep.flag) {
+							--Game.flags[creep.flag].memory.repairers;
+						}
 						break;
-					case "supplier":
+					}
+					case "supplier": {
 						--room.memory.suppliers;
 						break;
-					case "claimer":
+					}
+					case "claimer": {
 						--room.memory.claimers;
-						--Game.flags[creep.target].memory.claimers;
+						if (creep.flag) {
+							--Game.flags[creep.flag].memory.claimers;
+						}
+						break;
+					}
 				}
 				delete Memory.creeps[name];
 			}
