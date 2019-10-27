@@ -84,7 +84,7 @@ module.exports = function() {
 				//otherwise build closest construction site
 				else {
 					targets = this.room.constuctSites;
-					if (targets) {
+					if (targets.length) {
 						this.memory.target = this.pos.findClosestByRange(targets).id;
 					}
 				}
