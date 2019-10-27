@@ -19,9 +19,11 @@ const roleBuilder = {
 			}
 			//get target from memory
 			let target = Game.getObjectById(creep.memory.target);
+			//if target not valid clear from memory
 			if (!target) {
 				delete creep.memory.target;
 			}
+			//get flag from memory
 			let flag = Game.flags[creep.memory.flag];
 			if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
 				creep.travelTo(flag);
