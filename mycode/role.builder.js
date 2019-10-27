@@ -16,7 +16,10 @@ const roleBuilder = {
 			//get target
 			creep.getTarget();
 			//get target from memory
-			let target = Game.getObjectById(this.memory.target);
+			let target;
+			if (this.memory.target) {
+				target = Game.getObjectById(this.memory.target);
+			}
 			let flag = Game.flags[creep.memory.flag];
 			//if nothing to build run upgrader code
 			if (!target && !flag) {
