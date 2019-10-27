@@ -16,22 +16,23 @@ module.exports = function() {
 		let targetExtensions = this.pos.findInRange(targetsByType[STRUCTURE_EXTENSION], 20);
 		let targetTowers = targetsByType[STRUCTURE_TOWER] || [];
 		switch (this.memory.role) {
-			case "supplier":
+			case "supplier": {
+				let target;
 				if (targetSpawns.length || targetExtensions.length) {
-					let target = this.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
+					target = this.pos.findClosestByRange(targetSpawns.concat(targetExtensions));
 					this.memory.target = target.id;
 				} else if (targetTowers.length) {
-					let target = this.pos.findClosestByRange(targetTowers);
+					target = this.pos.findClosestByRange(targetTowers);
 					this.memory.target = target.id;
 				} else if (storage) {
 					if (storage.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-						let target = storage;
+						target = storage;
 						this.memory.target = target.id;
 					}
 				}
 				break;
-
-			case "repairer"://if repairer run this
+			}
+			case "repairer": {//if repairer run this
 				//find some infrastructure to repair
 				if (infrastructure.length) {
 					this.memory.target = infrastructure[0].id;
@@ -44,8 +45,8 @@ module.exports = function() {
 					this.memory.targetOldHits =  walls[0].hits;
 				}
 				break;
-
-			case "claimer":
+			}
+			case "claimer": {
 				flagTarget: {
 					let reserve = global.flagsByType['reserve'] || [];
 					for (let flag of reserve) {
@@ -65,6 +66,7 @@ module.exports = function() {
 					}
 				}
 				break;
+			}
 		}
 	}
 	Creep.prototype.getEnergy =
