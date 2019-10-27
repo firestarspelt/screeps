@@ -69,7 +69,7 @@ module.exports = function() {
 			}
 			case "builder": {
 				//get room vars
-				let constuctByType = creep.room.constuctByType;
+				let constuctByType = this.room.constuctByType;
 				let containers = constuctByType[STRUCTURE_CONTAINER] || [];
 				let extensions = constuctByType[STRUCTURE_EXTENSION] || [];
 				let targets;
