@@ -30,21 +30,21 @@ module.exports = function() {
 						this.memory.target = target.id;
 					}
 				}
-				break;
+				return;
 			}
 			case "repairer": {//if repairer run this
 				//find some infrastructure to repair
 				if (infrastructure.length) {
 					this.memory.target = infrastructure[0].id;
 					this.memory.targetOldHits = infrastructure[0].hits;
-					break;
+					return;
 				}
 				//if repairer still doesn't have a target and walls are repairable, find a wall to repair
 				if (this.room.controller.level > 1 && walls.length) {
 					this.memory.target = walls[0].id;
 					this.memory.targetOldHits =  walls[0].hits;
 				}
-				break;
+				return;
 			}
 			case "claimer": {
 				flagTarget: {
@@ -65,7 +65,7 @@ module.exports = function() {
 						}
 					}
 				}
-				break;
+				return;
 			}
 			case "builder": {
 				//get room vars
