@@ -31,7 +31,7 @@ const roleBuilder = {
 				creep.travelTo(flag);
 			}
 			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
-				creep.travelTo(target, {ignoreCreeps: false});
+				creep.travelTo(target, {ignoreCreeps: false, range: 3});
 			}
 		}//if no energy get some
 		else {
