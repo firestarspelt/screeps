@@ -51,7 +51,7 @@ module.exports = function() {
 					let reserve = global.flagsByType['reserve'] || [];
 					for (let flag of reserve) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.target = flag.name;
+							this.memory.flag = flag.name;
 							++flag.memory.claimers;
 							break flagTarget;
 						}
@@ -59,8 +59,39 @@ module.exports = function() {
 					let claim = global.flagsByType['claim'] || [];
 					for (let flag of claim) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.target = flag.name;
+							this.memory.flag = flag.name;
 							++flag.memory.claimers;
+							break flagTarget;
+						}
+					}
+				}
+				break;
+			}
+			case "builder": {
+				//get room vars
+				let constuctByType = creep.room.constuctByType;
+				let containers = constuctByType[STRUCTURE_CONTAINER] || [];
+				let extensions = constuctByType[STRUCTURE_EXTENSION] || [];
+				let targets;
+				//if there are containers to build, build them
+				if (containers.length) {
+					this.memory.target = this.pos.findClosestByRange(containers).id;
+				}
+				//otherwise if there are extensions to build, build them
+				else if (extensions.length) {
+					this.memory.target = this.pos.findClosestByRange(extensions).id;
+				}
+				//otherwise build closest construction site
+				else {
+					targets = this.room.constuctSites;
+					this.memory.target = this.pos.findClosestByRange(targets).id;
+				}
+				flagTarget: {
+					let maintain = global.flagsByType['maintain'] || [];
+					for (let flag of maintain) {
+						if (!flag.memory.builders || flag.memory.builders == 0) {
+							this.memory.flag = flag.name;
+							++flag.memory.builders;
 							break flagTarget;
 						}
 					}
