@@ -110,7 +110,7 @@ module.exports = function() {
 		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
-		let storage = this.room.storage || [];
+		let storage = this.room.storage;
 		let ruins = this.room.ruins;
 		let tombstones = this.room.tombstones;
 		//run based off role
@@ -155,13 +155,13 @@ module.exports = function() {
 				if (ruins.length) {
 					energySupplies = ruins;
 				}
-				else if (storage.length) {
+				else if (storage) {
 					energySupply = storage;
 				}
 				else if (containers.length) {
 					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 				}
-				else if ((containers.length && storage.length) && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
+				else if ((!containers.length && !storage) && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
 					this.mine();
 				}
 				else if (spawns) {
