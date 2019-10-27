@@ -176,6 +176,7 @@ module.exports = function() {
 				}
 			}
 		}
+		return;
 	}
 	Creep.prototype.mine =
 	function() {
@@ -187,5 +188,6 @@ module.exports = function() {
 				}
 			}
 		}
+		return;
 	}
 };
