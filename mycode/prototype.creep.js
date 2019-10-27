@@ -81,59 +81,62 @@ module.exports = function() {
 		//run based off role
 		switch (this.memory.role) {
 			case "supplier"://if supplier
-			//get dropedEnergy
-			if (dropedEnergy.length) {
-				let energySupply = this.pos.findClosestByRange(dropedEnergy)
-				if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+				//get dropedEnergy
+				let energySupplies;
+				if (dropedEnergy.length) {
+					let energySupply = this.pos.findClosestByRange(dropedEnergy)
+					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+					}
+					else {
+						energySupply = this.pos.findClosestByRange(containers);
+						this.withdraw(energySupply, RESOURCE_ENERGY);
+					}
+				}//if no dropedEnergy get tombstones with energy
+				else if (tombstones.length) {
+					energySupplies = tombstones;
 				}
+				//if no tombstones get ruins with energy
+				else if (ruins.length) {
+					energySupplies = ruins;
+				}
+				//otherwise get containers with energy
 				else {
-					energySupply = this.pos.findClosestByRange(containers);
-					this.withdraw(energySupply, RESOURCE_ENERGY);
+					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 				}
-			}//if no dropedEnergy get tombstones with energy
-			else if (tombstones.length) {
-				var energySupplies = tombstones;
-			}
-			//if no tombstones get ruins with energy
-			else if (ruins.length) {
-				var energySupplies = ruins;
-			}
-			//otherwise get containers with energy
-			else {
-				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			}
-			//if there is a target list find closest and get energy from it
-			if (energySupplies) {
-				let energySupply = this.pos.findClosestByRange(energySupplies);
-				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+				//if there is a target list find closest and get energy from it
+				if (energySupplies) {
+					let energySupply = this.pos.findClosestByRange(energySupplies);
+					if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+					}
 				}
-			}
-			break;
+				break;
 
 			default:
-			if (ruins.length) {
-				var energySupplies = ruins;
-			}
-			else if (storage) {
-				var energySupply = storage;
-			}
-			else if (containers.length) {
-				var energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			}
-			else if ((!containers && !storage) && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
-				this.mine();
-			}
-			else if (spawns) {
-				var energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
-			}
-			if (energySupplies) {
-				var energySupply = this.pos.findClosestByRange(energySupplies);
-			}
-			if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				this.travelTo(energySupply, {ignoreCreeps: false});
-			}
+				let energySupplies;
+				let energySupply;
+				if (ruins.length) {
+					energySupplies = ruins;
+				}
+				else if (storage) {
+					energySupply = storage;
+				}
+				else if (containers.length) {
+					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				}
+				else if ((!containers && !storage) && this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false })) {
+					this.mine();
+				}
+				else if (spawns) {
+					energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+				}
+				if (energySupplies) {
+					energySupply = this.pos.findClosestByRange(energySupplies);
+				}
+				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					this.travelTo(energySupply, {ignoreCreeps: false});
+				}
 		}
 	}
 	Creep.prototype.mine =
