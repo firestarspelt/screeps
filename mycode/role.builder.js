@@ -14,12 +14,11 @@ const roleBuilder = {
 		//if working
 		if (creep.memory.working) {
 			//get target
-			creep.getTarget();
-			//get target from memory
-			let target;
-			if (creep.memory.target) {
-				target = Game.getObjectById(creep.memory.target);
+			if (!creep.memory.target) {
+				creep.getTarget();
 			}
+			//get target from memory
+			let target = Game.getObjectById(creep.memory.target);
 			let flag = Game.flags[creep.memory.flag];
 			//if nothing to build run upgrader code
 			if (!target && !flag) {
