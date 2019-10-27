@@ -4,7 +4,7 @@ const roleClaimer = {
 		if (!creep.memory.target) {
 			creep.getTarget();
 		}
-		let flag = Game.flags[creep.memory.target];
+		let flag = Game.flags[creep.memory.flag];
 		creep.travelTo(flag);
 		switch (flag.memory.type) {
 			case "reserve":
