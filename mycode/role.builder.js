@@ -13,30 +13,18 @@ const roleBuilder = {
 		}
 		//if working
 		if (creep.memory.working) {
-			//get room vars
-			let constuctByType = creep.room.constuctByType;
-			let containers = constuctByType[STRUCTURE_CONTAINER] || [];
-			let extensions = constuctByType[STRUCTURE_EXTENSION] || [];
-			let target, targets;
-
-			//if there are containers to build, build them
-			if (containers.length) {
-				target = creep.pos.findClosestByRange(containers);
-			}
-			//otherwise if there are extensions to build, build them
-			else if (extensions.length) {
-				target = creep.pos.findClosestByRange(extensions);
-			}
-			//otherwise build closest construction site
-			else {
-				targets = creep.room.constuctSites;
-				target = creep.pos.findClosestByRange(targets);
-			}
+			//get target
+			creep.getTarget();
+			//get target from memory
+			let target = Game.getObjectById(this.memory.target);
+			let flag = Game.flags[creep.memory.flag];
 			//if nothing to build run upgrader code
-			if (target == null) {
+			if (!target && !flag) {
 				roleUpgrader.run(creep);
 			}
-			//if there is something to build build it, or move to it if not in range
+			else if (flag.room != creep.room && !target) {
+				creep.travelTo(flag);
+			}
 			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false, range: 3});
 			}
