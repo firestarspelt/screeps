@@ -25,15 +25,19 @@ const roleBuilder = {
 			}
 			//get flag from memory
 			let flag = Game.flags[creep.memory.flag];
+			//if flag is set in memory and no target and there is stuff to build in its room move to it
 			if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
 				creep.travelTo(flag);
 			}
+			//build target
 			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false, range: 3});
 			}
+			//if no targets and not in home room move back to homeroom
 			else if (!target && creep.memory.home != creep.room.name) {
 				creep.travelTo(Game.rooms[creep.memory.home]);
-			}//if nothing to build run upgrader code
+			}
+			//if nothing to build run upgrader code
 			else {
 				roleUpgrader.run(creep);
 			}
