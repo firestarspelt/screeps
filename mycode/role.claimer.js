@@ -6,10 +6,13 @@ const roleClaimer = {
 		}
 		let flag = Game.flags[creep.memory.target];
 		creep.travelTo(flag);
-		if (flag.name.includes("Reserve")) {
-			creep.reserveController(creep.room.controller);
-		} else if (flag.name.includes("Claim")) {
-			creep.claimController(creep.room.controller);
+		switch (flag.memory.type) {
+			case "reserve":
+				creep.reserveController(creep.room.controller);
+				break;
+			case "claim":
+				creep.claimController(creep.room.controller);
+				break;
 		}
 	}
 }
