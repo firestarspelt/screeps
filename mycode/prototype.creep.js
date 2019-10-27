@@ -110,7 +110,7 @@ module.exports = function() {
 		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let containers = structByType[STRUCTURE_CONTAINER] || [];
-		let storage = this.room.storage;
+		let storage = this.room.storage || [];
 		let ruins = this.room.ruins;
 		let tombstones = this.room.tombstones;
 		//run based off role
