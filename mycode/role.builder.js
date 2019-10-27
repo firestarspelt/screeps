@@ -27,8 +27,10 @@ const roleBuilder = {
 			if (!target && !flag) {
 				roleUpgrader.run(creep);
 			}
-			else if ( flag.room && flag.room != creep.room && !target) {
-				creep.travelTo(flag);
+			else if (flag.room) {
+				if (flag.room != creep.room && !target) {
+					creep.travelTo(flag);
+				}
 			}
 			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false, range: 3});
