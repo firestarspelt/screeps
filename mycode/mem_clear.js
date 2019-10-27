@@ -23,7 +23,7 @@ const mem_clear = {
 						break;
 					case "claimer":
 						--room.memory.claimers;
-						--Game.flags[creep.memory.target].memory.claimers;
+						--Game.flags[creep.target].memory.claimers;
 				}
 				delete Memory.creeps[name];
 			}
