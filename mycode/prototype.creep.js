@@ -80,11 +80,12 @@ module.exports = function() {
 		let tombstones = this.room.tombstones;
 		//run based off role
 		switch (this.memory.role) {
-			case "supplier"://if supplier
+			case "supplier": {//if supplier
 				//get dropedEnergy
 				let energySupplies;
+				let energySupply;
 				if (dropedEnergy.length) {
-					let energySupply = this.pos.findClosestByRange(dropedEnergy)
+					energySupply = this.pos.findClosestByRange(dropedEnergy)
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
@@ -106,14 +107,14 @@ module.exports = function() {
 				}
 				//if there is a target list find closest and get energy from it
 				if (energySupplies) {
-					let energySupply = this.pos.findClosestByRange(energySupplies);
+					energySupply = this.pos.findClosestByRange(energySupplies);
 					if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
 				}
 				break;
-
-			default:
+			}
+			default: {
 				let energySupplies;
 				let energySupply;
 				if (ruins.length) {
@@ -137,6 +138,7 @@ module.exports = function() {
 				if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.travelTo(energySupply, {ignoreCreeps: false});
 				}
+			}
 		}
 	}
 	Creep.prototype.mine =
