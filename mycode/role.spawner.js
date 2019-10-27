@@ -4,13 +4,13 @@ const profiler = require('screeps-profiler');
  * @param {StructureSpawn} spawner */
 function spawnNew(energyAvail, roleName, spawner) {
 	/** @type {String} */
-	var newName = spawner.name + ' ' + roleName + ' ' + Game.time;
+	let newName = spawner.name + ' ' + roleName + ' ' + Game.time;
 	console.log('Spawning new ' + roleName + ': ' + newName);
 	if (roleName == 'supplier') {
 		return spawner.spawnSupplier(energyAvail, newName);
 	} else if (roleName == 'harvester') {
-		var structByType = spawner.room.structByType;
-		var containers = structByType[STRUCTURE_CONTAINER] || [];
+		let structByType = spawner.room.structByType;
+		let containers = structByType[STRUCTURE_CONTAINER] || [];
 		if (containers.length == 0) {
 			return spawner.spawnHarvester(energyAvail, newName);
 		} else {
@@ -35,18 +35,18 @@ const roleSpawner = {
 	run: function(spawner) {
 		/*Gets count of creeps with each role in the room of the spawn,
 		and energy available to spawn with and get time since last spawn*/
-		var structByType = spawner.room.structByType;
-		var containers = structByType[STRUCTURE_CONTAINER] || [];
-		var energyAvail = spawner.room.energyAvailable;
-		var maxEnergy = spawner.room.energyCapacityAvailable;
+		let structByType = spawner.room.structByType;
+		let containers = structByType[STRUCTURE_CONTAINER] || [];
+		let energyAvail = spawner.room.energyAvailable;
+		let maxEnergy = spawner.room.energyCapacityAvailable;
 		if (!spawner.room.memory.harvesters){
-			var creeps = spawner.room.myCreeps;
-			var creepsByRole = _.groupBy(creeps, 'memory.role');
-			var harvesters = creepsByRole['harvester'] || [];
-			var builders = creepsByRole['builder'] || [];
-			var upgraders = creepsByRole['upgrader'] || [];
-			var repairers = creepsByRole['repairer'] || [];
-			var suppliers = creepsByRole['supplier'] || [];
+			let creeps = spawner.room.myCreeps;
+			let creepsByRole = _.groupBy(creeps, 'memory.role');
+			let harvesters = creepsByRole['harvester'] || [];
+			let builders = creepsByRole['builder'] || [];
+			let upgraders = creepsByRole['upgrader'] || [];
+			let repairers = creepsByRole['repairer'] || [];
+			let suppliers = creepsByRole['supplier'] || [];
 			spawner.room.memory.harvesters = harvesters.length;
 			spawner.room.memory.suppliers = suppliers.length;
 			spawner.room.memory.repairers = repairers.length;
@@ -58,7 +58,7 @@ const roleSpawner = {
 		as well as prevent from trying to spawn a new creep while it is already spawning*/
 		if (spawner.spawning) {
 			spawner.memory.timeSinceSpawn = 0;
-			var spawningCreep = Game.creeps[spawner.spawning.name];
+			let spawningCreep = Game.creeps[spawner.spawning.name];
 			spawner.room.visual.text(
 				'🛠️' + spawningCreep.memory.role,
 				spawner.pos.x + 1,
