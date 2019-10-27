@@ -84,7 +84,9 @@ module.exports = function() {
 				//otherwise build closest construction site
 				else {
 					targets = this.room.constuctSites;
-					this.memory.target = this.pos.findClosestByRange(targets).id;
+					if (targets) {
+						this.memory.target = this.pos.findClosestByRange(targets).id;
+					}
 				}
 				flagTarget: {
 					let maintain = global.flagsByType['maintain'] || [];
