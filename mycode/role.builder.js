@@ -32,7 +32,7 @@ const roleBuilder = {
 			else if (!target && creep.memory.home != creep.room.name) {
 				creep.travelTo(Game.rooms[creep.memory.home]);
 			}//if nothing to build run upgrader code
-			else
+			else {
 				roleUpgrader.run(creep);
 			}
 		}//if no energy get some
