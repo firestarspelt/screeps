@@ -23,15 +23,17 @@ const roleBuilder = {
 				delete creep.memory.target;
 			}
 			let flag = Game.flags[creep.memory.flag];
-			//if nothing to build run upgrader code
-			if (!target && !flag) {
-				roleUpgrader.run(creep);
-			}
-			else if (flag && flag.room != creep.room && !target) {
+			if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
 				creep.travelTo(flag);
 			}
 			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
 				creep.travelTo(target, {ignoreCreeps: false, range: 3});
+			}
+			else if (!target && creep.memory.home != creep.room.name) {
+				creep.travelTo(Game.rooms[creep.memory.home]);
+			}//if nothing to build run upgrader code
+			else
+				roleUpgrader.run(creep);
 			}
 		}//if no energy get some
 		else {
