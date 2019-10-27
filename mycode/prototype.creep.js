@@ -43,6 +43,28 @@ module.exports = function() {
 				this.memory.target = walls[0].id;
 				this.memory.targetOldHits =  walls[0].hits;
 			}
+			break;
+
+			case "claimer":
+			flagTarget: {
+				let reserve = global.flagsByType['reserve'] || [];
+				for (let name in reserve) {
+					if (Game.flags[name].memory.claimers == 0) {
+						creep.memory.target = name;
+						++Game.flags[name].memory.claimers;
+						break flagTarget;
+					}
+				}
+				let claim = global.flagsByType['claim'] || [];
+				for (let name in claim) {
+					if (Game.flags[name].memory.claimers == 0) {
+						creep.memory.target = name;
+						++Game.flags[name].memory.claimers;
+						break flagTarget;
+					}
+				}
+			}
+			break;
 		}
 	}
 	Creep.prototype.getEnergy =
