@@ -10,7 +10,6 @@ const roleRoom = require('role.room');
 const mem_clear = require('mem_clear');
 const profiler = require('screeps-profiler');
 const Traveler = require('Traveler');
-const roleClaimer = require('role.claimer');
 require('prototype.spawn') ();
 require('prototype.creep') ();
 require('prototype.source') ();
