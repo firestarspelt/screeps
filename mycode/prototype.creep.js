@@ -51,7 +51,7 @@ module.exports = function() {
 					}
 				}
 				//get flag from memory
-				let flag = Game.flags[creep.memory.flag];
+				let flag = Game.flags[this.memory.flag];
 				infrastructure = flag.room.infrastructure;
 				if (infrastructure.length) {
 					this.memory.target = infrastructure[0].id;
