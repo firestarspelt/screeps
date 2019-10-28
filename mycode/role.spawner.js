@@ -75,7 +75,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'supplier', spawner) == OK) {
 					++spawner.room.memory.suppliers;
 				}
-			} else if (spawner.room.memory.repairers < 1) {
+			} else if (spawner.room.memory.repairers < 2) {
 				if (spawnNew(energyAvail, 'repairer', spawner) == OK) {
 					++spawner.room.memory.repairers;
 				}
