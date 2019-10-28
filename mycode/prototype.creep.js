@@ -40,6 +40,16 @@ module.exports = function() {
 					this.memory.targetOldHits = infrastructure[0].hits;
 					break;
 				}
+				flagTarget: {
+					let maintain = global.flagsByType['maintain'] || [];
+					for (let flag of maintain) {
+						if (!flag.memory.repairers || flag.memory.repairers == 0) {
+							this.memory.flag = flag.name;
+							++flag.memory.repairers;
+							break flagTarget;
+						}
+					}
+				}
 				//get flag from memory
 				let flag = Game.flags[creep.memory.flag];
 				infrastructure = flag.room.infrastructure;
