@@ -2,8 +2,6 @@ module.exports = function() {
 	Creep.prototype.getTarget =
 	function() {
 		//get room vars
-		let walls = this.room.walls;
-		let infrastructure = this.room.infrastructure;
 		let structByType = this.room.structByType;
 		let spawns = structByType[STRUCTURE_SPAWN] || [];
 		let extensions = structByType[STRUCTURE_EXTENSION] || [];
@@ -33,7 +31,18 @@ module.exports = function() {
 				break;
 			}
 			case "repairer": {//if repairer run this
+				//get room vars
+				let walls = this.room.walls;
+				let infrastructure = this.room.infrastructure;
 				//find some infrastructure to repair
+				if (infrastructure.length) {
+					this.memory.target = infrastructure[0].id;
+					this.memory.targetOldHits = infrastructure[0].hits;
+					break;
+				}
+				//get flag from memory
+				let flag = Game.flags[creep.memory.flag];
+				infrastructure = flag.room.infrastructure;
 				if (infrastructure.length) {
 					this.memory.target = infrastructure[0].id;
 					this.memory.targetOldHits = infrastructure[0].hits;
