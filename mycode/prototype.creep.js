@@ -52,7 +52,7 @@ module.exports = function() {
 				}
 				//get flag from memory
 				let flag = Game.flags[this.memory.flag];
-				if (flag) {
+				if (flag.room) {
 					infrastructure = flag.room.infrastructure;
 					if (infrastructure.length) {
 						this.memory.target = infrastructure[0].id;
