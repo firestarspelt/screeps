@@ -13,31 +13,33 @@ const roleBuilder = {
 		}
 		//if working
 		if (creep.memory.working) {
-			//get room vars
-			var constuctByType = creep.room.constuctByType;
-			var containers = constuctByType[STRUCTURE_CONTAINER] || [];
-			var extensions = constuctByType[STRUCTURE_EXTENSION] || [];
-
-			//if there are containers to build, build them
-			if (containers.length) {
-				var target = creep.pos.findClosestByRange(containers);
+			//get target
+			if (!creep.memory.target) {
+				creep.getTarget();
 			}
-			//otherwise if there are extensions to build, build them
-			else if (extensions.length) {
-				var target = creep.pos.findClosestByRange(extensions);
-			}
-			//otherwise build closest construction site
+			//if builder has target get it from memory
+			if (creep.memory.target) {
+				let target = Game.getObjectById(creep.memory.target);
+				//if target not valid clear from memory
+				if (!target) {
+					delete creep.memory.target;
+				}
+				//get flag from memory
+				let flag = Game.flags[creep.memory.flag];
+				//build target
+				if (creep.build(target) == ERR_NOT_IN_RANGE) {
+					creep.travelTo(target, {ignoreCreeps: false, range: 3});
+				}
+				//if flag is set in memory and no target and there is stuff to build in its room move to it
+				else if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
+					creep.travelTo(flag);
+				}
+			}//if no target and not in home room move back to homeroom
+			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
+				creep.travelTo(Game.rooms[creep.memory.home].controller);
+			}//if nothing to build run upgrader code
 			else {
-				var targets = creep.room.constuctSites;
-				var target = creep.pos.findClosestByRange(targets);
-			}
-			//if nothing to build run upgrader code
-			if (target == null) {
 				roleUpgrader.run(creep);
-			}
-			//if there is something to build build it, or move to it if not in range
-			else if (creep.build(target) == ERR_NOT_IN_RANGE) {
-				creep.travelTo(target, {ignoreCreeps: false, range: 3});
 			}
 		}//if no energy get some
 		else {

@@ -4,8 +4,8 @@ module.exports = function() {
 	StructureSpawn.prototype.spawnDynamicCreep =
 	function(energyAvail, name, roleName) {
 		// create a balanced body
-		var numParts = Math.min(Math.floor(energyAvail / 200),8);
-		var body = [];
+		let numParts = Math.min(Math.floor(energyAvail / 200),8);
+		let body = [];
 		for (let i = 0; i < numParts; i++) {
 			body.push(WORK);
 		}
@@ -22,9 +22,9 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep Name} name **/
 	StructureSpawn.prototype.spawnHarvester =
 	function(energyAvail, name) {
-		var otherParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE] + BODYPART_COST[CARRY])), 3);
-		var workParts = otherParts * 2;
-		var body = [];
+		let otherParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE] + BODYPART_COST[CARRY])), 3);
+		let workParts = otherParts * 2;
+		let body = [];
 		for (let i = 0; i < workParts; i++) {
 			body.push(WORK);
 		}
@@ -40,9 +40,9 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep.name} name **/
 	StructureSpawn.prototype.spawnCanHarvester =
 	function(energyAvail, name) {
-		var moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),3);
-		var workParts = moveParts * 2;
-		var body = [];
+		let moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[WORK] * 2 + BODYPART_COST[MOVE])),3);
+		let workParts = moveParts * 2;
+		let body = [];
 		for (let i = 0; i < workParts; i++) {
 			body.push(WORK);
 		}
@@ -55,9 +55,9 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep Name} name **/
 	StructureSpawn.prototype.spawnSupplier =
 	function(energyAvail, name) {
-		var moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[MOVE] + BODYPART_COST[CARRY] * 2)),8);
-		var carryParts = moveParts*2;
-		var body = [];
+		let moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[MOVE] + BODYPART_COST[CARRY] * 2)),8);
+		let carryParts = moveParts*2;
+		let body = [];
 		for (let i = 0; i < carryParts; i++) {
 			body.push(CARRY);
 		}

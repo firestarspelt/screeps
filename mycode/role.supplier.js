@@ -15,13 +15,13 @@ const roleSupplier = {
 			if (!creep.memory.target) {
 				creep.getTarget();
 			}//get target from memory
-			else if (creep.memory.target) {
+			if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
 				//if target is full purge from memory
 				if (target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
 					delete creep.memory.target;
 				}//if target is storage dump to it and purge from memory
-				else if (target.structureType == STRUCTURE_STORAGE) {
+				if (target.structureType == STRUCTURE_STORAGE) {
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target, {ignoreCreeps: false});
 					} else {

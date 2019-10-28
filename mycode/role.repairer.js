@@ -15,17 +15,27 @@ const roleRepairer = {
 		//if creep is working
 		if (creep.memory.working) {
 			//repair damaged structures on its path
-			let target = creep.room.lookForAt(LOOK_STRUCTURES, creep);
-			if (target.hits < target.hitsMax - creep.memory.workParts * 100) {
-				creep.repair(target);
+			try {
+				let structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 3,creep.pos.x - 3,creep.pos.y + 3,creep.pos.x + 3, true);
+				for (let structure of structures) {
+					let target = structure['structure'];
+					//if it won't over repair target repair it
+					if (target.hits <= target.hitsMax - creep.memory.workParts * 100) {
+						creep.repair(target);
+						break;
+					}
+				}
+			} catch (err) {
+				console.log(creep.name + " Caused " + (err.stack || err));
 			}
 			//get target if it doesn't have one
 			if (!creep.memory.target) {
 				creep.getTarget();
 			}
-			//if repairer has target retrieve from memory
+			//if repairer has target get from memory
 			if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
+				//if target not valid clear from memory
 				if (!target) {
 					delete creep.memory.target;
 					delete creep.memory.targetOldHits;
@@ -41,6 +51,9 @@ const roleRepairer = {
 						creep.travelTo(target,{ignoreCreeps: false, range: 3});
 					}
 				}
+			}//if no target and not in home room move back to homeroom
+			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
+				creep.travelTo(Game.rooms[creep.memory.home].controller);
 			}//If nothing to repair run upgrader code
 			else {
 				roleUpgrader.run(creep);

@@ -3,9 +3,11 @@ const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleRepairer = require('role.repairer');
 const roleSupplier = require('role.supplier');
+const roleClaimer = require('role.claimer');
 const roleSpawner = require('role.spawner');
 const roleTower = require('role.tower');
 const roleRoom = require('role.room');
+const mem_clear = require('mem_clear');
 const profiler = require('screeps-profiler');
 const Traveler = require('Traveler');
 const roleClaimer = require('role.claimer');
@@ -17,6 +19,7 @@ profiler.enable();
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
+		global.flagsByType = _.groupBy(Game.flags, 'memory.type');
 		//iterate through rooms and create the variables
 		for (let name in Game.rooms) {
 			let room = Game.rooms[name];
@@ -76,32 +79,6 @@ module.exports.loop = function() {
 			}
 		}
 		//remove dead creeps memory
-		for (let name in Memory.creeps) {
-			if (!Game.creeps[name]) {
-				let creep = Memory.creeps[name];
-				let room = Game.rooms[creep.home];
-				switch (creep.role) {
-					case "harvester":
-						--room.memory.harvesters;
-						break;
-					case "upgrader":
-						--room.memory.upgraders;
-						break;
-					case "builder":
-						--room.memory.builders;
-						break;
-					case "repairer":
-						--room.memory.repairers;
-						break;
-					case "supplier":
-						--room.memory.suppliers;
-						break;
-					case "claimer":
-						--room.memory.claimers;
-
-				}
-				delete Memory.creeps[name];
-			}
-		}
+		mem_clear.run();
 	});
 }

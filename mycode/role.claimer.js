@@ -1,21 +1,18 @@
 const profiler = require('screeps-profiler');
 const roleClaimer = {
 	run: function (creep) {
-		for (let name in Game.flags) {
-			let flag = Game.flags[name];
-		console.log(flag);
-			if (flag.name.includes("Reserve") || flag.name.includes("Claim")) {
-				creep.memory.target = flag.name;
-				break;
-			}
+		if (!creep.memory.target) {
+			creep.getTarget();
 		}
-		let target = Game.getObjectById(creep.memory.target);
-		console.log(target);
-		creep.travelTo(target);
-		if (target.name.includes("Reserve")) {
-			creep.reserveController(target);
-		} else if (target.name.includes("Claim")) {
-			creep.claimController(target);
+		let flag = Game.flags[creep.memory.flag];
+		creep.travelTo(flag);
+		switch (flag.memory.type) {
+			case "reserve":
+				creep.reserveController(creep.room.controller);
+				break;
+			case "claim":
+				creep.claimController(creep.room.controller);
+				break;
 		}
 	}
 }
