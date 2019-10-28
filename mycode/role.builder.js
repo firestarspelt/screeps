@@ -34,7 +34,7 @@ const roleBuilder = {
 				else if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
 					creep.travelTo(flag);
 				}
-				//if no targets and not in home room move back to homeroom
+				//if no target and not in home room move back to homeroom
 				else if (!target && creep.memory.home != creep.room.name) {
 					creep.travelTo(Game.rooms[creep.memory.home]);
 				}
