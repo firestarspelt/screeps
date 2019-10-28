@@ -52,11 +52,13 @@ module.exports = function() {
 				}
 				//get flag from memory
 				let flag = Game.flags[this.memory.flag];
-				infrastructure = flag.room.infrastructure;
-				if (infrastructure.length) {
-					this.memory.target = infrastructure[0].id;
-					this.memory.targetOldHits = infrastructure[0].hits;
-					break;
+				if (flag) {
+					infrastructure = flag.room.infrastructure;
+					if (infrastructure.length) {
+						this.memory.target = infrastructure[0].id;
+						this.memory.targetOldHits = infrastructure[0].hits;
+						break;
+					}
 				}
 				//if repairer still doesn't have a target and walls are repairable, find a wall to repair
 				if (this.room.controller.level > 1 && walls.length) {
