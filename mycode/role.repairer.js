@@ -29,6 +29,7 @@ const roleRepairer = {
 				//if target not valid clear from memory
 				if (!target) {
 					delete creep.memory.target;
+					delete creep.memory.targetOldHits;
 				}
 				//if repairer's target would be over repaired or has been repaired over 50000 hits purge from memory
 				if ((target.hits / (target.hitsMax - creep.memory.workParts * 100) >= 1) || (target.hits - creep.memory.targetOldHits) > 50000) {
