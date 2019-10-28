@@ -18,7 +18,7 @@ const roleRepairer = {
 			try {
 				let structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 3,creep.pos.x - 3,creep.pos.y + 3,creep.pos.x + 3, true);
 				let structure = _.min(structures, 'hits');
-				if (structure.hits < structure.hitsMax - creep.memory.workParts * 100) {
+				if (structure.hits <= structure.hitsMax - creep.memory.workParts * 100) {
 					creep.repair(structure);
 				}
 			} catch (err) {
