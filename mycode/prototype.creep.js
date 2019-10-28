@@ -41,12 +41,14 @@ module.exports = function() {
 					break;
 				}
 				flagTarget: {
-					let maintain = global.flagsByType['maintain'] || [];
-					for (let flag of maintain) {
-						if (!flag.memory.repairers || flag.memory.repairers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.repairers;
-							break flagTarget;
+					if (!this.memory.flag) {
+						let maintain = global.flagsByType['maintain'] || [];
+						for (let flag of maintain) {
+							if (!flag.memory.repairers || flag.memory.repairers == 0) {
+								this.memory.flag = flag.name;
+								++flag.memory.repairers;
+								break flagTarget;
+							}
 						}
 					}
 				}
