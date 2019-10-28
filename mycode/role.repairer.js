@@ -53,7 +53,7 @@ const roleRepairer = {
 				}
 			}//if no target and not in home room move back to homeroom
 			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
-				creep.travelTo(Game.rooms[creep.memory.home]);
+				creep.travelTo(Game.rooms[creep.memory.home].controller);
 			}//If nothing to repair run upgrader code
 			else {
 				roleUpgrader.run(creep);
