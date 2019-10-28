@@ -71,7 +71,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'harvester', spawner) == OK) {
 					++spawner.room.memory.harvesters;
 				}
-			} else if (spawner.room.memory.suppliers < 4 && containers.length > 0) {
+			} else if (spawner.room.memory.suppliers < 2 && containers.length > 0) {
 				if (spawnNew(energyAvail, 'supplier', spawner) == OK) {
 					++spawner.room.memory.suppliers;
 				}
