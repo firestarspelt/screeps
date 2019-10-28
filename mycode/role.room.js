@@ -29,7 +29,7 @@ const roleRoom = {
 		for (let source in room.sources) {
 
 		}
-		//interate through sources
+		//interate through flags
 		for (let name in Game.flags) {
 			let flag = Game.flags[name];
 			if (flag.room == room) {
