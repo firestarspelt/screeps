@@ -17,7 +17,7 @@ const roleBuilder = {
 			if (!creep.memory.target) {
 				creep.getTarget();
 			}
-			//get builder has target get from memory
+			//if builder has target get it from memory
 			if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
 				//if target not valid clear from memory
@@ -34,10 +34,9 @@ const roleBuilder = {
 				else if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
 					creep.travelTo(flag);
 				}
-				//if no target and not in home room move back to homeroom
-				else if (!target && creep.memory.home != creep.room.name) {
-					creep.travelTo(Game.rooms[creep.memory.home]);
-				}
+			}//if no target and not in home room move back to homeroom
+			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
+				creep.travelTo(Game.rooms[creep.memory.home]);
 			}//if nothing to build run upgrader code
 			else {
 				roleUpgrader.run(creep);
