@@ -17,13 +17,9 @@ const roleRepairer = {
 			//repair damaged structures on its path
 			try {
 				let structures = creep.room.lookForAtArea(LOOK_STRUCTURES,creep.pos.y - 3,creep.pos.x - 3,creep.pos.y + 3,creep.pos.x + 3, true);
-				for (let structure of structures) {
-					let target = structure['structure'];
-					//if it won't over repair target repair it
-					if (target.hits < target.hitsMax - creep.memory.workParts * 100) {
-						creep.repair(target);
-						break;
-					}
+				let structure = _.min(structures, 'hits');
+				if (structure.hits < structure.hitsMax - creep.memory.workParts * 100) {
+					creep.repair(structure);
 				}
 			} catch (err) {
 				console.log(creep.name + " Caused " + (err.stack || err));
