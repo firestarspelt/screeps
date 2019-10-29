@@ -15,9 +15,29 @@ require('prototype.creep') ();
 require('prototype.source') ();
 require('mem_hack') ();
 profiler.enable();
+global.flags.count = 0;
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
+		if (Object.keys(Game.flags).length != global.flags.count) {
+			global.flags.reserve, global.flags.maintain, global.flags.claim, global.flags.harvest = [];
+			for (let name in Game.flags) {
+				++global.flags.count;
+				let flag = Game.flags[name];
+				if (name.includes("Reserve")) {
+					global.flags.reserve.push(flag);
+				}
+				if (name.includes("Maintain")) {
+					global.flags.maintain.push(flag);
+				}
+				if (name.includes("Claim")) {
+					global.flags.claim.push(flag);
+				}
+				if (name.includes("Harvest")) {
+					global.flags.harvest.push(flag);
+				}
+			}
+		}
 		global.flagsByType = _.groupBy(Game.flags, 'memory.type');
 		//iterate through rooms and create the variables
 		for (let name in Game.rooms) {
