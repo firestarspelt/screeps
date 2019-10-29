@@ -15,28 +15,26 @@ require('prototype.creep') ();
 require('prototype.source') ();
 require('mem_hack') ();
 profiler.enable();
+global.flagCount = 0;
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
-		if(!global.flags.count) {
-			global.flags.count = 0;
-		}
-		if (Object.keys(Game.flags).length != global.flags.count) {
-			global.flags.reserve, global.flags.maintain, global.flags.claim, global.flags.harvest = [];
+		if (Object.keys(Game.flags).length != global.flagCount) {
+			global.reserveFlags, global.maintainFlags, global.claimFlags, global.harvestFlags = [];
 			for (let name in Game.flags) {
 				++global.flags.count;
 				let flag = Game.flags[name];
 				if (name.includes("Reserve")) {
-					global.flags.reserve.push(flag);
+					global.reserveFlags.push(flag);
 				}
 				if (name.includes("Maintain")) {
-					global.flags.maintain.push(flag);
+					global.maintainFlags.push(flag);
 				}
 				if (name.includes("Claim")) {
-					global.flags.claim.push(flag);
+					global.claimFlags.push(flag);
 				}
 				if (name.includes("Harvest")) {
-					global.flags.harvest.push(flag);
+					global.harvestFlags.push(flag);
 				}
 			}
 		}
