@@ -6,8 +6,8 @@ const roleLongRangeSupplier = {
 		}
 		let flag = Game.flags[creep.memory.flag];
 		creep.travelTo(flag);
-		if (global.flags.harvest.includes(flag)) {
-			
+		if (global.harvestFlags.includes(flag)) {
+
 		}
 	}
 }
