@@ -42,7 +42,7 @@ module.exports = function() {
 				}
 				flagTarget: {
 					if (!this.memory.flag) {
-						let maintain = global.flags.maintain;
+						let maintain = global.maintainFlags;
 						for (let flag of maintain) {
 							if (!flag.memory.repairers || flag.memory.repairers == 0) {
 								this.memory.flag = flag.name;
@@ -71,7 +71,7 @@ module.exports = function() {
 			}
 			case "claimer": {
 				flagTarget: {
-					let reserve = global.flags.reserve;
+					let reserve = global.reserveFlags;
 					for (let flag of reserve) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
 							this.memory.flag = flag.name;
@@ -79,7 +79,7 @@ module.exports = function() {
 							break flagTarget;
 						}
 					}
-					let claim = global.flags.claim;
+					let claim = global.claimFlags;
 					for (let flag of claim) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
 							this.memory.flag = flag.name;
@@ -112,7 +112,7 @@ module.exports = function() {
 					}
 				}
 				flagTarget: {
-					let maintain = global.flags.maintain;
+					let maintain = global.maintainFlags;
 					for (let flag of maintain) {
 						if (!flag.memory.builders || flag.memory.builders == 0) {
 							this.memory.flag = flag.name;
