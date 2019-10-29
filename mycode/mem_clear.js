@@ -8,6 +8,9 @@ const mem_clear = {
 				switch (creep.role) {
 					case "harvester": {
 						--room.memory.harvesters;
+						if (creep.flag && Game.flags[creep.flag]) {
+							--Game.flags[creep.flag].memory.harvesters;
+						}
 						break;
 					}
 					case "upgrader": {
@@ -30,6 +33,9 @@ const mem_clear = {
 					}
 					case "supplier": {
 						--room.memory.suppliers;
+						if (creep.flag && Game.flags[creep.flag]) {
+							--Game.flags[creep.flag].memory.suppliers;
+						}
 						break;
 					}
 					case "claimer": {
