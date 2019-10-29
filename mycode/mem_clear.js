@@ -16,7 +16,7 @@ const mem_clear = {
 					}
 					case "builder": {
 						--room.memory.builders;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.builders;
 						}
 						break;
@@ -34,7 +34,7 @@ const mem_clear = {
 					}
 					case "claimer": {
 						--room.memory.claimers;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.claimers;
 						}
 						break;
