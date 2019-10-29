@@ -22,7 +22,7 @@ module.exports.loop = function() {
 		if (Object.keys(Game.flags).length != global.flagCount) {
 			global.reserveFlags, global.maintainFlags, global.claimFlags, global.harvestFlags = [];
 			for (let name in Game.flags) {
-				++global.flags.count;
+				++global.flagCount;
 				let flag = Game.flags[name];
 				if (name.includes("Reserve")) {
 					global.reserveFlags.push(flag);
