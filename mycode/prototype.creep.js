@@ -121,6 +121,15 @@ module.exports = function() {
 						}
 					}
 				}
+				let flag = Game.flags[this.memory.flag];
+				if (flag && flag.room) {
+					let flagTargets = flag.room.constuctSites;
+					if (flagTargets.length) {
+						this.memory.target = infrastructure[0].id;
+						this.memory.targetOldHits = infrastructure[0].hits;
+						break;
+					}
+				}
 				break;
 			}
 		}
