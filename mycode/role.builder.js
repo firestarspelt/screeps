@@ -31,7 +31,7 @@ const roleBuilder = {
 					creep.travelTo(target, {ignoreCreeps: false, range: 3});
 				}
 			}//if flag is set in memory and no target and there is stuff to build in its room move to it
-			else if (flag && !creep.memory.target && flag.room.constuctSites.length && flag.room != creep.room) {
+			else if (flag && !creep.memory.target && flag.room != creep.room) {
 				creep.travelTo(flag);
 			}//if no target and not in home room move back to homeroom
 			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
