@@ -36,6 +36,10 @@ const mem_clear = {
 						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.suppliers;
 						}
+						if (creep.source) {
+							let source = Game.getObjectById(creep.source);
+							--source.memory.suppliers;
+						}
 						break;
 					}
 					case "claimer": {
