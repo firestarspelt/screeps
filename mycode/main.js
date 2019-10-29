@@ -15,7 +15,7 @@ require('prototype.creep') ();
 require('prototype.source') ();
 require('mem_hack') ();
 profiler.enable();
-global.flags.count = 0;
+global.flags.count;
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
