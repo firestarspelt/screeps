@@ -10,13 +10,15 @@ const roleClaimer = {
 		}
 		creep.travelTo(flag);
 		if (flag && flag.room == creep.room) {
-			if (flag.name.includes("Reserve")) {
-				if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+			if (flag.name.includes("Claim")) {
+				if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(creep.room.controller);
+				} else {
+					delete creep.memory.flag;
 				}
 			}
-			else if (flag.name.includes("Claim")) {
-				if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+			else if (flag.name.includes("Reserve")) {
+				if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(creep.room.controller);
 				}
 			}
