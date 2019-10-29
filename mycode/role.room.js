@@ -26,7 +26,7 @@ const roleRoom = {
 		room.enemyCreeps = room.find(FIND_HOSTILE_CREEPS);
 
 		//interate through sources
-		for (let source in room.sources) {
+		for (let source of room.sources) {
 			console.log(source);
 		}
 	}
