@@ -71,16 +71,16 @@ module.exports = function() {
 			}
 			case "claimer": {
 				flagTarget: {
-					let reserve = global.reserveFlags;
-					for (let flag of reserve) {
+					let claim = global.claimFlags;
+					for (let flag of claim) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
 							this.memory.flag = flag.name;
 							++flag.memory.claimers;
 							break flagTarget;
 						}
 					}
-					let claim = global.claimFlags;
-					for (let flag of claim) {
+					let reserve = global.reserveFlags;
+					for (let flag of reserve) {
 						if (!flag.memory.claimers || flag.memory.claimers == 0) {
 							this.memory.flag = flag.name;
 							++flag.memory.claimers;
