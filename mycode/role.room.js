@@ -24,14 +24,6 @@ const roleRoom = {
 		//creep variables
 		room.myCreeps = room.find(FIND_MY_CREEPS);
 		room.enemyCreeps = room.find(FIND_HOSTILE_CREEPS);
-
-		//interate through sources
-		/*for (let source of this.room.sources) {
-			if (!source.memory.suppliers || source.memory.suppliers == 0) {
-				this.memory.source = source.id;
-				++source.memory.suppliers;
-			}
-		}*/
 	}
 }
 profiler.registerObject(roleRoom, 'roleRoom');
