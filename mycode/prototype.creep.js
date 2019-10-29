@@ -183,7 +183,8 @@ module.exports = function() {
 				}
 				//otherwise get containers with energy
 				else {
-					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)) && this.pos.findInRange(s,1));
+					let source = Game.getObjectById(this.memory.source);
+					energySupplies = source.pos.findInRange(_.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY))),1);
 				}
 				//if there is a target list find closest and get energy from it
 				if (energySupplies) {
