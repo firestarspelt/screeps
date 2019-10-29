@@ -23,7 +23,7 @@ const mem_clear = {
 					}
 					case "repairer": {
 						--room.memory.repairers;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.repairers;
 						}
 						break;
