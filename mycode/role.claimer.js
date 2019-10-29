@@ -7,12 +7,14 @@ const roleClaimer = {
 		let flag = Game.flags[creep.memory.flag];
 		creep.travelTo(flag);
 		if (flag && flag.room == creep.room) {
-			if (global.reserveFlags.includes(flag)) {
+			let reserve = global.reserveFlags;
+			let claim = global.claimFlags;
+			if (reserve.includes(flag)) {
 				if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(creep.room.controller);
 				}
 			}
-			else if (global.claimFlags.includes(flag)) {
+			else if (claim.includes(flag)) {
 				if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(creep.room.controller);
 				}
