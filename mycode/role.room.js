@@ -27,7 +27,7 @@ const roleRoom = {
 
 		//interate through sources
 		for (let source of room.sources) {
-			console.log(source);
+			
 		}
 	}
 }
