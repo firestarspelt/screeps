@@ -149,9 +149,18 @@ module.exports = function() {
 		//run based off role
 		switch (this.memory.role) {
 			case "supplier": {//if supplier
-				//get dropedEnergy
 				let energySupplies;
 				let energySupply;
+				//interate through sources
+				if (!this.memory,source) {
+					for (let source of this.room.sources) {
+						if (!source.memory.suppliers || source.memory.suppliers == 0) {
+							this.memory.source = source.id;
+							++source.memory.suppliers;
+						}
+					}
+				}
+				//get dropedEnergy
 				if (dropedEnergy.length) {
 					energySupply = this.pos.findClosestByRange(dropedEnergy)
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -171,7 +180,7 @@ module.exports = function() {
 				}
 				//otherwise get containers with energy
 				else {
-					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)) && this.pos.findInRange(s,1));
 				}
 				//if there is a target list find closest and get energy from it
 				if (energySupplies) {
