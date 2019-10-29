@@ -14,11 +14,13 @@ require('prototype.spawn') ();
 require('prototype.creep') ();
 require('prototype.source') ();
 require('mem_hack') ();
-profiler.enable();
-global.flags.count;
+//profiler.enable();
 module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
+		if(!global.flags.count) {
+			global.flags.count = 0;
+		}
 		if (Object.keys(Game.flags).length != global.flags.count) {
 			global.flags.reserve, global.flags.maintain, global.flags.claim, global.flags.harvest = [];
 			for (let name in Game.flags) {
