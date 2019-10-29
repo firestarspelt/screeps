@@ -17,6 +17,8 @@ const roleBuilder = {
 			if (!creep.memory.target) {
 				creep.getTarget();
 			}
+			//get flag from memory
+			let flag = Game.flags[creep.memory.flag];
 			//if builder has target get it from memory
 			if (creep.memory.target) {
 				let target = Game.getObjectById(creep.memory.target);
@@ -24,16 +26,13 @@ const roleBuilder = {
 				if (!target) {
 					delete creep.memory.target;
 				}
-				//get flag from memory
-				let flag = Game.flags[creep.memory.flag];
 				//build target
 				if (creep.build(target) == ERR_NOT_IN_RANGE) {
 					creep.travelTo(target, {ignoreCreeps: false, range: 3});
 				}
-				//if flag is set in memory and no target and there is stuff to build in its room move to it
-				else if (flag && !target && flag.room.constuctSites.length && flag.room != creep.room) {
-					creep.travelTo(flag);
-				}
+			}//if flag is set in memory and no target and there is stuff to build in its room move to it
+			else if (flag && !creep.memory.target && flag.room.constuctSites.length && flag.room != creep.room) {
+				creep.travelTo(flag);
 			}//if no target and not in home room move back to homeroom
 			else if (!creep.memory.target && creep.memory.home != creep.room.name) {
 				creep.travelTo(Game.rooms[creep.memory.home].controller);
