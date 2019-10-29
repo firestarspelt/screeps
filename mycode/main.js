@@ -38,7 +38,6 @@ module.exports.loop = function() {
 				}
 			}
 		}
-		global.flagsByType = _.groupBy(Game.flags, 'memory.type');
 		//iterate through rooms and create the variables
 		for (let name in Game.rooms) {
 			let room = Game.rooms[name];
