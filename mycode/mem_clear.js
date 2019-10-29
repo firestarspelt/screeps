@@ -53,6 +53,11 @@ const mem_clear = {
 				delete Memory.creeps[name];
 			}
 		}
+		for (let name in Memory.flags) {
+			if (!Game.flags[name]) {
+				delete Memory.flags[name];
+			}
+		}
 	}
 }
 profiler.registerObject(mem_clear, 'mem_clear');
