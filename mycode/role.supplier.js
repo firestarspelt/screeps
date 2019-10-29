@@ -20,6 +20,7 @@ const roleSupplier = {
 				//if target is full purge from memory
 				if (target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
 					delete creep.memory.target;
+					creep.getTarget();
 				}//if target is storage dump to it and purge from memory
 				if (target.structureType == STRUCTURE_STORAGE) {
 					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
