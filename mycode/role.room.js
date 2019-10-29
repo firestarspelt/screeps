@@ -29,18 +29,6 @@ const roleRoom = {
 		for (let source in room.sources) {
 
 		}
-		//interate through flags
-		for (let name in Game.flags) {
-			let flag = Game.flags[name];
-			if (flag.room == room) {
-				if (name.includes("Reserve")) {
-					flag.memory.type = "reserve";
-				}
-				else if (name.includes("Maintain")) {
-					flag.memory.type = "maintain";
-				}
-			}
-		}
 	}
 }
 profiler.registerObject(roleRoom, 'roleRoom');
