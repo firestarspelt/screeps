@@ -120,10 +120,17 @@ module.exports = function() {
 				flagTarget: {
 					let maintain = global.maintainFlags;
 					for (let flag of maintain) {
-						if (!flag.memory.builders || flag.memory.builders == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.builders;
-							break flagTarget;
+						switch (flag.memory.builders) {
+							case null: {
+								this.memory.flag = flag.name;
+								++flag.memory.builders;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.builders;
+								break flagTarget;
+							}
 						}
 					}
 				}
@@ -159,16 +166,19 @@ module.exports = function() {
 				let energySupply;
 				//interate through sources
 				if (!this.memory.source) {
-					for (let source of this.room.sources) {
-						switch (source.memory.suppliers) {
-							case null: {
-								this.memory.source = source.id;
-								source.memory.suppliers = 1;
-								break;
-							}
-							case 0: {
-								this.memory.source = source.id;
-								++source.memory.suppliers;
+					sourceTarget: {
+						for (let source of this.room.sources) {
+							switch (source.memory.suppliers) {
+								case null: {
+									this.memory.source = source.id;
+									source.memory.suppliers = 1;
+									break sourceTarget;
+								}
+								case 0: {
+									this.memory.source = source.id;
+									++source.memory.suppliers;
+									break sourceTarget;
+								}
 							}
 						}
 					}
