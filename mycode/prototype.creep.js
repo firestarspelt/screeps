@@ -47,7 +47,7 @@ module.exports = function() {
 							switch (flag.memory.repairers) {
 								case null: {
 									this.memory.flag = flag.name;
-									flag.memory.repairers = 0;
+									flag.memory.repairers = 1;
 									break flagTarget;
 								}
 								case 0: {
@@ -83,7 +83,7 @@ module.exports = function() {
 						switch (flag.memory.claimers) {
 							case null: {
 								this.memory.flag = flag.name;
-								flag.memory.claimers = 0;
+								flag.memory.claimers = 1;
 								break flagTarget;
 							}
 							case 0: {
@@ -98,7 +98,7 @@ module.exports = function() {
 						switch (flag.memory.claimers) {
 							case null: {
 								this.memory.flag = flag.name;
-								flag.memory.claimers = 0;
+								flag.memory.claimers = 1;
 								break flagTarget;
 							}
 							case 0: {
@@ -141,7 +141,7 @@ module.exports = function() {
 						switch (flag.memory.builders) {
 							case null: {
 								this.memory.flag = flag.name;
-								flag.memory.builders = 0;
+								flag.memory.builders = 1;
 								break flagTarget;
 							}
 							case 0: {
