@@ -44,13 +44,17 @@ module.exports = function() {
 					if (!this.memory.flag) {
 						let maintain = global.maintainFlags;
 						for (let flag of maintain) {
-							if (!flag.memory.repairers || flag.memory.repairers == 0) {
-								if (!flag.memory.repairers) {
+							switch (flag.memory.repairers) {
+								case null: {
+									this.memory.flag = flag.name;
 									flag.memory.repairers = 0;
+									break flagTarget;
 								}
-								this.memory.flag = flag.name;
-								++flag.memory.repairers;
-								break flagTarget;
+								case 0: {
+									this.memory.flag = flag.name;
+									++flag.memory.repairers;
+									break flagTarget;
+								}
 							}
 						}
 					}
@@ -79,7 +83,7 @@ module.exports = function() {
 						switch (flag.memory.claimers) {
 							case null: {
 								this.memory.flag = flag.name;
-								++flag.memory.claimers;
+								flag.memory.claimers = 0;
 								break flagTarget;
 							}
 							case 0: {
@@ -94,7 +98,7 @@ module.exports = function() {
 						switch (flag.memory.claimers) {
 							case null: {
 								this.memory.flag = flag.name;
-								++flag.memory.claimers;
+								flag.memory.claimers = 0;
 								break flagTarget;
 							}
 							case 0: {
@@ -137,7 +141,7 @@ module.exports = function() {
 						switch (flag.memory.builders) {
 							case null: {
 								this.memory.flag = flag.name;
-								++flag.memory.builders;
+								flag.memory.builders = 0;
 								break flagTarget;
 							}
 							case 0: {
