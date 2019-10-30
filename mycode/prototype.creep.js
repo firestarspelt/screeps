@@ -76,18 +76,32 @@ module.exports = function() {
 				flagTarget: {
 					let claim = global.claimFlags;
 					for (let flag of claim) {
-						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.claimers;
-							break flagTarget;
+						switch (flag.memory.claimers) {
+							case null: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
 						}
 					}
 					let reserve = global.reserveFlags;
 					for (let flag of reserve) {
-						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.claimers;
-							break flagTarget;
+						switch (flag.memory.claimers) {
+							case null: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
 						}
 					}
 				}
