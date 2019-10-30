@@ -164,6 +164,7 @@ module.exports = function() {
 							case null: {
 								this.memory.source = source.id;
 								source.memory.suppliers = 1;
+								break;
 							}
 							case 0: {
 								this.memory.source = source.id;
