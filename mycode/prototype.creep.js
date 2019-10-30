@@ -160,9 +160,15 @@ module.exports = function() {
 				//interate through sources
 				if (!this.memory.source) {
 					for (let source of this.room.sources) {
-						if (!source.memory.suppliers || source.memory.suppliers == 0) {
-							this.memory.source = source.id;
-							++source.memory.suppliers;
+						switch (source.memory.suppliers) {
+							case null: {
+								this.memory.source = source.id;
+								source.memory.suppliers = 1;
+							}
+							case 0: {
+								this.memory.source = source.id;
+								++source.memory.suppliers;
+							}
 						}
 					}
 				}
