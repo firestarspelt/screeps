@@ -102,16 +102,19 @@ module.exports = function() {
 				//if there are containers to build, build them
 				if (containers.length) {
 					this.memory.target = this.pos.findClosestByRange(containers).id;
+					break;
 				}
 				//otherwise if there are extensions to build, build them
 				else if (extensions.length) {
 					this.memory.target = this.pos.findClosestByRange(extensions).id;
+					break;
 				}
 				//otherwise build closest construction site
 				else {
 					targets = this.room.constuctSites;
 					if (targets.length) {
 						this.memory.target = this.pos.findClosestByRange(targets).id;
+						break;
 					}
 				}
 				flagTarget: {
