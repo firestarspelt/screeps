@@ -24,10 +24,14 @@ const roleRanger = {
 					}
 				}
 				for (let target of targets) {
-					if (target.getActiveBodyparts(RANGED_ATTACK) > 0) {
+					if (target.getActiveBodyparts(ATTACK) > 0) {
 						creep.memory.target = target.id;
 						break getTarget;
 					}
+				}
+				target = creep.pos.findClosestByRange(targets);
+				creep.memory.target = target.id;
+				break getTarget;
 				}
 			}
 		}
