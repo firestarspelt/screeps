@@ -35,7 +35,7 @@ const roleRanger = {
 		creep.rangedAttack(target);
 		target = Game.getObjectById(creep.memory.target);
 		if (creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
-			creep.travelTo(target, {ignoreCreeps: false, range: 2, ignoreRoads: true});
+			creep.travelTo(target, {ignoreCreeps: false, range: 2, ignoreRoads: true, repath: 1});
 		}
 		target = creep.pos.findClosestByRange(targets);
 		if (creep.pos.getRangeTo(target) < 2) {
