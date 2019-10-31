@@ -1,6 +1,7 @@
 const profiler = require('screeps-profiler');
 const roleRanger = {
 	run: function(creep) {
+		let targets = creep.room.enemyCreeps;
 		if (creep.memory.target) {
 			let target = Game.getObjectById(creep.memory.target);
 			if (!target) {
@@ -8,7 +9,6 @@ const roleRanger = {
 			}
 		}
 		if (!creep.memory.target) {
-			let targets = creep.room.enemyCreeps;
 			getTarget: {
 				for (let target of targets) {
 					if (target.getActiveBodyparts(RANGED_ATTACK) > 0) {
@@ -24,7 +24,6 @@ const roleRanger = {
 				}
 			}
 		}
-		let targets = creep.room.enemyCreeps;
 		let target = creep.pos.findClosestByRange(targets);
 		creep.rangedAttack(target);
 		target = Game.getObjectById(creep.memory.target);
