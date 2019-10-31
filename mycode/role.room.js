@@ -23,7 +23,8 @@ const roleRoom = {
 
 		//creep variables
 		room.myCreeps = room.find(FIND_MY_CREEPS);
-		room.enemyCreeps = room.find(FIND_HOSTILE_CREEPS);
+		let allies =["_Lalaleyna", "Ratstail91", "Lampe", "M1kep", ];
+		room.enemyCreeps = room.find(FIND_HOSTILE_CREEPS, {filter: (c) => !allies.includes(c.owner.username)});
 	}
 }
 profiler.registerObject(roleRoom, 'roleRoom');
