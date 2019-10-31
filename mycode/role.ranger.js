@@ -1,6 +1,14 @@
 const profiler = require('screeps-profiler');
 const roleRanger = {
 	run: function(creep) {
+		let attack = global.attackFlags;
+		for (let flag of attack) {
+				creep.memory.flag = flag.name;
+				break flagTarget;
+			}
+		}
+		let flag = Game.flags[creep.memory.flag];
+		creep.travelTo(flag);
 		let targets = creep.room.enemyCreeps;
 		if (creep.memory.target) {
 			let target = Game.getObjectById(creep.memory.target);
