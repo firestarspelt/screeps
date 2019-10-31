@@ -7,6 +7,7 @@ const roleClaimer = require('role.claimer');
 const roleSpawner = require('role.spawner');
 const roleTower = require('role.tower');
 const roleRoom = require('role.room');
+const roleRanger = require('role.ranger');
 const mem_clear = require('mem_clear');
 const profiler = require('screeps-profiler');
 const Traveler = require('Traveler');
@@ -20,10 +21,11 @@ module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
 		if (Object.keys(Game.flags).length != global.flagCount) {
-			global.reserveFlags = []; 
+			global.reserveFlags = [];
 			global.maintainFlags = [];
 			global.claimFlags = [];
 			global.harvestFlags = [];
+			global.attackFlags = [];
 			for (let name in Game.flags) {
 				++global.flagCount;
 				let flag = Game.flags[name];
@@ -38,6 +40,9 @@ module.exports.loop = function() {
 				}
 				if (name.includes("Harvest")) {
 					global.harvestFlags.push(flag);
+				}
+				if (name.includes("Attack")) {
+					global.attackFlags.push(flag);
 				}
 			}
 		}
@@ -90,6 +95,9 @@ module.exports.loop = function() {
 							break;
 						case "claimer":
 							roleClaimer.run(creep);
+							break;
+						case "ranger":
+							roleRanger.run(creep);
 							break;
 						default:
 							console.log('error caused by ' + creep.name + " has no role or it's role isn't run");

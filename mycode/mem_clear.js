@@ -49,6 +49,10 @@ const mem_clear = {
 						}
 						break;
 					}
+					case "ranger": {
+						--room.memory.rangers;
+						break;
+					}
 				}
 				delete Memory.creeps[name];
 			}

@@ -201,13 +201,14 @@ module.exports = function() {
 						}
 					}
 				}
+				let source = Game.getObjectById(this.memory.source);
 				//get dropedEnergy
 				if (dropedEnergy.length) {
 					energySupply = this.pos.findClosestByRange(dropedEnergy)
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
-					else if (energySupply.store.getUsedCapacity(RESOURCE_ENERGY) < this.store.getFreeCapacity()) {
+					else if (energySupply && energySupply.store.getUsedCapacity(RESOURCE_ENERGY) < this.store.getFreeCapacity()) {
 						let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
 						energySupply = this.pos.findClosestByRange(containers);
 						this.withdraw(energySupply, RESOURCE_ENERGY, amount);
@@ -221,8 +222,7 @@ module.exports = function() {
 					energySupplies = ruins;
 				}
 				//otherwise get containers with energy
-				else {
-					let source = Game.getObjectById(this.memory.source);
+				else if (source) {
 					energySupplies = source.pos.findInRange(_.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY))),1);
 				}
 				//if there is a target list find closest and get energy from it

@@ -75,7 +75,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'supplier', spawner) == OK) {
 					++spawner.room.memory.suppliers;
 				}
-			} else if (spawner.room.memory.repairers < 2) {
+			} else if (spawner.room.memory.repairers < 1) {
 				if (spawnNew(energyAvail, 'repairer', spawner) == OK) {
 					++spawner.room.memory.repairers;
 				}
@@ -83,11 +83,17 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'upgrader', spawner) == OK) {
 					++spawner.room.memory.upgraders;
 				}
-			} else if (spawner.room.memory.builders < 2) {
+			} else if (spawner.room.memory.builders < 1) {
 				if (spawnNew(energyAvail, 'builder', spawner) == OK) {
 					++spawner.room.memory.builders;
 				}
-			} else if (spawner.room.memory.claimers < 1) {
+			}
+			else if (spawner.room.memory.rangers < 1) {
+				if (spawner.spawnCreep([MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK], (spawner.name + ' ranger ' + Game.time), {memory: {role: 'ranger', home: spawner.room.name}}) == OK) {
+					++spawner.room.memory.rangers;
+				}
+			}
+			else if (spawner.room.memory.claimers < 1) {
 				if (spawner.spawnCreep([CLAIM, CLAIM, MOVE, MOVE], (spawner.name + ' claimer ' + Game.time), {memory: {role: 'claimer', moveParts: 1, totalParts: 2, home: spawner.room.name}}) == OK) {
 					++spawner.room.memory.claimers;
 				}
