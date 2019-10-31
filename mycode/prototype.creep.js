@@ -204,12 +204,12 @@ module.exports = function() {
 				let source = Game.getObjectById(this.memory.source);
 				//get dropedEnergy
 				if (dropedEnergy.length) {
-					energySupply = this.pos.findClosestByRange(dropedEnergy)
+					energySupply = this.pos.findClosestByRange(dropedEnergy);
+					let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
-					if (energySupply.store && this.store.getFreeCapacity() > 0) {
-						let amount = this.store.getFreeCapacity() - energySupply.store.getUsedCapacity(RESOURCE_ENERGY);
+					if (this.store.getFreeCapacity() > amount) {
 						energySupply = this.pos.findClosestByRange(containers);
 						this.withdraw(energySupply, RESOURCE_ENERGY, amount);
 					}
