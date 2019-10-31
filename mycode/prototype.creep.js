@@ -45,7 +45,7 @@ module.exports = function() {
 						let maintain = global.maintainFlags;
 						for (let flag of maintain) {
 							switch (flag.memory.repairers) {
-								case null: {
+								case false: {
 									this.memory.flag = flag.name;
 									flag.memory.repairers = 1;
 									break flagTarget;
@@ -81,7 +81,7 @@ module.exports = function() {
 					let claim = global.claimFlags;
 					for (let flag of claim) {
 						switch (flag.memory.claimers) {
-							case null: {
+							case false: {
 								this.memory.flag = flag.name;
 								flag.memory.claimers = 1;
 								break flagTarget;
@@ -96,7 +96,7 @@ module.exports = function() {
 					let reserve = global.reserveFlags;
 					for (let flag of reserve) {
 						switch (flag.memory.claimers) {
-							case null: {
+							case false: {
 								this.memory.flag = flag.name;
 								flag.memory.claimers = 1;
 								break flagTarget;
@@ -139,7 +139,7 @@ module.exports = function() {
 					let maintain = global.maintainFlags;
 					for (let flag of maintain) {
 						switch (flag.memory.builders) {
-							case null: {
+							case false: {
 								this.memory.flag = flag.name;
 								flag.memory.builders = 1;
 								break flagTarget;
@@ -187,14 +187,14 @@ module.exports = function() {
 					sourceTarget: {
 						for (let source of this.room.sources) {
 							switch (source.memory.suppliers) {
+								case false: {
+									this.memory.source = source.id;
+									source.memory.suppliers = 1;
+									break sourceTarget;
+								}
 								case 0: {
 									this.memory.source = source.id;
 									++source.memory.suppliers;
-									break sourceTarget;
-								}
-								default: {
-									this.memory.source = source.id;
-									source.memory.suppliers = 1;
 									break sourceTarget;
 								}
 							}
