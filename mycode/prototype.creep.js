@@ -193,7 +193,7 @@ module.exports = function() {
 									break sourceTarget;
 								}
 								case 1:{
-									break sourceTarget;
+									break;
 								}
 								default: {
 									this.memory.source = source.id;
