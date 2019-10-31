@@ -205,7 +205,7 @@ module.exports = function() {
 				//get dropedEnergy
 				if (dropedEnergy.length) {
 					energySupply = this.pos.findClosestByRange(dropedEnergy);
-					let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
+					let amount = this.store.getFreeCapacity() - energySupply.amount[RESOURCE_ENERGY];
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
