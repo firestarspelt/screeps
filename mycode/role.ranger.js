@@ -44,7 +44,7 @@ const roleRanger = {
 					pos: t.pos,
 					 range:2
 				};
-			}),{flee:true});
+			}), {flee:true});
 			creep.moveByPath(path);
 		}
 	}
