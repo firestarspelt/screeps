@@ -209,7 +209,7 @@ module.exports = function() {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
 					energySupply = this.pos.findClosestByRange(containers);
-					if (energySupply.store.getUsedCapacity(RESOURCE_ENERGY) < this.store.getFreeCapacity()) {
+					if (energySupply.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity()) {
 						let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
 						this.withdraw(energySupply, RESOURCE_ENERGY, amount);
 					}
