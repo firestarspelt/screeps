@@ -7,6 +7,7 @@ const roleClaimer = require('role.claimer');
 const roleSpawner = require('role.spawner');
 const roleTower = require('role.tower');
 const roleRoom = require('role.room');
+const roleRanger = require('role.ranger');
 const mem_clear = require('mem_clear');
 const profiler = require('screeps-profiler');
 const Traveler = require('Traveler');
@@ -94,6 +95,9 @@ module.exports.loop = function() {
 							break;
 						case "claimer":
 							roleClaimer.run(creep);
+							break;
+						case "ranger":
+							roleRanger.run(creep);
 							break;
 						default:
 							console.log('error caused by ' + creep.name + " has no role or it's role isn't run");
