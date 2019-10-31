@@ -37,8 +37,9 @@ const roleRanger = {
 		if (creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
 			creep.travelTo(target, {ignoreCreeps: false, range: 2, ignoreRoads: true});
 		}
+		target = creep.pos.findClosestByRange(targets);
 		if (creep.pos.getRangeTo(target) < 2) {
-			let path = PathFinder.search(creep.pos, targets.map(c=>{return{pos:c.pos,range:2}},{flee:true}));
+			let path = PathFinder.search(creep.pos, targets.map(c=>{return{pos:c.pos,range:2}},{flee:true}).path);
 			creep.moveByPath(path);
 		}
 	}
