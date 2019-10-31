@@ -38,7 +38,7 @@ const roleRanger = {
 			creep.travelTo(target, {ignoreCreeps: false, range: 3, ignoreRoads: true, movingTarget: true});
 		}
 		if (creep.pos.getRangeTo(target) < 3) {
-			let path = PathFinder.search(creep.pos, targets.map(c=>{return{pos:c.pos,range:2}},{flee:true}).path;
+			let path = PathFinder.search(creep.pos, targets.map(c=>{return{pos:c.pos,range:2}},{flee:true}).path);
 			creep.moveByPath(path);
 		}
 	}
