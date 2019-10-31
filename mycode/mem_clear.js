@@ -8,6 +8,9 @@ const mem_clear = {
 				switch (creep.role) {
 					case "harvester": {
 						--room.memory.harvesters;
+						if (creep.flag && Game.flags[creep.flag]) {
+							--Game.flags[creep.flag].memory.harvesters;
+						}
 						break;
 					}
 					case "upgrader": {
@@ -16,31 +19,43 @@ const mem_clear = {
 					}
 					case "builder": {
 						--room.memory.builders;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.builders;
 						}
 						break;
 					}
 					case "repairer": {
 						--room.memory.repairers;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.repairers;
 						}
 						break;
 					}
 					case "supplier": {
 						--room.memory.suppliers;
+						if (creep.flag && Game.flags[creep.flag]) {
+							--Game.flags[creep.flag].memory.suppliers;
+						}
+						if (creep.source) {
+							let source = Game.getObjectById(creep.source);
+							--source.memory.suppliers;
+						}
 						break;
 					}
 					case "claimer": {
 						--room.memory.claimers;
-						if (creep.flag) {
+						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.claimers;
 						}
 						break;
 					}
 				}
 				delete Memory.creeps[name];
+			}
+		}
+		for (let name in Memory.flags) {
+			if (!Game.flags[name]) {
+				delete Memory.flags[name];
 			}
 		}
 	}

@@ -41,12 +41,21 @@ module.exports = function() {
 					break;
 				}
 				flagTarget: {
-					let maintain = global.flagsByType['maintain'] || [];
-					for (let flag of maintain) {
-						if (!flag.memory.repairers || flag.memory.repairers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.repairers;
-							break flagTarget;
+					if (!this.memory.flag) {
+						let maintain = global.maintainFlags;
+						for (let flag of maintain) {
+							switch (flag.memory.repairers) {
+								case null: {
+									this.memory.flag = flag.name;
+									flag.memory.repairers = 1;
+									break flagTarget;
+								}
+								case 0: {
+									this.memory.flag = flag.name;
+									++flag.memory.repairers;
+									break flagTarget;
+								}
+							}
 						}
 					}
 				}
@@ -69,20 +78,34 @@ module.exports = function() {
 			}
 			case "claimer": {
 				flagTarget: {
-					let reserve = global.flagsByType['reserve'] || [];
-					for (let flag of reserve) {
-						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.claimers;
-							break flagTarget;
+					let claim = global.claimFlags;
+					for (let flag of claim) {
+						switch (flag.memory.claimers) {
+							case null: {
+								this.memory.flag = flag.name;
+								flag.memory.claimers = 1;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
 						}
 					}
-					let claim = global.flagsByType['claim'] || [];
-					for (let flag of claim) {
-						if (!flag.memory.claimers || flag.memory.claimers == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.claimers;
-							break flagTarget;
+					let reserve = global.reserveFlags;
+					for (let flag of reserve) {
+						switch (flag.memory.claimers) {
+							case null: {
+								this.memory.flag = flag.name;
+								flag.memory.claimers = 1;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.claimers;
+								break flagTarget;
+							}
 						}
 					}
 				}
@@ -97,26 +120,45 @@ module.exports = function() {
 				//if there are containers to build, build them
 				if (containers.length) {
 					this.memory.target = this.pos.findClosestByRange(containers).id;
+					break;
 				}
 				//otherwise if there are extensions to build, build them
 				else if (extensions.length) {
 					this.memory.target = this.pos.findClosestByRange(extensions).id;
+					break;
 				}
 				//otherwise build closest construction site
 				else {
 					targets = this.room.constuctSites;
 					if (targets.length) {
 						this.memory.target = this.pos.findClosestByRange(targets).id;
+						break;
 					}
 				}
 				flagTarget: {
-					let maintain = global.flagsByType['maintain'] || [];
+					let maintain = global.maintainFlags;
 					for (let flag of maintain) {
-						if (!flag.memory.builders || flag.memory.builders == 0) {
-							this.memory.flag = flag.name;
-							++flag.memory.builders;
-							break flagTarget;
+						switch (flag.memory.builders) {
+							case null: {
+								this.memory.flag = flag.name;
+								flag.memory.builders = 1;
+								break flagTarget;
+							}
+							case 0: {
+								this.memory.flag = flag.name;
+								++flag.memory.builders;
+								break flagTarget;
+							}
 						}
+					}
+				}
+				let flag = Game.flags[this.memory.flag];
+				if (flag && flag.room) {
+					let flagTargets = flag.room.constuctSites;
+					if (flagTargets.length) {
+						this.memory.target = flagTargets[0].id;
+						this.memory.targetOldHits = flagTargets[0].hits;
+						break;
 					}
 				}
 				break;
@@ -138,17 +180,37 @@ module.exports = function() {
 		//run based off role
 		switch (this.memory.role) {
 			case "supplier": {//if supplier
-				//get dropedEnergy
 				let energySupplies;
 				let energySupply;
+				//interate through sources
+				if (!this.memory.source) {
+					sourceTarget: {
+						for (let source of this.room.sources) {
+							switch (source.memory.suppliers) {
+								case null: {
+									this.memory.source = source.id;
+									source.memory.suppliers = 1;
+									break sourceTarget;
+								}
+								case 0: {
+									this.memory.source = source.id;
+									++source.memory.suppliers;
+									break sourceTarget;
+								}
+							}
+						}
+					}
+				}
+				//get dropedEnergy
 				if (dropedEnergy.length) {
 					energySupply = this.pos.findClosestByRange(dropedEnergy)
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
 					}
-					else {
+					else if (energySupply.store.getUsedCapacity(RESOURCE_ENERGY) < this.store.getFreeCapacity()) {
+						let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
 						energySupply = this.pos.findClosestByRange(containers);
-						this.withdraw(energySupply, RESOURCE_ENERGY);
+						this.withdraw(energySupply, RESOURCE_ENERGY, amount);
 					}
 				}//if no dropedEnergy get tombstones with energy
 				else if (tombstones.length) {
@@ -160,7 +222,8 @@ module.exports = function() {
 				}
 				//otherwise get containers with energy
 				else {
-					energySupplies = _.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
+					let source = Game.getObjectById(this.memory.source);
+					energySupplies = source.pos.findInRange(_.filter(containers, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY))),1);
 				}
 				//if there is a target list find closest and get energy from it
 				if (energySupplies) {
