@@ -210,7 +210,7 @@ module.exports = function() {
 					}
 					if (this.store.getFreeCapacity() > 0) {
 						energySupply = this.pos.findClosestByRange(containers);
-						let amount = this.store.getFreeCapacity() - energySupply.store[RESOURCE_ENERGY];
+						let amount = this.store.getFreeCapacity();
 						this.withdraw(energySupply, RESOURCE_ENERGY, amount);
 					}
 				}//if no dropedEnergy get tombstones with energy
