@@ -29,7 +29,7 @@ const roleRanger = {
 						break getTarget;
 					}
 				}
-				target = creep.pos.findClosestByRange(targets);
+				let target = creep.pos.findClosestByRange(targets);
 				creep.memory.target = target.id;
 				break getTarget;
 				}
