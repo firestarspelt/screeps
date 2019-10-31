@@ -39,7 +39,12 @@ const roleRanger = {
 		}
 		target = creep.pos.findClosestByRange(targets);
 		if (creep.pos.getRangeTo(target) < 2) {
-			let path = PathFinder.search(creep.pos, targets.map(c=>{return{pos:c.pos,range:2}},{flee:true}).path);
+			let path = PathFinder.search(creep.pos, targets.map(t => {
+				return{
+					pos: t.pos,
+					 range:2
+				};
+			}),{flee:true});
 			creep.moveByPath(path);
 		}
 	}
