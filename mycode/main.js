@@ -20,10 +20,11 @@ module.exports.loop = function() {
 	global.mem_hack();
 	profiler.wrap(function() {
 		if (Object.keys(Game.flags).length != global.flagCount) {
-			global.reserveFlags = []; 
+			global.reserveFlags = [];
 			global.maintainFlags = [];
 			global.claimFlags = [];
 			global.harvestFlags = [];
+			global.attackFlags = [];
 			for (let name in Game.flags) {
 				++global.flagCount;
 				let flag = Game.flags[name];
@@ -38,6 +39,9 @@ module.exports.loop = function() {
 				}
 				if (name.includes("Harvest")) {
 					global.harvestFlags.push(flag);
+				}
+				if (name.includes("Attack")) {
+					global.attackFlags.push(flag);
 				}
 			}
 		}
