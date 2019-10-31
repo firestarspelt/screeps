@@ -3,23 +3,23 @@ module.exports = function() {
 	Object.defineProperty(Source.prototype, 'memory', {
 		configurable: true,
 		get: function() {
-			if(_.isUndefined(this.room.memory.sources)) {
-				this.room.memory.sources = {};
+			if(_.isUndefined(Memory.rooms[this.room.name].sources)) {
+				Memory.rooms[this.room.name].sources = {};
 			}
 			if(!_.isObject(this.room.memory.sources)) {
 				return undefined;
 			}
-			return this.room.memory.sources[this.id] =
-					this.room.memory.sources[this.id] || {};
+			return Memory.rooms[this.room.name].sources[this.id] =
+					Memory.rooms[this.room.name].sources[this.id] || {};
 		},
 		set: function(value) {
-			if(_.isUndefined(this.room.memory.sources)) {
-				this.room.memory.sources = {};
+			if(_.isUndefined(Memory.rooms[this.room.name].sources)) {
+				Memory.rooms[this.room.name].sources = {};
 			}
-			if(!_.isObject(this.room.memory.sources)) {
+			if(!_.isObject(Memory.rooms[this.room.name].sources)) {
 				throw new Error('Could not set source memory');
 			}
-			this.room.memory.sources[this.id] = value;
+			Memory.rooms[this.room.name].sources[this.id] = value;
 		}
 	});
 
