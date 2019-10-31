@@ -4,7 +4,7 @@ const roleRanger = {
 		let attack = global.attackFlags;
 		for (let flag of attack) {
 			creep.memory.flag = flag.name;
-			break flagTarget;
+			break;
 		}
 		let flag = Game.flags[creep.memory.flag];
 		creep.travelTo(flag);
