@@ -75,7 +75,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'supplier', spawner) == OK) {
 					++spawner.room.memory.suppliers;
 				}
-			} else if (spawner.room.memory.repairers < 2) {
+			} else if (spawner.room.memory.repairers < 1) {
 				if (spawnNew(energyAvail, 'repairer', spawner) == OK) {
 					++spawner.room.memory.repairers;
 				}
@@ -83,7 +83,7 @@ const roleSpawner = {
 				if (spawnNew(energyAvail, 'upgrader', spawner) == OK) {
 					++spawner.room.memory.upgraders;
 				}
-			} else if (spawner.room.memory.builders < 2) {
+			} else if (spawner.room.memory.builders < 1) {
 				if (spawnNew(energyAvail, 'builder', spawner) == OK) {
 					++spawner.room.memory.builders;
 				}
