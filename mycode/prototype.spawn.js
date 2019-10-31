@@ -55,7 +55,7 @@ module.exports = function() {
 	/** @param {Energy} energyAvail @param {Creep Name} name **/
 	StructureSpawn.prototype.spawnSupplier =
 	function(energyAvail, name) {
-		let moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[MOVE] + BODYPART_COST[CARRY] * 2)),8);
+		let moveParts = Math.min(Math.floor(energyAvail / (BODYPART_COST[MOVE] + BODYPART_COST[CARRY] * 2)),12);
 		let carryParts = moveParts*2;
 		let body = [];
 		for (let i = 0; i < carryParts; i++) {

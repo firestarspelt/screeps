@@ -187,14 +187,17 @@ module.exports = function() {
 					sourceTarget: {
 						for (let source of this.room.sources) {
 							switch (source.memory.suppliers) {
-								default: {
-									this.memory.source = source.id;
-									source.memory.suppliers = 1;
-									break sourceTarget;
-								}
 								case 0: {
 									this.memory.source = source.id;
 									++source.memory.suppliers;
+									break sourceTarget;
+								}
+								case 1:{
+									break;
+								}
+								default: {
+									this.memory.source = source.id;
+									source.memory.suppliers = 1;
 									break sourceTarget;
 								}
 							}
