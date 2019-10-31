@@ -32,10 +32,9 @@ const roleRanger = {
 				let target = creep.pos.findClosestByRange(targets);
 				creep.memory.target = target.id;
 				break getTarget;
-				}
 			}
 		}
-		target = creep.pos.findClosestByRange(targets);
+		let target = creep.pos.findClosestByRange(targets);
 		creep.rangedAttack(target);
 		target = Game.getObjectById(creep.memory.target);
 		if (creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
