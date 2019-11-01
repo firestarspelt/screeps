@@ -1,5 +1,5 @@
 const profiler = require('screeps-profiler');
-const roleLongRangeSupplier = {
+const roleHauler = {
 	run: function (creep) {
 		if (!creep.memory.target) {
 			creep.getTarget();
@@ -11,5 +11,5 @@ const roleLongRangeSupplier = {
 		}
 	}
 }
-profiler.registerObject(roleLongRangeSupplier, 'roleLongRangeSupplier');
-module.exports = roleLongRangeSupplier;
+profiler.registerObject(roleHauler, 'roleHauler');
+module.exports = roleHauler;
