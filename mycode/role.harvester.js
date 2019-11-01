@@ -4,10 +4,10 @@ const roleHarvester = {
 	run: function(creep) {
 		if (creep.store.getCapacity() > 0 ) {
 			if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
-				creep.memory.working = true;
+				creep.memory.working = false;
 				creep.say('mine');
 			} else if (!creep.memory.working && creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
-				creep.memory.working = false;
+				creep.memory.working = true;
 				creep.say('dump');
 			}
 			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
