@@ -48,7 +48,7 @@ const roleRepairer = {
 				//if target is still in memory, and in range repair it, if it isn't move into range of it
 				if (creep.memory.target) {
 					if (target.room != creep.room) {
-						creep.travelTo(target);
+						creep.travelTo(target.room.controller);
 					}
 					if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target,{ range: 3});
