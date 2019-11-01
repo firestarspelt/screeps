@@ -45,14 +45,17 @@ module.exports = function() {
 						let maintain = global.maintainFlags;
 						for (let flag of maintain) {
 							switch (flag.memory.repairers) {
-								default: {
-									this.memory.flag = flag.name;
-									flag.memory.repairers = 1;
-									break flagTarget;
+								case 1:{
+									break;
 								}
 								case 0: {
 									this.memory.flag = flag.name;
 									++flag.memory.repairers;
+									break flagTarget;
+								}
+								default: {
+									this.memory.flag = flag.name;
+									flag.memory.repairers = 1;
 									break flagTarget;
 								}
 							}
@@ -81,14 +84,17 @@ module.exports = function() {
 					let claim = global.claimFlags;
 					for (let flag of claim) {
 						switch (flag.memory.claimers) {
-							default: {
-								this.memory.flag = flag.name;
-								flag.memory.claimers = 1;
-								break flagTarget;
+							case 1:{
+								break;
 							}
 							case 0: {
 								this.memory.flag = flag.name;
 								++flag.memory.claimers;
+								break flagTarget;
+							}
+							default: {
+								this.memory.flag = flag.name;
+								flag.memory.claimers = 1;
 								break flagTarget;
 							}
 						}
@@ -96,14 +102,17 @@ module.exports = function() {
 					let reserve = global.reserveFlags;
 					for (let flag of reserve) {
 						switch (flag.memory.claimers) {
-							default: {
-								this.memory.flag = flag.name;
-								flag.memory.claimers = 1;
-								break flagTarget;
+							case 1:{
+								break;
 							}
 							case 0: {
 								this.memory.flag = flag.name;
 								++flag.memory.claimers;
+								break flagTarget;
+							}
+							default: {
+								this.memory.flag = flag.name;
+								flag.memory.claimers = 1;
 								break flagTarget;
 							}
 						}
@@ -139,14 +148,17 @@ module.exports = function() {
 					let maintain = global.maintainFlags;
 					for (let flag of maintain) {
 						switch (flag.memory.builders) {
-							default: {
-								this.memory.flag = flag.name;
-								flag.memory.builders = 1;
-								break flagTarget;
+							case 1:{
+								break;
 							}
 							case 0: {
 								this.memory.flag = flag.name;
 								++flag.memory.builders;
+								break flagTarget;
+							}
+							default: {
+								this.memory.flag = flag.name;
+								flag.memory.builders = 1;
 								break flagTarget;
 							}
 						}
