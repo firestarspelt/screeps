@@ -175,8 +175,28 @@ module.exports = function() {
 				}
 				break;
 			}
+			case "harvester": {
+				sourceTarget: {
+					for (let source of this.room.sources) {
+						switch (source.memory.harvesters) {
+							case 0: {
+								this.memory.source = source.id;
+								++source.memory.harvesters;
+								break sourceTarget;
+							}
+							case 1:{
+								break;
+							}
+							default: {
+								this.memory.source = source.id;
+								source.memory.harvesters = 1;
+								break sourceTarget;
+							}
+						}
+					}
+				}
+			}
 		}
-		return;
 	}
 	Creep.prototype.getEnergy =
 	function() {
