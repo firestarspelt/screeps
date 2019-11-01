@@ -282,14 +282,17 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		let energySupply = this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false });
-		if (energySupply) {
-			if (energySupply.energy > 0) {
-				if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
-					this.travelTo(energySupply,{ignoreCreeps: false});
-				}
+		let energySupply;
+		if (this.memory.source) {
+			energySupply = Game.getObjectById(this.memory.source);
+		}
+		else {
+			energySupply = this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false });
+		}
+		if (energySupply && energySupply.energy > 0) {
+			if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
+				this.travelTo(energySupply,{ignoreCreeps: false});
 			}
 		}
-		return;
 	}
 };
