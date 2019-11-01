@@ -50,7 +50,7 @@ const roleRepairer = {
 					if (target.room != creep.room) {
 						creep.travelTo(target.room.controller);
 					}
-					if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+					else if (creep.repair(target) == ERR_NOT_IN_RANGE) {
 						creep.travelTo(target,{ range: 3});
 					}
 				}
