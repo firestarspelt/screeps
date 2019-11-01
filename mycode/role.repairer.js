@@ -26,7 +26,7 @@ const roleRepairer = {
 					}
 				}
 			} catch (err) {
-				console.log(creep.name + " Caused " + (err.stack || err));
+				console.log(creep.name + " Caused " + err);
 			}
 			//get target if it doesn't have one
 			if (!creep.memory.target) {
