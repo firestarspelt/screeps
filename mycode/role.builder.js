@@ -25,10 +25,15 @@ const roleBuilder = {
 				//if target not valid clear from memory
 				if (!target) {
 					delete creep.memory.target;
+					creep.getTarget();
+					target = Game.getObjectById(creep.memory.target);
 				}
 				//build target
-				if (creep.build(target) == ERR_NOT_IN_RANGE) {
-					creep.travelTo(target, {ignoreCreeps: false, range: 3});
+				if (target.room != creep.room) {
+					creep.travelTo(target.room.controller);
+				}
+				else if (creep.build(target) == ERR_NOT_IN_RANGE) {
+					creep.travelTo(target, range: 3});
 				}
 			}//if flag is set in memory and no target and there is stuff to build in its room move to it
 			else if (flag && !creep.memory.target && flag.room != creep.room) {
