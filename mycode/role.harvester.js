@@ -12,10 +12,9 @@ const roleHarvester = {
 			}
 		}
 		//get target and put in memory if it doesn't exist
-		if (!creep.memory.target) {
+		if (!creep.memory.source) {
 			creep.getTarget();
-		}//get target from memory
-		let target = Game.getObjectById(creep.memory.target);
+		}
 		if (creep.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
 			let structByType = creep.room.structByType;
 			let containers = structByType[STRUCTURE_CONTAINER] || [];
