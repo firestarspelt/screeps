@@ -104,7 +104,7 @@ module.exports.loop = function() {
 					}
 				}
 			} catch(err){
-				console.log('error caused by ' + creep.memory.role + ' ' + (err.stack || err));
+				console.log('error caused by ' + creep.name + ' ' + (err.stack || err));
 			}
 		}
 		//remove dead creeps memory
