@@ -29,8 +29,8 @@ const roleBuilder = {
 					target = Game.getObjectById(creep.memory.target);
 				}
 				//build target
-				if (target.room != creep.room) {
-					if (target.room && target.room.controller) {
+				if (target && target.room != creep.room) {
+					if (target.room.controller) {
 						creep.travelTo(target.room.controller);
 					} else {
 						creep.travelTo(target);
