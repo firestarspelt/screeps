@@ -267,6 +267,9 @@ module.exports = function() {
 				else if (spawns) {
 					energySupplies = _.filter(spawns, (s) => s.store[RESOURCE_ENERGY] >= Math.min(200, this.store.getFreeCapacity(RESOURCE_ENERGY)));
 				}
+				else {
+					this.travelTo(Game.rooms[creep.memory.home].controller);
+				}
 				if (energySupplies) {
 					energySupply = this.pos.findClosestByRange(energySupplies);
 				}
