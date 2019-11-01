@@ -302,7 +302,7 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		let energySupply;
+		let energySupply = null;
 		if (this.memory.source) {
 			energySupply = Game.getObjectById(this.memory.source);
 		}
