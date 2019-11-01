@@ -30,10 +30,10 @@ const roleBuilder = {
 				}
 				//build target
 				if (target && target.room != creep.room) {
-					if (target.room.controller) {
-						creep.travelTo(target.room.controller);
-					} else {
+					if (!target.room.controller) {
 						creep.travelTo(target);
+					} else {
+						creep.travelTo(target.room.controller);
 					}
 				}
 				else if (creep.build(target) == ERR_NOT_IN_RANGE) {
