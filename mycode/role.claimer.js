@@ -8,7 +8,6 @@ const roleClaimer = {
 		if (!flag) {
 			delete creep.memory.flag;
 		}
-		creep.travelTo(flag);
 		if (flag && flag.room == creep.room) {
 			if (flag.name.includes("Claim")) {
 				if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
@@ -22,6 +21,9 @@ const roleClaimer = {
 					creep.travelTo(creep.room.controller);
 				}
 			}
+		}
+		else if (flag.room != creep.room){
+			creep.travelTo(flag);
 		}
 	}
 }

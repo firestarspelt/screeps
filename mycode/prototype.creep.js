@@ -175,8 +175,28 @@ module.exports = function() {
 				}
 				break;
 			}
+			case "harvester": {
+				sourceTarget: {
+					for (let source of this.room.sources) {
+						switch (source.memory.harvesters) {
+							case 0: {
+								this.memory.source = source.id;
+								++source.memory.harvesters;
+								break sourceTarget;
+							}
+							case 1:{
+								break;
+							}
+							default: {
+								this.memory.source = source.id;
+								source.memory.harvesters = 1;
+								break sourceTarget;
+							}
+						}
+					}
+				}
+			}
 		}
-		return;
 	}
 	Creep.prototype.getEnergy =
 	function() {
@@ -282,14 +302,17 @@ module.exports = function() {
 	}
 	Creep.prototype.mine =
 	function() {
-		let energySupply = this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false });
-		if (energySupply) {
-			if (energySupply.energy > 0) {
-				if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
-					this.travelTo(energySupply,{ignoreCreeps: false});
-				}
+		let energySupply = null;
+		if (this.memory.source) {
+			energySupply = Game.getObjectById(this.memory.source);
+		}
+		else {
+			energySupply = this.pos.findClosestByPath(this.room.sources, { ignoreCreeps: false });
+		}
+		if (energySupply && energySupply.energy > 0) {
+			if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
+				this.travelTo(energySupply,{ignoreCreeps: false});
 			}
 		}
-		return;
 	}
 };

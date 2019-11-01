@@ -11,6 +11,10 @@ const mem_clear = {
 						if (creep.flag && Game.flags[creep.flag]) {
 							--Game.flags[creep.flag].memory.harvesters;
 						}
+						if (creep.source) {
+							let source = Game.getObjectById(creep.source);
+							--source.memory.harvesters;
+						}
 						break;
 					}
 					case "upgrader": {

@@ -4,24 +4,26 @@ const roleHarvester = {
 	run: function(creep) {
 		if (creep.store.getCapacity() > 0 ) {
 			if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
-				creep.memory.working = true;
+				creep.memory.working = false;
 				creep.say('mine');
 			} else if (!creep.memory.working && creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
-				creep.memory.working = false;
+				creep.memory.working = true;
 				creep.say('dump');
 			}
-			if (creep.store.getFreeCapacity(RESOURCE_ENERGY) - creep.memory.workParts * 2 > 0) {
-				creep.mine();
-			} else if (creep.store[RESOURCE_ENERGY] > 0) {
-				let structByType = creep.room.structByType;
-				let containers = structByType[STRUCTURE_CONTAINER] || [];
-				let spawns = structByType[STRUCTURE_SPAWN] || [];
-				let targets = containers.concat(spawns);
-				if (targets.length > 0) {
-					let target = creep.pos.findClosestByRange(targets, {filter: (s) => s.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
-					if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.travelTo(target);
-					}
+		}
+		//get target and put in memory if it doesn't exist
+		if (!creep.memory.source) {
+			creep.getTarget();
+		}
+		if (creep.store.getFreeCapacity(RESOURCE_ENERGY) == 0 && creep.store.getCapacity() > 0) {
+			let structByType = creep.room.structByType;
+			let containers = structByType[STRUCTURE_CONTAINER] || [];
+			let spawns = structByType[STRUCTURE_SPAWN] || [];
+			let targets = containers.concat(spawns);
+			if (targets.length > 0) {
+				let target = creep.pos.findClosestByRange(targets, {filter: (s) => s.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
+				if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.travelTo(target);
 				}
 			}
 		} else {

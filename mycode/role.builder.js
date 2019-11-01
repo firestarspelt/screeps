@@ -29,11 +29,11 @@ const roleBuilder = {
 					target = Game.getObjectById(creep.memory.target);
 				}
 				//build target
-				if (target.room != creep.room) {
-					if (target.room && target.room.controller) {
-						creep.travelTo(target.room.controller);
-					} else {
+				if (target && target.room != creep.room) {
+					if (!target.room.controller) {
 						creep.travelTo(target);
+					} else {
+						creep.travelTo(target.room.controller);
 					}
 				}
 				else if (creep.build(target) == ERR_NOT_IN_RANGE) {
