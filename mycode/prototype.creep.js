@@ -198,7 +198,7 @@ module.exports = function() {
 			}
 		}
 		if (this.memory.target) {
-			this.memory.targetRoom = this.memory.target.room.name;
+			this.memory.targetRoom = Game.getObjectById(this.memory.target).room.name;
 		}
 	}
 	Creep.prototype.getEnergy =
