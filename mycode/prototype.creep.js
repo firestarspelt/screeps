@@ -197,7 +197,11 @@ module.exports = function() {
 				}
 			}
 		}
+		if (this.memory.target) {
+			this.memory.targetRoom = Game.getObjectById(this.memory.target).room.name;
+		}
 	}
+
 	Creep.prototype.getEnergy =
 	function() {
 		//get room vars
@@ -242,7 +246,7 @@ module.exports = function() {
 					energySupply = this.pos.findClosestByRange(dropedEnergy);
 					let amount = this.store.getFreeCapacity() - energySupply.amount;
 					if (this.pickup(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+						this.goTo(energySupply);
 					}
 					if (this.store.getFreeCapacity() > amount) {
 						energySupply = this.pos.findClosestByRange(containers);
@@ -264,7 +268,7 @@ module.exports = function() {
 				if (energySupplies) {
 					energySupply = this.pos.findClosestByRange(energySupplies);
 					if (this.withdraw(energySupply, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						this.travelTo(energySupply, {ignoreCreeps: false, offRoad: true});
+						this.goTo(energySupply);
 					}
 				}
 				break;
@@ -298,8 +302,8 @@ module.exports = function() {
 				}
 			}
 		}
-		return;
 	}
+
 	Creep.prototype.mine =
 	function() {
 		let energySupply = null;
@@ -312,6 +316,24 @@ module.exports = function() {
 		if (energySupply && energySupply.energy > 0) {
 			if (this.harvest(energySupply) == ERR_NOT_IN_RANGE) {
 				this.travelTo(energySupply,{ignoreCreeps: false});
+			}
+		}
+	}
+
+	Creep.prototype.goTo =
+	function(target) {
+		switch (this.memory.role) {
+			case "supplier": {
+				if (this.store[RESOURCE_ENERGY] <= this.store.getCapacity()/10) {
+					this.travelTo(target, {ignoreCreeps: false, offRoad: true});
+				} else
+				if (this.store[RESOURCE_ENERGY] <= this.store.getCapacity()/2) {
+					this.travelTo(target, {ignoreCreeps: false, ignoreRoads: true});
+				}
+				else {
+					this.travelTo(target, {ignoreCreeps: false});
+				}
+				break;
 			}
 		}
 	}
